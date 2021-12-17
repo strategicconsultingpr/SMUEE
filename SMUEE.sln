@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMUEE", "SMUEE\SMUEE.csproj", "{EC77FE10-24E0-4EE8-A573-1F0C5039408D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC77FE10-24E0-4EE8-A573-1F0C5039408D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC77FE10-24E0-4EE8-A573-1F0C5039408D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC77FE10-24E0-4EE8-A573-1F0C5039408D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC77FE10-24E0-4EE8-A573-1F0C5039408D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E07EC586-8CFA-405E-B886-D6958F0F0DEC}
+	EndGlobalSection
+EndGlobal

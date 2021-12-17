@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SMUEEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUEE.dbo.VW_CATEGORIA_REPORTE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_CATEGORIA_REPORTE">
+          <Key>
+            <PropertyRef Name="PK_CATEGORIA_REPORTE" />
+          </Key>
+          <Property Name="PK_CATEGORIA_REPORTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NB_CATEGORIA_REPORTE" Type="varchar" MaxLength="100" />
+          <Property Name="ACTIVE" Type="bit" />
+          <Property Name="MODULO_REPORTE" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUEE.dbo.VW_REPORTES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_REPORTES">
+          <Key>
+            <PropertyRef Name="PK_REPORTES" />
+            <PropertyRef Name="PK_CATEGORIA_REPORTE" />
+          </Key>
+          <Property Name="PK_REPORTES" Type="int" Nullable="false" />
+          <Property Name="NB_REPORTE" Type="varchar" MaxLength="100" />
+          <Property Name="DE_REPORTE" Type="varchar(max)" />
+          <Property Name="NB_SSRS_REPORTE" Type="varchar" MaxLength="100" />
+          <Property Name="PK_CATEGORIA_REPORTE" Type="int" Nullable="false" />
+          <Property Name="NB_CATEGORIA_REPORTE" Type="varchar" MaxLength="100" />
+          <Property Name="MODULO_REPORTE" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_UsersList">
+          <Key>
+            <PropertyRef Name="Rol" />
+            <PropertyRef Name="PK_Usuario" />
+            <PropertyRef Name="Modulos" />
+          </Key>
+          <Property Name="Usuario" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="PK_Usuario" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Modulos" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SMUEEModelStoreContainer">
+          <EntitySet Name="VW_CATEGORIA_REPORTE" EntityType="Self.VW_CATEGORIA_REPORTE" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_CATEGORIA_REPORTE].[PK_CATEGORIA_REPORTE] AS [PK_CATEGORIA_REPORTE], 
+    [VW_CATEGORIA_REPORTE].[NB_CATEGORIA_REPORTE] AS [NB_CATEGORIA_REPORTE], 
+    [VW_CATEGORIA_REPORTE].[ACTIVE] AS [ACTIVE], 
+    [VW_CATEGORIA_REPORTE].[MODULO_REPORTE] AS [MODULO_REPORTE]
+    FROM [dbo].[VW_CATEGORIA_REPORTE] AS [VW_CATEGORIA_REPORTE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_REPORTES" EntityType="Self.VW_REPORTES" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_REPORTES].[PK_REPORTES] AS [PK_REPORTES], 
+    [VW_REPORTES].[NB_REPORTE] AS [NB_REPORTE], 
+    [VW_REPORTES].[DE_REPORTE] AS [DE_REPORTE], 
+    [VW_REPORTES].[NB_SSRS_REPORTE] AS [NB_SSRS_REPORTE], 
+    [VW_REPORTES].[PK_CATEGORIA_REPORTE] AS [PK_CATEGORIA_REPORTE], 
+    [VW_REPORTES].[NB_CATEGORIA_REPORTE] AS [NB_CATEGORIA_REPORTE], 
+    [VW_REPORTES].[MODULO_REPORTE] AS [MODULO_REPORTE]
+    FROM [dbo].[VW_REPORTES] AS [VW_REPORTES]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_UsersList" EntityType="Self.VW_UsersList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_UsersList].[Usuario] AS [Usuario], 
+    [VW_UsersList].[Email] AS [Email], 
+    [VW_UsersList].[Rol] AS [Rol], 
+    [VW_UsersList].[PK_Usuario] AS [PK_Usuario], 
+    [VW_UsersList].[Modulos] AS [Modulos]
+    FROM [dbo].[VW_UsersList] AS [VW_UsersList]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SMUEEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SMUEEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="VW_UsersList" EntityType="SMUEEModel.VW_UsersList" />
+          <EntitySet Name="VW_CATEGORIA_REPORTE" EntityType="SMUEEModel.VW_CATEGORIA_REPORTE" />
+          <EntitySet Name="VW_REPORTES" EntityType="SMUEEModel.VW_REPORTES" />
+        </EntityContainer>
+        <EntityType Name="VW_UsersList">
+          <Key>
+            <PropertyRef Name="Rol" />
+            <PropertyRef Name="PK_Usuario" />
+            <PropertyRef Name="Modulos" />
+          </Key>
+          <Property Name="Usuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Rol" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PK_Usuario" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Modulos" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VW_CATEGORIA_REPORTE">
+          <Key>
+            <PropertyRef Name="PK_CATEGORIA_REPORTE" />
+          </Key>
+          <Property Name="PK_CATEGORIA_REPORTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NB_CATEGORIA_REPORTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVE" Type="Boolean" />
+          <Property Name="MODULO_REPORTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VW_REPORTES">
+          <Key>
+            <PropertyRef Name="PK_REPORTES" />
+            <PropertyRef Name="PK_CATEGORIA_REPORTE" />
+          </Key>
+          <Property Name="PK_REPORTES" Type="Int32" Nullable="false" />
+          <Property Name="NB_REPORTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DE_REPORTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NB_SSRS_REPORTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PK_CATEGORIA_REPORTE" Type="Int32" Nullable="false" />
+          <Property Name="NB_CATEGORIA_REPORTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MODULO_REPORTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SMUEEModelStoreContainer" CdmEntityContainer="SMUEEEntities">
+          <EntitySetMapping Name="VW_UsersList">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_UsersList">
+              <MappingFragment StoreEntitySet="VW_UsersList">
+                <ScalarProperty Name="Modulos" ColumnName="Modulos" />
+                <ScalarProperty Name="PK_Usuario" ColumnName="PK_Usuario" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_CATEGORIA_REPORTE">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_CATEGORIA_REPORTE">
+              <MappingFragment StoreEntitySet="VW_CATEGORIA_REPORTE">
+                <ScalarProperty Name="MODULO_REPORTE" ColumnName="MODULO_REPORTE" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="NB_CATEGORIA_REPORTE" ColumnName="NB_CATEGORIA_REPORTE" />
+                <ScalarProperty Name="PK_CATEGORIA_REPORTE" ColumnName="PK_CATEGORIA_REPORTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_REPORTES">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_REPORTES">
+              <MappingFragment StoreEntitySet="VW_REPORTES">
+                <ScalarProperty Name="MODULO_REPORTE" ColumnName="MODULO_REPORTE" />
+                <ScalarProperty Name="NB_CATEGORIA_REPORTE" ColumnName="NB_CATEGORIA_REPORTE" />
+                <ScalarProperty Name="PK_CATEGORIA_REPORTE" ColumnName="PK_CATEGORIA_REPORTE" />
+                <ScalarProperty Name="NB_SSRS_REPORTE" ColumnName="NB_SSRS_REPORTE" />
+                <ScalarProperty Name="DE_REPORTE" ColumnName="DE_REPORTE" />
+                <ScalarProperty Name="NB_REPORTE" ColumnName="NB_REPORTE" />
+                <ScalarProperty Name="PK_REPORTES" ColumnName="PK_REPORTES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
