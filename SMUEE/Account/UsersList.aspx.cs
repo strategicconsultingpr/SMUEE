@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace SMUEE.Account
@@ -19,6 +20,20 @@ namespace SMUEE.Account
             if(!IsPostBack)
             {
                 getUsersList();
+
+                //HtmlGenericControl tableroPrincipal = Page.Master.FindControl("tableroPrincipal") as HtmlGenericControl;
+                //HtmlGenericControl moduloTEDS = Page.Master.FindControl("moduloTEDS") as HtmlGenericControl;
+                //HtmlGenericControl moduloMonitoreoSEPS = Page.Master.FindControl("moduloMonitoreoSEPS") as HtmlGenericControl;
+                //HtmlGenericControl moduloMantenimientoSEPS = Page.Master.FindControl("moduloMantenimientoSEPS") as HtmlGenericControl;
+                //HtmlGenericControl moduloReportesInformativos = Page.Master.FindControl("moduloReportesInformativos") as HtmlGenericControl;
+                //HtmlGenericControl manejoUsuarios = Page.Master.FindControl("manejoUsuarios") as HtmlGenericControl;
+
+                //tableroPrincipal.Attributes.Add("class", "nav-item");
+                //moduloTEDS.Attributes.Add("class", "nav-item");
+                //moduloMonitoreoSEPS.Attributes.Add("class", "nav-item");
+                //moduloMantenimientoSEPS.Attributes.Add("class", "nav-item");
+                //moduloReportesInformativos.Attributes.Add("class", "nav-item");
+                //manejoUsuarios.Attributes.Add("class", "nav-item active");
             }
         }
 

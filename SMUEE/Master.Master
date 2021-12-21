@@ -102,10 +102,10 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
+                <li id="tableroPrincipal" runat="server" class="nav-item active">
                     <a class="nav-link" href="<%=ResolveClientUrl("~/App/Entrada")%>">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
+                        <span>Tablero Principal</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -195,7 +195,7 @@
                     </div>
 
                     <!-- Nav Item - Pages Collapse Menu -->
-                    <li class="nav-item">
+                    <li class="nav-item" id="manejoUsuarios" runat="server">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                             <i class="fas fa-fw fa-users-cog"></i>
                             <span>Manejo de Usuarios</span>

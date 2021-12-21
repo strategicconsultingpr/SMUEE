@@ -15,6 +15,15 @@ namespace SMUEE
     {
 
         /// <summary>
+        /// tableroPrincipal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tableroPrincipal;
+
+        /// <summary>
         /// moduloTEDS control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace SMUEE
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAdministracion;
+
+        /// <summary>
+        /// manejoUsuarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl manejoUsuarios;
 
         /// <summary>
         /// lblNombre control.

@@ -5,6 +5,7 @@ using SMUEE.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -268,6 +269,66 @@ namespace SMUEE.Account
             else
             {
                 //ErrorMessage.Text = result.Errors.FirstOrDefault();
+            }
+        }
+
+        protected void ChangeImg_Click(object sender, EventArgs e)
+        {
+            if (imgUpload.PostedFile != null)
+            {
+                string strpath = Path.GetExtension(imgUpload.PostedFile.FileName);
+                if (strpath != ".jpg" && strpath != ".png")
+                {
+                    lblChangeImg.Text = "Solo imagenes de tipo .jpg y .png son permitidos";
+                    lblChangeImg.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    lblChangeImg.Text = "Su nueva imagen de perfil fue agregada!";
+                    lblChangeImg.ForeColor = System.Drawing.Color.Green;
+                }
+
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+                var user = userManager.FindById(pk_usuario);
+
+                string fileimg = Path.GetFileName(imgUpload.PostedFile.FileName);
+
+                if (!Directory.Exists(ConfigurationManager.AppSettings["URL_Documentos"].ToString() + "UsuarioFotosPerfil/" + user.Email))
+                {
+                    Directory.CreateDirectory(ConfigurationManager.AppSettings["URL_Documentos"].ToString() + "UsuarioFotosPerfil/" + user.Email + "/");
+                }
+
+
+                imgUpload.SaveAs(ConfigurationManager.AppSettings["URL_Documentos"].ToString() + "UsuarioFotosPerfil/" + user.Email + "/" + fileimg);
+
+
+                string mensaje = string.Empty;
+
+                
+
+                user.ProfileImgPath = fileimg;
+
+
+                var newuser = userManager.Update(user);
+
+                if (newuser.Succeeded)
+                {
+                    mensaje = "Se actualizó su contraseña correctamente.";
+
+                    context.SaveChanges();
+
+                    profileImg.ImageUrl = ConfigurationManager.AppSettings["URL_Documentos"].ToString() + "UsuarioFotosPerfil/" + user.Email + "/" + fileimg;
+
+                    //Session["Usuario"] = user;
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Cuenta Actualizada", "sweetAlert('Cuenta Actualizada','" + mensaje + "','success')", true);
+                }
+
+                else
+                {
+
+                }
             }
         }
     }

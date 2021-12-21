@@ -4,6 +4,7 @@ using SMUEE.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -38,6 +39,8 @@ namespace SMUEE
                 //Response.Redirect("~/Account/Login.aspx", false);
                 return;
             }
+
+            setActiveNav();
 
             if (!Page.IsPostBack)
             {
@@ -139,6 +142,82 @@ namespace SMUEE
             Session["Usuario"] = null;
             Session["PK_Sesion"] = null;
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+        }
+
+        protected void setActiveNav()
+        {
+            string currentFolder = Path.GetFileName( Path.GetDirectoryName(this.Page.Request.FilePath));
+            string currentPage = Path.GetFileName(this.Page.Request.FilePath);
+
+            if (currentFolder == "Mod_TEDS")
+            {
+                this.moduloTEDS.Attributes.Add("class", "nav-item active");
+
+                this.tableroPrincipal.Attributes.Add("class", "nav-item");
+                this.moduloMonitoreoSEPS.Attributes.Add("class", "nav-item");
+                this.moduloMantenimientoSEPS.Attributes.Add("class", "nav-item");
+                this.moduloReportesInformativos.Attributes.Add("class", "nav-item");
+                this.manejoUsuarios.Attributes.Add("class", "nav-item");
+            }
+            else if (currentFolder == "Mod_MonitoreoSEPS")
+            {
+                this.moduloMonitoreoSEPS.Attributes.Add("class", "nav-item active");
+
+                this.tableroPrincipal.Attributes.Add("class", "nav-item");
+                this.moduloTEDS.Attributes.Add("class", "nav-item");
+                this.moduloMantenimientoSEPS.Attributes.Add("class", "nav-item");
+                this.moduloReportesInformativos.Attributes.Add("class", "nav-item");
+                this.manejoUsuarios.Attributes.Add("class", "nav-item");
+            }
+            else if (currentFolder == "Mod_MantenimientoSEPS")
+            {
+                this.moduloMantenimientoSEPS.Attributes.Add("class", "nav-item active");
+
+                this.tableroPrincipal.Attributes.Add("class", "nav-item");
+                this.moduloTEDS.Attributes.Add("class", "nav-item");
+                this.moduloMonitoreoSEPS.Attributes.Add("class", "nav-item");
+                this.moduloReportesInformativos.Attributes.Add("class", "nav-item");
+                this.manejoUsuarios.Attributes.Add("class", "nav-item");
+            }
+            else if (currentFolder == "Mod_ReportesInformativos")
+            {
+                this.moduloReportesInformativos.Attributes.Add("class", "nav-item active");
+
+                this.tableroPrincipal.Attributes.Add("class", "nav-item");
+                this.moduloTEDS.Attributes.Add("class", "nav-item");
+                this.moduloMonitoreoSEPS.Attributes.Add("class", "nav-item");
+                this.moduloMantenimientoSEPS.Attributes.Add("class", "nav-item");
+                this.manejoUsuarios.Attributes.Add("class", "nav-item");
+            }
+            else if (currentFolder == "Account")
+            {
+                this.moduloReportesInformativos.Attributes.Add("class", "nav-item");
+                this.tableroPrincipal.Attributes.Add("class", "nav-item");
+                this.moduloTEDS.Attributes.Add("class", "nav-item");
+                this.moduloMonitoreoSEPS.Attributes.Add("class", "nav-item");
+                this.moduloMantenimientoSEPS.Attributes.Add("class", "nav-item");
+                this.manejoUsuarios.Attributes.Add("class", "nav-item");
+
+                if(currentPage == "UsersList" || currentPage == "EditUser" || currentPage == "Register")
+                {
+                    this.manejoUsuarios.Attributes.Add("class", "nav-item active");
+                }
+            }
+            else if (currentFolder == "App")
+            {
+                this.moduloReportesInformativos.Attributes.Add("class", "nav-item");
+                this.tableroPrincipal.Attributes.Add("class", "nav-item");
+                this.moduloTEDS.Attributes.Add("class", "nav-item");
+                this.moduloMonitoreoSEPS.Attributes.Add("class", "nav-item");
+                this.moduloMantenimientoSEPS.Attributes.Add("class", "nav-item");
+                this.manejoUsuarios.Attributes.Add("class", "nav-item");
+
+                if (currentPage == "Entrada")
+                {
+                    this.tableroPrincipal.Attributes.Add("class", "nav-item active");
+                }
+            }
 
         }
     }
