@@ -14,10 +14,13 @@ namespace SMUEE
     
     public partial class VW_UsersList
     {
+        public string ImgPerfil { get; set; }
         public string Usuario { get; set; }
         public string Email { get; set; }
         public string Rol { get; set; }
         public string PK_Usuario { get; set; }
         public string Modulos { get; set; }
+        public string Confirmado { get; set; }
+        public string Estatus { get; set; }
     }
 }

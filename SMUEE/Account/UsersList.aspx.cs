@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using SMUEE.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -59,7 +60,16 @@ namespace SMUEE.Account
                     {
                         ApplicationUser user = context.Users.Find(item.PK_Usuario);
 
-                        if(userManager.IsInRole(user.Id, "SuperAdmin") || userManager.IsInRole(user.Id, "Administrador"))
+                        if (item.ImgPerfil != null)
+                        {
+                            item.ImgPerfil = "<asp:Image ID=\"profileImg\" ImageUrl=\"" + ConfigurationManager.AppSettings["URL_Documentos"].ToString() + "UsuarioFotosPerfil/" + item.Email + "/" + item.ImgPerfil + "\" runat=\"server\" CssClass=\"img-profile rounded-circle\" />"; 
+                        }
+                        else
+                        {
+                            item.ImgPerfil = "~/Content/img/Avatar.png";
+                        }
+
+                        if (userManager.IsInRole(user.Id, "SuperAdmin") || userManager.IsInRole(user.Id, "Administrador"))
                         {
                             item.Modulos += "<span class='badge bg-warning text-white text-wrap' style='width: 6rem;'>Todos los Modulos</span>";
                         }
@@ -90,7 +100,25 @@ namespace SMUEE.Account
                                 item.Modulos += "<span class='badge bg-dark text-white text-wrap' style='width: 6rem;'>Reportes Info</span>&nbsp";
                             }
                         }
-                        
+
+                        if (item.Confirmado == "SI")
+                        {
+                            item.Confirmado = "<span class='badge bg-success text-white text-wrap' style='width: 6rem;'>SI</span>";
+                        }
+                        else
+                        {
+                            item.Confirmado = "<span class='badge bg-danger text-white text-wrap' style='width: 6rem;'>NO</span>";
+                        }
+
+                        if (item.Estatus == "Activo")
+                        {
+                            item.Estatus = "<span class='badge bg-success text-white text-wrap' style='width: 6rem;'>Activo</span>";
+                        }
+                        else
+                        {
+                            item.Estatus = "<span class='badge bg-danger text-white text-wrap' style='width: 6rem;'>Inactivo</span>";
+                        }
+
 
                     }
 

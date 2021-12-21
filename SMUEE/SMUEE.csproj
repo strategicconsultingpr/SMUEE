@@ -222,6 +222,7 @@
     <Content Include="Content\img\LogoSAMHSACorto.png" />
     <Content Include="Content\img\TopBannerASSMCA.jpg" />
     <Content Include="Content\img\undraw_posting_photo.svg" />
+    <Content Include="Content\img\undraw_team_collaboration_re_ow29.svg" />
     <Content Include="Content\Site.css" />
     <Content Include="App\Entrada.aspx" />
     <Content Include="favicon.ico" />

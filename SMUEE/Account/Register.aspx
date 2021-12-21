@@ -68,26 +68,7 @@
         <hr>
 
             <div class="row justify-content-lg-center">
-                            <!-- Donut Chart -->
-                            <div class="col-xl-4 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3">
-                                  <h6 class="m-0 font-weight-bold text-primary">Foto de Perfil</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body text-center">
-                                    <asp:Image ID="profileImg" ImageUrl="~" runat="server" CssClass="img-account-profile rounded-circle mb-2" />
-                                          
-                                      <p class="text-center mb-4">JPG o PNG no mayor de 5 MB</p>
-                                      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                          <asp:Button runat="server" Text="Agregar Nueva Imagen" CssClass="btn btn-primary" />
-                                      </div>
-                                  <hr>
-                                   
-                                </div>
-                              </div>
-                            </div>
+                           
 
 
                             <!-- Basic Card Example -->
@@ -100,36 +81,36 @@
                                   <div class="row">
                                       <div class="form-group col-6">
                                           <label class="control-label">Correo Electrónico</label>
-                                          <asp:TextBox runat="server" ID="Email" CssClass="form-control form-control-user" TextMode="Email" Placeholder="Ingrese el correo electrónico" />
+                                          <asp:TextBox runat="server" ID="Email" CssClass="form-control form-control-user" TextMode="Email" Placeholder="Ej. admin@assmca.pr.gov" />
                                           <asp:RequiredFieldValidator runat="server" ControlToValidate="Email" CssClass="text-danger" ErrorMessage="El correo electrónico es requerido" />
                                       </div>
                                       <div class="form-group col-6">
                                           <label class="control-label">Teléfono</label>
-                                          <asp:TextBox runat="server" ID="Telefono" CssClass="form-control form-control-user" />
+                                          <asp:TextBox runat="server" ID="Telefono" CssClass="form-control form-control-user" Placeholder="Ej. 7875555555"/>
                                           <asp:RequiredFieldValidator runat="server" ControlToValidate="Telefono" CssClass="text-danger" ErrorMessage="Su telefono es requerido" />
                                       </div>
                                   </div>
                                     <div class="row">
                                       <div class="form-group col-6">
                                           <label class="control-label">Primer Nombre</label>
-                                          <asp:TextBox runat="server" ID="NB_Primero" CssClass="form-control form-control-user" />
+                                          <asp:TextBox runat="server" ID="NB_Primero" CssClass="form-control form-control-user" Placeholder="Ej. Joe"/>
                                           <asp:RequiredFieldValidator runat="server" ControlToValidate="NB_Primero" CssClass="text-danger" ErrorMessage="Su primer nombre es requerido" />
                                       </div>
                                         <div class="form-group col-6">
                                           <label class="control-label">Segundo Nombre</label>
-                                          <asp:TextBox runat="server" ID="NB_Segundo" CssClass="form-control form-control-user" />
+                                          <asp:TextBox runat="server" ID="NB_Segundo" CssClass="form-control form-control-user" Placeholder="Ej. Frank"/>
                                           <asp:RequiredFieldValidator runat="server" ControlToValidate="NB_Segundo" CssClass="text-danger" ErrorMessage="Su segundo nombre es requerido" />
                                       </div>
                                   </div>
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label class="control-label">Primer Apellido</label>
-                                            <asp:TextBox runat="server" ID="AP_Primero" CssClass="form-control form-control-user" />
+                                            <asp:TextBox runat="server" ID="AP_Primero" CssClass="form-control form-control-user" Placeholder="Ej. Doe"/>
                                             <asp:RequiredFieldValidator runat="server" ControlToValidate="AP_Primero" CssClass="text-danger" ErrorMessage="Su primer apellido es requerido" />
                                       </div>
                                         <div class="form-group col-6">
                                             <label class="control-label">Segundo Apellido</label>
-                                            <asp:TextBox runat="server" ID="AP_Segundo" CssClass="form-control form-control-user" />
+                                            <asp:TextBox runat="server" ID="AP_Segundo" CssClass="form-control form-control-user" Placeholder="Ej. Perez"/>
                                             <asp:RequiredFieldValidator runat="server" ControlToValidate="AP_Segundo" CssClass="text-danger" ErrorMessage="Su segundo nombre es requerido" />
                                       </div>
                                   </div>

@@ -18,13 +18,23 @@ namespace SMUEE.Account
     public partial class Register : Page
     {
         ApplicationDbContext context = new ApplicationDbContext();
+        ApplicationUser Usuario = new ApplicationUser();
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!this.IsPostBack)
             {
                 try
                 {
+                    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+                    Usuario = (ApplicationUser)Session["Usuario"];
+
                     List<ListItem> roles = context.Roles.Select(r => new ListItem { Value = r.Name, Text = r.Name }).ToList();
+
+                    if (userManager.IsInRole(Usuario.Id, "Administrador"))
+                    {
+                        roles = roles.Where(a => a.Value != "SuperAdmin").ToList();
+                    }
 
                     ddlRol.DataValueField = "Value";
                     ddlRol.DataTextField = "Text";

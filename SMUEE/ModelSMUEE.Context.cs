@@ -25,8 +25,8 @@ namespace SMUEE
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<VW_UsersList> VW_UsersList { get; set; }
         public virtual DbSet<VW_CATEGORIA_REPORTE> VW_CATEGORIA_REPORTE { get; set; }
         public virtual DbSet<VW_REPORTES> VW_REPORTES { get; set; }
+        public virtual DbSet<VW_UsersList> VW_UsersList { get; set; }
     }
 }

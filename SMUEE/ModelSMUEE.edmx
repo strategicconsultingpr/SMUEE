@@ -38,12 +38,17 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
             <PropertyRef Name="Rol" />
             <PropertyRef Name="PK_Usuario" />
             <PropertyRef Name="Modulos" />
+            <PropertyRef Name="Confirmado" />
+            <PropertyRef Name="Estatus" />
           </Key>
+          <Property Name="ImgPerfil" Type="nvarchar(max)" />
           <Property Name="Usuario" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="Rol" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="PK_Usuario" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Modulos" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Confirmado" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Estatus" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
         <EntityContainer Name="SMUEEModelStoreContainer">
           <EntitySet Name="VW_CATEGORIA_REPORTE" EntityType="Self.VW_CATEGORIA_REPORTE" store:Type="Views" store:Schema="dbo">
@@ -67,11 +72,14 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           </EntitySet>
           <EntitySet Name="VW_UsersList" EntityType="Self.VW_UsersList" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [VW_UsersList].[ImgPerfil] AS [ImgPerfil], 
     [VW_UsersList].[Usuario] AS [Usuario], 
     [VW_UsersList].[Email] AS [Email], 
     [VW_UsersList].[Rol] AS [Rol], 
     [VW_UsersList].[PK_Usuario] AS [PK_Usuario], 
-    [VW_UsersList].[Modulos] AS [Modulos]
+    [VW_UsersList].[Modulos] AS [Modulos], 
+    [VW_UsersList].[Confirmado] AS [Confirmado], 
+    [VW_UsersList].[Estatus] AS [Estatus]
     FROM [dbo].[VW_UsersList] AS [VW_UsersList]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -80,22 +88,10 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
     <edmx:ConceptualModels>
       <Schema Namespace="SMUEEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SMUEEEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="VW_UsersList" EntityType="SMUEEModel.VW_UsersList" />
           <EntitySet Name="VW_CATEGORIA_REPORTE" EntityType="SMUEEModel.VW_CATEGORIA_REPORTE" />
           <EntitySet Name="VW_REPORTES" EntityType="SMUEEModel.VW_REPORTES" />
+          <EntitySet Name="VW_UsersList" EntityType="SMUEEModel.VW_UsersList" />
         </EntityContainer>
-        <EntityType Name="VW_UsersList">
-          <Key>
-            <PropertyRef Name="Rol" />
-            <PropertyRef Name="PK_Usuario" />
-            <PropertyRef Name="Modulos" />
-          </Key>
-          <Property Name="Usuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Rol" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="PK_Usuario" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Modulos" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="VW_CATEGORIA_REPORTE">
           <Key>
             <PropertyRef Name="PK_CATEGORIA_REPORTE" />
@@ -118,23 +114,29 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Property Name="NB_CATEGORIA_REPORTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="MODULO_REPORTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="VW_UsersList">
+          <Key>
+            <PropertyRef Name="Rol" />
+            <PropertyRef Name="PK_Usuario" />
+            <PropertyRef Name="Modulos" />
+            <PropertyRef Name="Confirmado" />
+            <PropertyRef Name="Estatus" />
+          </Key>
+          <Property Name="ImgPerfil" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Rol" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PK_Usuario" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Modulos" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Confirmado" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Estatus" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SMUEEModelStoreContainer" CdmEntityContainer="SMUEEEntities">
-          <EntitySetMapping Name="VW_UsersList">
-            <EntityTypeMapping TypeName="SMUEEModel.VW_UsersList">
-              <MappingFragment StoreEntitySet="VW_UsersList">
-                <ScalarProperty Name="Modulos" ColumnName="Modulos" />
-                <ScalarProperty Name="PK_Usuario" ColumnName="PK_Usuario" />
-                <ScalarProperty Name="Rol" ColumnName="Rol" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VW_CATEGORIA_REPORTE">
             <EntityTypeMapping TypeName="SMUEEModel.VW_CATEGORIA_REPORTE">
               <MappingFragment StoreEntitySet="VW_CATEGORIA_REPORTE">
@@ -155,6 +157,20 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
                 <ScalarProperty Name="DE_REPORTE" ColumnName="DE_REPORTE" />
                 <ScalarProperty Name="NB_REPORTE" ColumnName="NB_REPORTE" />
                 <ScalarProperty Name="PK_REPORTES" ColumnName="PK_REPORTES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_UsersList">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_UsersList">
+              <MappingFragment StoreEntitySet="VW_UsersList">
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Confirmado" ColumnName="Confirmado" />
+                <ScalarProperty Name="Modulos" ColumnName="Modulos" />
+                <ScalarProperty Name="PK_Usuario" ColumnName="PK_Usuario" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="ImgPerfil" ColumnName="ImgPerfil" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

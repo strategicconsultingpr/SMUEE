@@ -40,13 +40,34 @@
 
                     <asp:GridView runat="server" ID="gvUsersList" CssClass="table table-bordered usersListTable" Width="100%" AutoGenerateColumns="false" DataKeyNames="Usuario">
                         <Columns>
-                            <asp:BoundField DataField="Usuario" HeaderText="Usuario" />
+                            <asp:TemplateField HeaderText="Usuario">
+                                <ItemTemplate>
+                                    <div class="row d-flex align-items-center">
+                                        <div class="avatar me-2">
+                                            &nbsp
+                                            <asp:Image ID="profileImg" ImageUrl='<%# Eval("ImgPerfil") %>' runat="server" CssClass="avatar-img img-fluid" />
+                                        </div>
+                                         
+                                        &nbsp
+                                        <%# Eval("Usuario") %></div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="Email" HeaderText="CorreoElectrónico" />
                             <asp:BoundField DataField="Rol" HeaderText="Rol" />
                             <%--<asp:BoundField DataField="Modulos" HeaderText="Modulos" />--%>
                             <asp:TemplateField HeaderText="Módulos Accesibles">
                                 <ItemTemplate>
                                     <div class="row">&nbsp <%# Eval("Modulos") %></div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Confirmado">
+                                <ItemTemplate>
+                                    <div class="row">&nbsp <%# Eval("Confirmado") %></div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Estatus">
+                                <ItemTemplate>
+                                    <div class="row">&nbsp <%# Eval("Estatus") %></div>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Acciones"> 
