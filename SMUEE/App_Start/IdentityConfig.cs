@@ -80,7 +80,7 @@ namespace SMUEE
             // msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
             // msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 
-            SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
+            SmtpClient smtpClient = new SmtpClient("smtp.office365.com");
             smtpClient.Port = 587;
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             //SmtpClient smtpClient = new SmtpClient("apps.assmca.pr.gov", Convert.ToInt32(25));
