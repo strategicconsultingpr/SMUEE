@@ -59,6 +59,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -200,6 +206,7 @@
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ReportesTEDS.aspx" />
+    <Content Include="App\Notificaciones\WSnotificaciones.asmx" />
     <Content Include="App\ViewReport.aspx" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
@@ -316,6 +323,8 @@
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.2.min.js" />
     <Content Include="Scripts\js\demo\chart-area-demo.js" />
     <Content Include="Scripts\js\demo\chart-bar-demo.js" />
     <Content Include="Scripts\js\demo\chart-pie-demo.js" />
@@ -2275,6 +2284,11 @@
     <Compile Include="App\Mod_TEDS\ReportesTEDS.aspx.designer.cs">
       <DependentUpon>ReportesTEDS.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\Notificaciones\notificacionesComponents.cs" />
+    <Compile Include="App\Notificaciones\notificacionesHub.cs" />
+    <Compile Include="App\Notificaciones\WSnotificaciones.asmx.cs">
+      <DependentUpon>WSnotificaciones.asmx</DependentUpon>
+    </Compile>
     <Compile Include="App\ViewReport.aspx.cs">
       <DependentUpon>ViewReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2361,6 +2375,9 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="SM_NOTIFICACIONES.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />

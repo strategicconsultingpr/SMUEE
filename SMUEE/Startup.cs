@@ -12,6 +12,7 @@ namespace SMUEE
         public void Configuration(IAppBuilder app) {
             ConfigureAuth(app);
             CreateUsersAndRoles();
+            app.MapSignalR();
         }
 
         public void CreateUsersAndRoles()
