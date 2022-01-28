@@ -71,7 +71,7 @@ namespace SMUEE
 
 
             MailMessage msg = new MailMessage();
-            msg.From = new MailAddress(ConfigurationManager.AppSettings["Email"].ToString(), "Sistema Modular de la UEE");
+            msg.From = new MailAddress("aortiz@assmca.pr.gov", "Sistema Modular de la UEE");
             msg.To.Add(new MailAddress(message.Destination));
             msg.Subject = message.Subject;
             msg.AlternateViews.Add(imgview);
@@ -80,15 +80,15 @@ namespace SMUEE
             // msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
             // msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 
-            SmtpClient smtpClient = new SmtpClient("smtp.office365.com");
-            smtpClient.Port = 587;
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //SmtpClient smtpClient = new SmtpClient("apps.assmca.pr.gov", Convert.ToInt32(25));
-            smtpClient.UseDefaultCredentials = false;
+            //SmtpClient smtpClient = new SmtpClient("smtp.office365.com");
+            //smtpClient.Port = 587;
+            //smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            SmtpClient smtpClient = new SmtpClient("vassmcaweb", Convert.ToInt32(25));
+            //smtpClient.UseDefaultCredentials = false;
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"].ToString(), ConfigurationManager.AppSettings["Password"].ToString());
             smtpClient.Credentials = credentials;
             
-            smtpClient.EnableSsl = true;
+            //smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
         }
     }
