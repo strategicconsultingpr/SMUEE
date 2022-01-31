@@ -84,10 +84,10 @@ namespace SMUEE.Account
             user.AP_Primero = AP_Primero.Text;
             user.AP_Segundo = AP_Segundo.Text;
             user.PhoneNumber = Telefono.Text;
-            user.PasswordChanged = true;
+            user.PasswordChanged = false;
             user.Active = true;
-            user.EmailConfirmed = true;
-            string pwd = "Admin@2021";
+            user.EmailConfirmed = false;
+            //string pwd = "Admin@2021";
 
             var newuser = userManager.Create(user, password);
 

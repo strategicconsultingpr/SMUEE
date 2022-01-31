@@ -80,6 +80,9 @@
                             </asp:TemplateField>
                             
                         </Columns>
+                        <EmptyDataTemplate>
+                            No existen usuarios adicionales al de usted
+                        </EmptyDataTemplate>
                         <%--<i class='fas fa-fw fa-trash-alt'></i>--%>
                     </asp:GridView>
                 </div>
