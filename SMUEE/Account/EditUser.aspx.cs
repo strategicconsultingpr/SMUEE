@@ -199,7 +199,7 @@ namespace SMUEE.Account
 
                 if(rol != ddlRol.SelectedValue)
                 {
-                    var resultRemove = userManager.RemoveFromRole(user.Id, ddlRol.SelectedValue);
+                    var resultRemove = userManager.RemoveFromRole(user.Id, rol);
                     var resultAdd = userManager.AddToRole(user.Id, ddlRol.SelectedValue);
                 }
 
