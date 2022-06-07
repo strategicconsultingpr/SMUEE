@@ -218,7 +218,6 @@ namespace SMUEE
                     this.tableroPrincipal.Attributes.Add("class", "nav-item active");
                 }
             }
-
         }
     }
 }

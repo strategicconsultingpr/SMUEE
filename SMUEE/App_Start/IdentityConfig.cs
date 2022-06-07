@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Claims;
@@ -73,6 +74,12 @@ namespace SMUEE
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress("aortiz@assmca.pr.gov", "Sistema Modular de la UEE");
             msg.To.Add(new MailAddress(message.Destination));
+
+            //if(message.Subject == "Confirmacion de su cuenta")
+            //{
+            //    msg.Attachments.Add(new Attachment(ConfigurationManager.AppSettings["URL_Documentos"].ToString() + "Documentos/Manuales/SMUE - Manual de Activación y Confirmación de Cuentas de Usuarios.pdf"));
+            //}
+
             msg.Subject = message.Subject;
             msg.AlternateViews.Add(imgview);
             msg.Body = lr.ContentId;
