@@ -202,6 +202,7 @@
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="App\EmailsHTML\confirmacionCuenta.html" />
     <Content Include="App\EmailsHTML\EmailPassword.html" />
+    <Content Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodePerson.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ReportesMonitoreoSEPS.aspx" />
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
@@ -235,6 +236,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Account\Web.config" />
+    <Content Include="Images\loading.gif" />
     <Content Include="ModelSMUEE.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelSMUEE.edmx</DependentUpon>
@@ -295,6 +297,7 @@
     <Content Include="Content\scss\_navs.scss" />
     <Content Include="Content\scss\_utilities.scss" />
     <Content Include="Content\scss\_variables.scss" />
+    <Content Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodioPersona.aspx" />
     <EntityDeploy Include="ModelSMUEE.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelSMUEE.Designer.cs</LastGenOutput>
@@ -414,6 +417,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPersona.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -506,6 +510,16 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="SEPS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SEPS.edmx</DependentUpon>
+      <LastGenOutput>SEPS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SEPS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SEPS.edmx</DependentUpon>
+      <LastGenOutput>SEPS.cs</LastGenOutput>
+    </Content>
     <Content Include="Site.Master" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
@@ -2256,6 +2270,10 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodePerson.asmx.cs">
+      <DependentUpon>TransferEpisodePerson.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\ReportesMonitoreoSEPS.aspx.cs">
       <DependentUpon>ReportesMonitoreoSEPS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2354,6 +2372,7 @@
       <DependentUpon>ModelSMUEE.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Logs.cs" />
     <Compile Include="NoLogin.Master.cs">
       <DependentUpon>NoLogin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2362,6 +2381,33 @@
       <DependentUpon>NoLogin.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SA_EPISODIO.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SA_PERFIL.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SA_PERSONA.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SA_PERSONA_PROGRAMA.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SEPS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SEPS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SEPS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SEPS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SEPS.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2379,6 +2425,9 @@
     <Compile Include="SM_NOTIFICACIONES.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
+    <Compile Include="SPC_SESION_Result.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
@@ -2391,11 +2440,33 @@
     <Compile Include="VW_CATEGORIA_REPORTE.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
+    <Compile Include="VW_EPISODIO.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_PERFIL.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_PERSONA.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_PERSONAS.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_PROGRAMAS.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
     <Compile Include="VW_REPORTES.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_UsersList.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodioPersona.aspx.cs">
+      <DependentUpon>TransferenciaEpisodioPersona.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodioPersona.aspx.designer.cs">
+      <DependentUpon>TransferenciaEpisodioPersona.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -2551,6 +2622,13 @@
     <Content Include="vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="vendor\jquery\jquery.min.map" />
     <Content Include="vendor\jquery\jquery.slim.min.map" />
+    <EntityDeploy Include="SEPS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SEPS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="SEPS.edmx.diagram">
+      <DependentUpon>SEPS.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

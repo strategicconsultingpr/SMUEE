@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="74511b7109b3488689df29ddfb097d22" Name="Diagram1">
+        <EntityTypeShape EntityType="SEPSModel.VW_PERFIL" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEPSModel.VW_PERSONA" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEPSModel.VW_PERSONAS" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEPSModel.VW_PROGRAMAS" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SEPSModel.VW_EPISODIO" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SEPSModel.SA_EPISODIO" Width="1.5" PointX="7.625" PointY="14.125" />
+        <EntityTypeShape EntityType="SEPSModel.SA_PERFIL" Width="1.5" PointX="9.875" PointY="8.25" />
+        <EntityTypeShape EntityType="SEPSModel.SA_PERSONA" Width="1.5" PointX="5.375" PointY="19.875" />
+        <EntityTypeShape EntityType="SEPSModel.SA_PERSONA_PROGRAMA" Width="1.5" PointX="7.625" PointY="33.25" />
+        <AssociationConnector Association="SEPSModel.FK_SA_EPISODIO_SA_PERSONA" />
+        <AssociationConnector Association="SEPSModel.FK_SA_PERFIL_SA_EPISODIO" />
+        <AssociationConnector Association="SEPSModel.FK_SA_PERSONA_CENTRO_SA_PERSONA" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
