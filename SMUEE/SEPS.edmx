@@ -359,6 +359,65 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_EPISODIO' does not have a primary k
           <Property Name="FE_Alta" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'SEPS_JR.dbo.VW_EXPEDIENTE_PROGRAMA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_EXPEDIENTE_PROGRAMA">
+          <Key>
+            <PropertyRef Name="FK_Persona" />
+            <PropertyRef Name="FK_Programa" />
+            <PropertyRef Name="NR_Expediente" />
+            <PropertyRef Name="FK_Sesion" />
+            <PropertyRef Name="TI_Edicion" />
+            <PropertyRef Name="FE_Edicion" />
+            <PropertyRef Name="FK_Sexo" />
+            <PropertyRef Name="AP_Primero" />
+            <PropertyRef Name="NB_Primero" />
+            <PropertyRef Name="FE_Nacimiento" />
+            <PropertyRef Name="FK_Veterano" />
+            <PropertyRef Name="FK_GrupoEtnico" />
+            <PropertyRef Name="FK_Administracion" />
+            <PropertyRef Name="IN_Inactivo" />
+            <PropertyRef Name="IN_Creado_Fed" />
+            <PropertyRef Name="IN_TEDS" />
+          </Key>
+          <Property Name="FK_Persona" Type="int" Nullable="false" />
+          <Property Name="FK_Programa" Type="smallint" Nullable="false" />
+          <Property Name="NR_Expediente" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="FK_Sesion" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TI_Edicion" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="FE_Edicion" Type="datetime" Nullable="false" />
+          <Property Name="PK_Old" Type="int" />
+          <Property Name="NR_SeguroSocial" Type="char" MaxLength="9" />
+          <Property Name="FK_Sexo" Type="tinyint" Nullable="false" />
+          <Property Name="AP_Primero" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AP_Segundo" Type="varchar" MaxLength="30" />
+          <Property Name="NB_Primero" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="NB_Segundo" Type="varchar" MaxLength="30" />
+          <Property Name="FE_Nacimiento" Type="datetime" Nullable="false" />
+          <Property Name="FK_Veterano" Type="tinyint" Nullable="false" />
+          <Property Name="FK_GrupoEtnico" Type="tinyint" Nullable="false" />
+          <Property Name="NR_ClientId_Legacy" Type="varchar" MaxLength="12" />
+          <Property Name="FK_Administracion" Type="tinyint" Nullable="false" />
+          <Property Name="CO_Tipo" Type="smallint" />
+          <Property Name="CO_Programa" Type="varchar" MaxLength="6" />
+          <Property Name="CO_Prov_ID" Type="varchar" MaxLength="15" />
+          <Property Name="NB_Programa" Type="varchar" MaxLength="100" />
+          <Property Name="DE_Programa" Type="varchar" MaxLength="60" />
+          <Property Name="NB_ProgramaIngles" Type="varchar" MaxLength="100" />
+          <Property Name="CO_Hacienda" Type="varchar" MaxLength="8" />
+          <Property Name="IN_Inactivo" Type="bit" Nullable="false" />
+          <Property Name="IN_Creado_Fed" Type="bit" Nullable="false" />
+          <Property Name="IN_TEDS" Type="bit" Nullable="false" />
+          <Property Name="REP_TEDS" Type="bit" />
+          <Property Name="PREOW" Type="bit" />
+          <Property Name="IN_SUST" Type="bit" />
+          <Property Name="IN_INF_ANUAL" Type="bit" />
+          <Property Name="REP_TEDS_MH" Type="bit" />
+          <Property Name="IN_SELECCIONADO_REP" Type="bit" />
+          <Property Name="IN_CONVENIO" Type="bit" />
+          <Property Name="REP_URS_MH" Type="bit" />
+          <Property Name="FK_CATEGORIA_PROGRAMA" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'SEPS_JR.dbo.VW_PERFIL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VW_PERFIL">
           <Key>
@@ -822,6 +881,47 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
     [VW_EPISODIO].[IN_Suicida] AS [IN_Suicida], 
     [VW_EPISODIO].[FE_Alta] AS [FE_Alta]
     FROM [dbo].[VW_EPISODIO] AS [VW_EPISODIO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_EXPEDIENTE_PROGRAMA" EntityType="Self.VW_EXPEDIENTE_PROGRAMA" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_Persona] AS [FK_Persona], 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_Programa] AS [FK_Programa], 
+    [VW_EXPEDIENTE_PROGRAMA].[NR_Expediente] AS [NR_Expediente], 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_Sesion] AS [FK_Sesion], 
+    [VW_EXPEDIENTE_PROGRAMA].[TI_Edicion] AS [TI_Edicion], 
+    [VW_EXPEDIENTE_PROGRAMA].[FE_Edicion] AS [FE_Edicion], 
+    [VW_EXPEDIENTE_PROGRAMA].[PK_Old] AS [PK_Old], 
+    [VW_EXPEDIENTE_PROGRAMA].[NR_SeguroSocial] AS [NR_SeguroSocial], 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_Sexo] AS [FK_Sexo], 
+    [VW_EXPEDIENTE_PROGRAMA].[AP_Primero] AS [AP_Primero], 
+    [VW_EXPEDIENTE_PROGRAMA].[AP_Segundo] AS [AP_Segundo], 
+    [VW_EXPEDIENTE_PROGRAMA].[NB_Primero] AS [NB_Primero], 
+    [VW_EXPEDIENTE_PROGRAMA].[NB_Segundo] AS [NB_Segundo], 
+    [VW_EXPEDIENTE_PROGRAMA].[FE_Nacimiento] AS [FE_Nacimiento], 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_Veterano] AS [FK_Veterano], 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_GrupoEtnico] AS [FK_GrupoEtnico], 
+    [VW_EXPEDIENTE_PROGRAMA].[NR_ClientId_Legacy] AS [NR_ClientId_Legacy], 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_Administracion] AS [FK_Administracion], 
+    [VW_EXPEDIENTE_PROGRAMA].[CO_Tipo] AS [CO_Tipo], 
+    [VW_EXPEDIENTE_PROGRAMA].[CO_Programa] AS [CO_Programa], 
+    [VW_EXPEDIENTE_PROGRAMA].[CO_Prov_ID] AS [CO_Prov_ID], 
+    [VW_EXPEDIENTE_PROGRAMA].[NB_Programa] AS [NB_Programa], 
+    [VW_EXPEDIENTE_PROGRAMA].[DE_Programa] AS [DE_Programa], 
+    [VW_EXPEDIENTE_PROGRAMA].[NB_ProgramaIngles] AS [NB_ProgramaIngles], 
+    [VW_EXPEDIENTE_PROGRAMA].[CO_Hacienda] AS [CO_Hacienda], 
+    [VW_EXPEDIENTE_PROGRAMA].[IN_Inactivo] AS [IN_Inactivo], 
+    [VW_EXPEDIENTE_PROGRAMA].[IN_Creado_Fed] AS [IN_Creado_Fed], 
+    [VW_EXPEDIENTE_PROGRAMA].[IN_TEDS] AS [IN_TEDS], 
+    [VW_EXPEDIENTE_PROGRAMA].[REP_TEDS] AS [REP_TEDS], 
+    [VW_EXPEDIENTE_PROGRAMA].[PREOW] AS [PREOW], 
+    [VW_EXPEDIENTE_PROGRAMA].[IN_SUST] AS [IN_SUST], 
+    [VW_EXPEDIENTE_PROGRAMA].[IN_INF_ANUAL] AS [IN_INF_ANUAL], 
+    [VW_EXPEDIENTE_PROGRAMA].[REP_TEDS_MH] AS [REP_TEDS_MH], 
+    [VW_EXPEDIENTE_PROGRAMA].[IN_SELECCIONADO_REP] AS [IN_SELECCIONADO_REP], 
+    [VW_EXPEDIENTE_PROGRAMA].[IN_CONVENIO] AS [IN_CONVENIO], 
+    [VW_EXPEDIENTE_PROGRAMA].[REP_URS_MH] AS [REP_URS_MH], 
+    [VW_EXPEDIENTE_PROGRAMA].[FK_CATEGORIA_PROGRAMA] AS [FK_CATEGORIA_PROGRAMA]
+    FROM [dbo].[VW_EXPEDIENTE_PROGRAMA] AS [VW_EXPEDIENTE_PROGRAMA]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VW_PERFIL" EntityType="Self.VW_PERFIL" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1426,6 +1526,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             <Parameter Name="PASSWORD" Mode="In" Type="String" />
             <Parameter Name="PK_Sesion" Mode="InOut" Type="Guid" />
           </FunctionImport>
+          <EntitySet Name="VW_EXPEDIENTE_PROGRAMA" EntityType="SEPSModel.VW_EXPEDIENTE_PROGRAMA" />
         </EntityContainer>
         <EntityType Name="VW_EPISODIO">
           <Key>
@@ -1844,6 +1945,63 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
           <Property Type="Int32" Name="Fk_Permiso" Nullable="false" />
           <Property Type="Int32" Name="IN_OVERRIDE_PERSONA" Nullable="true" />
         </ComplexType>
+        <EntityType Name="VW_EXPEDIENTE_PROGRAMA">
+          <Key>
+            <PropertyRef Name="FK_Persona" />
+            <PropertyRef Name="FK_Programa" />
+            <PropertyRef Name="NR_Expediente" />
+            <PropertyRef Name="FK_Sesion" />
+            <PropertyRef Name="TI_Edicion" />
+            <PropertyRef Name="FE_Edicion" />
+            <PropertyRef Name="FK_Sexo" />
+            <PropertyRef Name="AP_Primero" />
+            <PropertyRef Name="NB_Primero" />
+            <PropertyRef Name="FE_Nacimiento" />
+            <PropertyRef Name="FK_Veterano" />
+            <PropertyRef Name="FK_GrupoEtnico" />
+            <PropertyRef Name="FK_Administracion" />
+            <PropertyRef Name="IN_Inactivo" />
+            <PropertyRef Name="IN_Creado_Fed" />
+            <PropertyRef Name="IN_TEDS" />
+          </Key>
+          <Property Name="FK_Persona" Type="Int32" Nullable="false" />
+          <Property Name="FK_Programa" Type="Int16" Nullable="false" />
+          <Property Name="NR_Expediente" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="FK_Sesion" Type="Guid" Nullable="false" />
+          <Property Name="TI_Edicion" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FE_Edicion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PK_Old" Type="Int32" />
+          <Property Name="NR_SeguroSocial" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="FK_Sexo" Type="Byte" Nullable="false" />
+          <Property Name="AP_Primero" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AP_Segundo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NB_Primero" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NB_Segundo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FE_Nacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FK_Veterano" Type="Byte" Nullable="false" />
+          <Property Name="FK_GrupoEtnico" Type="Byte" Nullable="false" />
+          <Property Name="NR_ClientId_Legacy" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="FK_Administracion" Type="Byte" Nullable="false" />
+          <Property Name="CO_Tipo" Type="Int16" />
+          <Property Name="CO_Programa" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="CO_Prov_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NB_Programa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DE_Programa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="NB_ProgramaIngles" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CO_Hacienda" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="IN_Inactivo" Type="Boolean" Nullable="false" />
+          <Property Name="IN_Creado_Fed" Type="Boolean" Nullable="false" />
+          <Property Name="IN_TEDS" Type="Boolean" Nullable="false" />
+          <Property Name="REP_TEDS" Type="Boolean" />
+          <Property Name="PREOW" Type="Boolean" />
+          <Property Name="IN_SUST" Type="Boolean" />
+          <Property Name="IN_INF_ANUAL" Type="Boolean" />
+          <Property Name="REP_TEDS_MH" Type="Boolean" />
+          <Property Name="IN_SELECCIONADO_REP" Type="Boolean" />
+          <Property Name="IN_CONVENIO" Type="Boolean" />
+          <Property Name="REP_URS_MH" Type="Boolean" />
+          <Property Name="FK_CATEGORIA_PROGRAMA" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2459,6 +2617,49 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="VW_EXPEDIENTE_PROGRAMA">
+            <EntityTypeMapping TypeName="SEPSModel.VW_EXPEDIENTE_PROGRAMA">
+              <MappingFragment StoreEntitySet="VW_EXPEDIENTE_PROGRAMA">
+                <ScalarProperty Name="FK_CATEGORIA_PROGRAMA" ColumnName="FK_CATEGORIA_PROGRAMA" />
+                <ScalarProperty Name="REP_URS_MH" ColumnName="REP_URS_MH" />
+                <ScalarProperty Name="IN_CONVENIO" ColumnName="IN_CONVENIO" />
+                <ScalarProperty Name="IN_SELECCIONADO_REP" ColumnName="IN_SELECCIONADO_REP" />
+                <ScalarProperty Name="REP_TEDS_MH" ColumnName="REP_TEDS_MH" />
+                <ScalarProperty Name="IN_INF_ANUAL" ColumnName="IN_INF_ANUAL" />
+                <ScalarProperty Name="IN_SUST" ColumnName="IN_SUST" />
+                <ScalarProperty Name="PREOW" ColumnName="PREOW" />
+                <ScalarProperty Name="REP_TEDS" ColumnName="REP_TEDS" />
+                <ScalarProperty Name="IN_TEDS" ColumnName="IN_TEDS" />
+                <ScalarProperty Name="IN_Creado_Fed" ColumnName="IN_Creado_Fed" />
+                <ScalarProperty Name="IN_Inactivo" ColumnName="IN_Inactivo" />
+                <ScalarProperty Name="CO_Hacienda" ColumnName="CO_Hacienda" />
+                <ScalarProperty Name="NB_ProgramaIngles" ColumnName="NB_ProgramaIngles" />
+                <ScalarProperty Name="DE_Programa" ColumnName="DE_Programa" />
+                <ScalarProperty Name="NB_Programa" ColumnName="NB_Programa" />
+                <ScalarProperty Name="CO_Prov_ID" ColumnName="CO_Prov_ID" />
+                <ScalarProperty Name="CO_Programa" ColumnName="CO_Programa" />
+                <ScalarProperty Name="CO_Tipo" ColumnName="CO_Tipo" />
+                <ScalarProperty Name="FK_Administracion" ColumnName="FK_Administracion" />
+                <ScalarProperty Name="NR_ClientId_Legacy" ColumnName="NR_ClientId_Legacy" />
+                <ScalarProperty Name="FK_GrupoEtnico" ColumnName="FK_GrupoEtnico" />
+                <ScalarProperty Name="FK_Veterano" ColumnName="FK_Veterano" />
+                <ScalarProperty Name="FE_Nacimiento" ColumnName="FE_Nacimiento" />
+                <ScalarProperty Name="NB_Segundo" ColumnName="NB_Segundo" />
+                <ScalarProperty Name="NB_Primero" ColumnName="NB_Primero" />
+                <ScalarProperty Name="AP_Segundo" ColumnName="AP_Segundo" />
+                <ScalarProperty Name="AP_Primero" ColumnName="AP_Primero" />
+                <ScalarProperty Name="FK_Sexo" ColumnName="FK_Sexo" />
+                <ScalarProperty Name="NR_SeguroSocial" ColumnName="NR_SeguroSocial" />
+                <ScalarProperty Name="PK_Old" ColumnName="PK_Old" />
+                <ScalarProperty Name="FE_Edicion" ColumnName="FE_Edicion" />
+                <ScalarProperty Name="TI_Edicion" ColumnName="TI_Edicion" />
+                <ScalarProperty Name="FK_Sesion" ColumnName="FK_Sesion" />
+                <ScalarProperty Name="NR_Expediente" ColumnName="NR_Expediente" />
+                <ScalarProperty Name="FK_Programa" ColumnName="FK_Programa" />
+                <ScalarProperty Name="FK_Persona" ColumnName="FK_Persona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

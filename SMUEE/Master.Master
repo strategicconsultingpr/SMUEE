@@ -69,7 +69,6 @@
                 height: 2rem;
                 width: auto;
             }
-
     </style>
 
 </head>
@@ -157,10 +156,15 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Procesos:</h6>
                             <a class="collapse-item text-wrap" href="#">Envio de Notificaciones</a>
-                              <h6 class="collapse-header">Transferencias de:</h6>
-                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/TransferenciaEpisodioPersona")%>">Episodios a Personas</a>
-                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/TransferenciaEpisodioPersona")%>">Episodios a Programas</a>
                             <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Transferencias de:</h6>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/TransferenciaEpisodioPersona")%>">Episodios a Personas</a>
+                            <a class="collapse-item text-wrap" href="#">Envio de Notificaciones</a>
+
+                            <h6 class="collapse-header">Otros:</h6>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EliminarPersona")%>">Eliminar Personas</a>
+                            <div class="collapse-divider"></div>
+                           
                             <h6 class="collapse-header">Reportes:</h6>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/ReportesMonitoreoSEPS")%>">Reportes de Monitoreo</a>
                         </div>
@@ -313,11 +317,11 @@
                                 <div class="dpAlertas dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                     <h6 class="dropdown-header">Centro de Alertas
                                     </h6>
-                                    
+
                                 </div>
                             </li>
 
-                           <%-- <!-- Nav Item - Alerts -->
+                            <%-- <!-- Nav Item - Alerts -->
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell fa-fw"></i>

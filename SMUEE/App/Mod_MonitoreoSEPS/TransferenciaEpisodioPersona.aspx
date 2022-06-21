@@ -31,7 +31,7 @@
                 <div class="card-header border-bottom">
                     <ul class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
                         <li class="nav-item" role="presentation" id="wizard1TabCard">
-                            <a class="nav-link active" id="wizard1Tab" runat="server" data-toggle="tab"  role="tab" aria-controls="wizard1" aria-selected="true">
+                            <a class="nav-link active" id="wizard1Tab" runat="server" href="#wizard1" data-toggle="tab"  role="tab" aria-controls="wizard1" aria-selected="true">
                                 <div class="wizard-step-icon">1</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Seleccionar Episodio</div>
@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard2TabCard">
-                            <a class="nav-link" id="wizard2Tab" data-toggle="tab" runat="server"  role="tab" aria-controls="wizard2" aria-selected="false">
+                            <a class="nav-link" id="wizard2Tab" data-toggle="tab" runat="server" href="#wizard2"  role="tab" aria-controls="wizard2" aria-selected="false">
                                 <div class="wizard-step-icon">2</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Seleccionar Persona</div>
@@ -49,7 +49,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard3TabCard">
-                            <a class="nav-link" id="wizard3Tab" data-toggle="tab" runat="server"  role="tab" aria-controls="wizard3" aria-selected="false">
+                            <a class="nav-link" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3"  role="tab" aria-controls="wizard3" aria-selected="false">
                                 <div class="wizard-step-icon">3</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Expediente</div>
@@ -58,7 +58,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard4TabCard">
-                            <a class="nav-link" id="wizard4Tab" data-toggle="tab" runat="server"  role="tab" aria-controls="wizard4" aria-selected="false">
+                            <a class="nav-link" id="wizard4Tab" data-toggle="tab" runat="server" href="#wizard4"  role="tab" aria-controls="wizard4" aria-selected="false">
                                 <div class="wizard-step-icon">4</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Resumen</div>
@@ -67,7 +67,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard5TabCard">
-                            <a class="nav-link" id="wizard5Tab" data-toggle="tab" runat="server" role="tab" aria-controls="wizard5" aria-selected="false">
+                            <a class="nav-link" id="wizard5Tab" data-toggle="tab" runat="server" href="#wizard5" role="tab" aria-controls="wizard5" aria-selected="false">
                                 <div class="wizard-step-icon">5</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Confirmación</div>

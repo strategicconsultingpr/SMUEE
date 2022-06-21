@@ -67,7 +67,7 @@ $("#btnSearchIUP").click(function () {
 
         $.ajax({
             type: "POST", //POST
-            url: "ajax/TransferEpisodePerson.asmx/SearchIUP",
+            url: "ajax/MonitoreoHelpers.asmx/SearchIUP",
             data: `{iup: ${iup}}`,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -75,7 +75,6 @@ $("#btnSearchIUP").click(function () {
             success: function (obj) {
 
 
-                swal.close()
 
                 if (obj != null && obj.d != null) {
                     //Existe participante
@@ -166,7 +165,7 @@ $("#btnSearchIUP2").click(function () {
         if (iup2 != iup1) {
             $.ajax({
                 type: "POST", //POST
-                url: "ajax/TransferEpisodePerson.asmx/SearchIUP",
+                url: "ajax/MonitoreoHelpers.asmx/SearchIUP",
                 data: `{iup: ${iup2}}`,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -265,7 +264,7 @@ function txtExpedienteChange() {
         } else {
             $.ajax({
                 type: "POST", //POST
-                url: "ajax/TransferEpisodePerson.asmx/GetExpedienteByNRExpediente",
+                url: "ajax/MonitoreoHelpers.asmx/GetExpedienteByNRExpediente",
                 data: `{nr_expediente: ${$("#rdExpediente2").val()} , programa:${$("#MainContent_lblPrograma").val()}}`,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -338,7 +337,7 @@ function GetEpisode(iup) {
 
     $.ajax({
         type: "POST", //POST
-        url: "ajax/TransferEpisodePerson.asmx/GetEpisodes",
+        url: "ajax/MonitoreoHelpers.asmx/GetEpisodes",
         data: `{iup:${iup}}`,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -398,7 +397,7 @@ function GetEpisode2(iup) {
 
     $.ajax({
         type: "POST", //POST
-        url: "ajax/TransferEpisodePerson.asmx/GetEpisodes",
+        url: "ajax/MonitoreoHelpers.asmx/GetEpisodes",
         data: `{iup:${iup}}`,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -456,7 +455,7 @@ function GetExpediente(iup, programa) {
 
     $.ajax({
         type: "POST", //POST
-        url: "ajax/TransferEpisodePerson.asmx/GetExpediente",
+        url: "ajax/MonitoreoHelpers.asmx/GetExpediente",
         data: `{iup:${iup} , programa:${programa}}`,
         contentType: "application/json; charset=utf-8",
         dataType: "json",

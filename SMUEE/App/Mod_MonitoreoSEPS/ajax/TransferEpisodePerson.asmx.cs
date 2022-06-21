@@ -23,47 +23,6 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
     public class TransferEpisodePerson : System.Web.Services.WebService
     {
 
-
-        [WebMethod]
-        public VW_PERSONA SearchIUP(int iup)
-        {
-            using (var seps = new SEPSEntities())
-            {
-                return seps.VW_PERSONA.FirstOrDefault(x => x.PK_Persona == iup);
-            }
-
-        }
-
-        [WebMethod]
-        public List<VW_EPISODIO> GetEpisodes(int iup)
-        {
-            using (var seps = new SEPSEntities())
-            {
-                return seps.VW_EPISODIO.Where(x => x.FK_Persona == iup).ToList();
-            }
-        }
-
-
-        [WebMethod]
-        public VW_PERSONAS GetExpediente(int iup, int programa)
-        {
-            using (var seps = new SEPSEntities())
-            {
-                return seps.VW_PERSONAS.FirstOrDefault(x => x.PK_Persona == iup && x.FK_Programa == programa);
-            }
-        }
-
-
-        [WebMethod]
-        public VW_PERSONAS GetExpedienteByNRExpediente(string nr_expediente,int programa)
-        {
-            using (var seps = new SEPSEntities())
-            {
-                return seps.VW_PERSONAS.FirstOrDefault(x => nr_expediente == x.NR_Expediente && x.FK_Programa == programa);
-            }
-        }
-
-
         [WebMethod]
         public bool TransferEpisode(int episode, int iup,string expedienteOption,string numberExpediente)
         {
