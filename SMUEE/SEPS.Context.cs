@@ -37,6 +37,7 @@ namespace SMUEE
         public virtual DbSet<SA_PERSONA> SA_PERSONA { get; set; }
         public virtual DbSet<SA_PERSONA_PROGRAMA> SA_PERSONA_PROGRAMA { get; set; }
         public virtual DbSet<VW_EXPEDIENTE_PROGRAMA> VW_EXPEDIENTE_PROGRAMA { get; set; }
+        public virtual DbSet<SA_PROGRAMA> SA_PROGRAMA { get; set; }
     
         public virtual ObjectResult<SPC_SESION_Result> SPC_SESION(string nB_Login, string pASSWORD, ObjectParameter pK_Sesion)
         {
@@ -49,6 +50,11 @@ namespace SMUEE
                 new ObjectParameter("PASSWORD", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SPC_SESION_Result>("SPC_SESION", nB_LoginParameter, pASSWORDParameter, pK_Sesion);
+        }
+    
+        public virtual ObjectResult<SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result> SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result>("SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS");
         }
     }
 }

@@ -203,9 +203,11 @@
     <Content Include="App\EmailsHTML\confirmacionCuenta.html" />
     <Content Include="App\EmailsHTML\EmailPassword.html" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\EliminarPersona.asmx" />
+    <Content Include="App\Mod_MonitoreoSEPS\ajax\EpisodiosCerrados.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\MonitoreoHelpers.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodePerson.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\EliminarPersona.aspx" />
+    <Content Include="App\Mod_MonitoreoSEPS\EpisodiosCerrados.aspx" />
     <Content Include="App\Mod_MonitoreoSEPS\ReportesMonitoreoSEPS.aspx" />
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
@@ -421,6 +423,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\EliminarPersona.js" />
+    <Content Include="Scripts\modulos\monitoreoSEPS\EpisodiosCerrados.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPersona.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -2278,6 +2281,10 @@
       <DependentUpon>EliminarPersona.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\ajax\EpisodiosCerrados.asmx.cs">
+      <DependentUpon>EpisodiosCerrados.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\ajax\MonitoreoHelpers.asmx.cs">
       <DependentUpon>MonitoreoHelpers.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -2292,6 +2299,13 @@
     </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\EliminarPersona.aspx.designer.cs">
       <DependentUpon>EliminarPersona.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\EpisodiosCerrados.aspx.cs">
+      <DependentUpon>EpisodiosCerrados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\EpisodiosCerrados.aspx.designer.cs">
+      <DependentUpon>EpisodiosCerrados.aspx</DependentUpon>
     </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\ReportesMonitoreoSEPS.aspx.cs">
       <DependentUpon>ReportesMonitoreoSEPS.aspx</DependentUpon>
@@ -2412,6 +2426,9 @@
     <Compile Include="SA_PERSONA_PROGRAMA.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
+    <Compile Include="SA_PROGRAMA.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
     <Compile Include="SEPS.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2445,6 +2462,9 @@
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="SPC_SESION_Result.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />

@@ -23,5 +23,6 @@ namespace SMUEE
         public Nullable<int> PK_Old { get; set; }
     
         public virtual SA_PERSONA SA_PERSONA { get; set; }
+        public virtual SA_PROGRAMA SA_PROGRAMA { get; set; }
     }
 }

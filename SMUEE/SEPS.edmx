@@ -225,6 +225,33 @@
           <Property Name="FE_Edicion" Type="datetime" Nullable="false" />
           <Property Name="PK_Old" Type="int" />
         </EntityType>
+        <EntityType Name="SA_PROGRAMA">
+          <Key>
+            <PropertyRef Name="PK_Programa" />
+          </Key>
+          <Property Name="PK_Programa" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_Administracion" Type="tinyint" Nullable="false" />
+          <Property Name="CO_Tipo" Type="smallint" />
+          <Property Name="CO_Programa" Type="varchar" MaxLength="6" />
+          <Property Name="CO_Prov_ID" Type="varchar" MaxLength="15" />
+          <Property Name="NB_Programa" Type="varchar" MaxLength="100" />
+          <Property Name="DE_Programa" Type="varchar" MaxLength="60" />
+          <Property Name="NB_ProgramaIngles" Type="varchar" MaxLength="100" />
+          <Property Name="CO_Hacienda" Type="varchar" MaxLength="8" />
+          <Property Name="IN_Inactivo" Type="bit" Nullable="false" />
+          <Property Name="IN_Creado_Fed" Type="bit" Nullable="false" />
+          <Property Name="IN_TEDS" Type="bit" Nullable="false" />
+          <Property Name="REP_TEDS" Type="bit" />
+          <Property Name="PREOW" Type="bit" />
+          <Property Name="IN_SUST" Type="bit" />
+          <Property Name="IN_INF_ANUAL" Type="bit" />
+          <Property Name="REP_TEDS_MH" Type="bit" />
+          <Property Name="IN_SELECCIONADO_REP" Type="bit" />
+          <Property Name="IN_CONVENIO" Type="bit" />
+          <Property Name="REP_URS_MH" Type="bit" />
+          <Property Name="FK_CATEGORIA_PROGRAMA" Type="int" />
+          <Property Name="CERRAR_EPISODIO_ADMISION" Type="bit" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SEPS_JR.dbo.VW_EPISODIO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VW_EPISODIO">
@@ -746,6 +773,20 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SA_EPISODIO_SA_PROGRAMA">
+          <End Role="SA_PROGRAMA" Type="Self.SA_PROGRAMA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SA_EPISODIO" Type="Self.SA_EPISODIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SA_PROGRAMA">
+              <PropertyRef Name="PK_Programa" />
+            </Principal>
+            <Dependent Role="SA_EPISODIO">
+              <PropertyRef Name="FK_Programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SA_PERFIL_SA_EPISODIO">
           <End Role="SA_EPISODIO" Type="Self.SA_EPISODIO" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -757,6 +798,20 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             </Principal>
             <Dependent Role="SA_PERFIL">
               <PropertyRef Name="FK_Episodio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SA_PERSONA_CENTRO_SA_CENTRO">
+          <End Role="SA_PROGRAMA" Type="Self.SA_PROGRAMA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SA_PERSONA_PROGRAMA" Type="Self.SA_PERSONA_PROGRAMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SA_PROGRAMA">
+              <PropertyRef Name="PK_Programa" />
+            </Principal>
+            <Dependent Role="SA_PERSONA_PROGRAMA">
+              <PropertyRef Name="FK_Programa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -772,6 +827,19 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SA_PROGRAMA_SA_PROGRAMA">
+          <End Role="SA_PROGRAMA" Type="Self.SA_PROGRAMA" Multiplicity="1" />
+          <End Role="SA_PROGRAMA1" Type="Self.SA_PROGRAMA" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SA_PROGRAMA">
+              <PropertyRef Name="PK_Programa" />
+            </Principal>
+            <Dependent Role="SA_PROGRAMA1">
+              <PropertyRef Name="PK_Programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SPC_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NB_Login" Type="varchar" Mode="In" />
           <Parameter Name="PASSWORD" Type="varchar" Mode="In" />
@@ -782,6 +850,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
           <EntitySet Name="SA_PERFIL" EntityType="Self.SA_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERSONA" EntityType="Self.SA_PERSONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERSONA_PROGRAMA" EntityType="Self.SA_PERSONA_PROGRAMA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SA_PROGRAMA" EntityType="Self.SA_PROGRAMA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VW_EPISODIO" EntityType="Self.VW_EPISODIO" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VW_EPISODIO].[PK_Episodio] AS [PK_Episodio], 
@@ -1177,13 +1246,25 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             <End Role="SA_PERSONA" EntitySet="SA_PERSONA" />
             <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
           </AssociationSet>
+          <AssociationSet Name="FK_SA_EPISODIO_SA_PROGRAMA" Association="Self.FK_SA_EPISODIO_SA_PROGRAMA">
+            <End Role="SA_PROGRAMA" EntitySet="SA_PROGRAMA" />
+            <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
+          </AssociationSet>
           <AssociationSet Name="FK_SA_PERFIL_SA_EPISODIO" Association="Self.FK_SA_PERFIL_SA_EPISODIO">
             <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
             <End Role="SA_PERFIL" EntitySet="SA_PERFIL" />
           </AssociationSet>
+          <AssociationSet Name="FK_SA_PERSONA_CENTRO_SA_CENTRO" Association="Self.FK_SA_PERSONA_CENTRO_SA_CENTRO">
+            <End Role="SA_PROGRAMA" EntitySet="SA_PROGRAMA" />
+            <End Role="SA_PERSONA_PROGRAMA" EntitySet="SA_PERSONA_PROGRAMA" />
+          </AssociationSet>
           <AssociationSet Name="FK_SA_PERSONA_CENTRO_SA_PERSONA" Association="Self.FK_SA_PERSONA_CENTRO_SA_PERSONA">
             <End Role="SA_PERSONA" EntitySet="SA_PERSONA" />
             <End Role="SA_PERSONA_PROGRAMA" EntitySet="SA_PERSONA_PROGRAMA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SA_PROGRAMA_SA_PROGRAMA" Association="Self.FK_SA_PROGRAMA_SA_PROGRAMA">
+            <End Role="SA_PROGRAMA" EntitySet="SA_PROGRAMA" />
+            <End Role="SA_PROGRAMA1" EntitySet="SA_PROGRAMA" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1527,6 +1608,20 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             <Parameter Name="PK_Sesion" Mode="InOut" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="VW_EXPEDIENTE_PROGRAMA" EntityType="SEPSModel.VW_EXPEDIENTE_PROGRAMA" />
+          <FunctionImport Name="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS" ReturnType="Collection(SEPSModel.SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result)" />
+          <EntitySet Name="SA_PROGRAMA" EntityType="SEPSModel.SA_PROGRAMA" />
+          <AssociationSet Name="FK_SA_EPISODIO_SA_PROGRAMA" Association="SEPSModel.FK_SA_EPISODIO_SA_PROGRAMA">
+            <End Role="SA_PROGRAMA" EntitySet="SA_PROGRAMA" />
+            <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SA_PERSONA_CENTRO_SA_CENTRO" Association="SEPSModel.FK_SA_PERSONA_CENTRO_SA_CENTRO">
+            <End Role="SA_PROGRAMA" EntitySet="SA_PROGRAMA" />
+            <End Role="SA_PERSONA_PROGRAMA" EntitySet="SA_PERSONA_PROGRAMA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SA_PROGRAMA_SA_PROGRAMA" Association="SEPSModel.FK_SA_PROGRAMA_SA_PROGRAMA">
+            <End Role="SA_PROGRAMA" EntitySet="SA_PROGRAMA" />
+            <End Role="SA_PROGRAMA1" EntitySet="SA_PROGRAMA" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VW_EPISODIO">
           <Key>
@@ -1722,6 +1817,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
           <Property Name="FE_FechaConvenio" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SA_PERSONA" Relationship="SEPSModel.FK_SA_EPISODIO_SA_PERSONA" FromRole="SA_EPISODIO" ToRole="SA_PERSONA" />
           <NavigationProperty Name="SA_PERFIL" Relationship="SEPSModel.FK_SA_PERFIL_SA_EPISODIO" FromRole="SA_EPISODIO" ToRole="SA_PERFIL" />
+          <NavigationProperty Name="SA_PROGRAMA" Relationship="SEPSModel.FK_SA_EPISODIO_SA_PROGRAMA" FromRole="SA_EPISODIO" ToRole="SA_PROGRAMA" />
         </EntityType>
         <EntityType Name="SA_PERFIL">
           <Key>
@@ -1884,6 +1980,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
           <Property Name="FE_Edicion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PK_Old" Type="Int32" />
           <NavigationProperty Name="SA_PERSONA" Relationship="SEPSModel.FK_SA_PERSONA_CENTRO_SA_PERSONA" FromRole="SA_PERSONA_PROGRAMA" ToRole="SA_PERSONA" />
+          <NavigationProperty Name="SA_PROGRAMA" Relationship="SEPSModel.FK_SA_PERSONA_CENTRO_SA_CENTRO" FromRole="SA_PERSONA_PROGRAMA" ToRole="SA_PROGRAMA" />
         </EntityType>
         <Association Name="FK_SA_EPISODIO_SA_PERSONA">
           <End Type="SEPSModel.SA_PERSONA" Role="SA_PERSONA" Multiplicity="1" />
@@ -2002,6 +2099,176 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
           <Property Name="REP_URS_MH" Type="Boolean" />
           <Property Name="FK_CATEGORIA_PROGRAMA" Type="Int32" />
         </EntityType>
+        <ComplexType Name="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result">
+          <Property Type="Int32" Name="PK_Episodio" Nullable="false" />
+          <Property Type="Int32" Name="FK_Persona" Nullable="false" />
+          <Property Type="Int16" Name="FK_Programa" Nullable="false" />
+          <Property Type="String" Name="NB_Programa" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FE_FechaConvenio" Nullable="true" Precision="23" />
+          <Property Type="Byte" Name="PK_Administracion" Nullable="false" />
+          <Property Type="String" Name="NB_Administracion" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="FE_Episodio" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="FK_SeguroSalud" Nullable="false" />
+          <Property Type="String" Name="DE_SeguroSalud" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_FuentePago" Nullable="false" />
+          <Property Type="String" Name="DE_Pago" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_FeminaHijos" Nullable="false" />
+          <Property Type="String" Name="DE_Femina" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_VaronHijos" Nullable="true" />
+          <Property Type="String" Name="DE_VaronHijos" Nullable="true" MaxLength="9" />
+          <Property Type="Byte" Name="FK_FuenteIngreso" Nullable="false" />
+          <Property Type="String" Name="DE_FuenteIngreso" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_IngresoIndividual" Nullable="true" />
+          <Property Type="String" Name="DE_IngresoAnualIndividual" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_IngresoFamiliar" Nullable="true" />
+          <Property Type="String" Name="DE_IngresoAnualFamiliar" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_TiempoResidencia" Nullable="false" />
+          <Property Type="String" Name="DE_TiempoResidencia" Nullable="true" MaxLength="25" />
+          <Property Type="Int16" Name="FK_Municipio" Nullable="false" />
+          <Property Type="String" Name="DE_Municipio" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_Zona" Nullable="false" />
+          <Property Type="String" Name="DE_Zona" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="NR_ZipCode" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="DE_Barrio" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_EtapaServicio" Nullable="false" />
+          <Property Type="String" Name="DE_EtapaServicio" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_NivelCuidadoSustancias" Nullable="true" />
+          <Property Type="String" Name="DE_AbusoSustancias" Nullable="true" MaxLength="60" />
+          <Property Type="Byte" Name="FK_NivelCuidadoMental" Nullable="true" />
+          <Property Type="String" Name="DE_SaludMental" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_Metadona" Nullable="false" />
+          <Property Type="String" Name="DE_Metadona" Nullable="true" MaxLength="24" />
+          <Property Type="Byte" Name="IN_CodDependiente" Nullable="false" />
+          <Property Type="String" Name="DE_CodDependiente" Nullable="true" MaxLength="2" />
+          <Property Type="Byte" Name="IN_DiagnosticoDual" Nullable="true" />
+          <Property Type="String" Name="DE_DiagnosticoDual" Nullable="true" MaxLength="2" />
+          <Property Type="Byte" Name="FK_FuenteReferido" Nullable="false" />
+          <Property Type="String" Name="DE_Referido" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_EstadoLegal" Nullable="false" />
+          <Property Type="String" Name="DE_EstadoLegal" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_ArrestadoAnteriormente" Nullable="false" />
+          <Property Type="String" Name="DE_ArrestadoAnteriormente" Nullable="true" MaxLength="2" />
+          <Property Type="Byte" Name="NR_TotalArrestosPasado" Nullable="true" />
+          <Property Type="Byte" Name="FK_Justicia" Nullable="false" />
+          <Property Type="String" Name="DE_ProbJusticia" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="NR_DiasEsperaSustancias" Nullable="true" />
+          <Property Type="Byte" Name="FK_EpisodiosSustancias" Nullable="false" />
+          <Property Type="String" Name="DE_EpisodiosPreviosSustancias" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_DuracionSustancias" Nullable="false" />
+          <Property Type="String" Name="DE_TiempoUltTratSustancias" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="NR_DiasUltimaAltaSustancias" Nullable="true" />
+          <Property Type="Int16" Name="NR_MesesUltimaAltaSustancias" Nullable="true" />
+          <Property Type="Byte" Name="FK_NivelCuidadoSustanciasAnterior" Nullable="false" />
+          <Property Type="String" Name="DE_AbusoSustanciasAnterior" Nullable="true" MaxLength="60" />
+          <Property Type="Byte" Name="IN_SaludMental" Nullable="true" />
+          <Property Type="String" Name="DE_IN_SaludMental" Nullable="true" MaxLength="12" />
+          <Property Type="Int16" Name="NR_DiasEsperaMental" Nullable="true" />
+          <Property Type="Byte" Name="FK_EpisodiosMental" Nullable="false" />
+          <Property Type="String" Name="DE_EpisodiosPreviosMental" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_DuracionMental" Nullable="false" />
+          <Property Type="String" Name="DE_TiempoUltTratMental" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="NR_DiasUltimaAltaMental" Nullable="true" />
+          <Property Type="Int16" Name="NR_MesesUltimaAltaMental" Nullable="true" />
+          <Property Type="Byte" Name="FK_NivelCuidadoMentalAnterior" Nullable="false" />
+          <Property Type="String" Name="DE_SaludMentalAnterior" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_AbusoSustancias" Nullable="true" />
+          <Property Type="String" Name="DE_IN_AbusoSustancias" Nullable="true" MaxLength="12" />
+          <Property Type="Byte" Name="IN_ViolenciaDomestica" Nullable="false" />
+          <Property Type="String" Name="DE_ViolenciaDomestica" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_Maltrato" Nullable="false" />
+          <Property Type="String" Name="DE_Maltrato" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_TI_Maltrato" Nullable="false" />
+          <Property Type="String" Name="DE_TI_Maltrato" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="DE_Suicida" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_TratadoMental" Nullable="true" />
+          <Property Type="String" Name="DE_TratadoMental" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_Ambulatorio" Nullable="true" />
+          <Property Type="String" Name="DE_Ambulatorio" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_HospitalizadoMental" Nullable="true" />
+          <Property Type="String" Name="DE_HospitalizadoMental" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_TI_Hospital" Nullable="true" />
+          <Property Type="String" Name="DE_TI_Hospital" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_TratamientoResidencial" Nullable="true" />
+          <Property Type="String" Name="DE_TratamientoResidencial" Nullable="true" MaxLength="11" />
+          <Property Type="Boolean" Name="ES_Episodio" Nullable="true" />
+          <Property Type="String" Name="DE_ES_Episodio" Nullable="false" MaxLength="7" />
+          <Property Type="Byte" Name="IN_IdeaSuicida" Nullable="true" />
+          <Property Type="String" Name="DE_IdeaSuicida" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="IN_Suicida" Nullable="false" />
+          <Property Type="DateTime" Name="FE_Alta" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="CERRAR_EPISODIO_ADMISION" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="SA_PROGRAMA">
+          <Key>
+            <PropertyRef Name="PK_Programa" />
+          </Key>
+          <Property Name="PK_Programa" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Administracion" Type="Byte" Nullable="false" />
+          <Property Name="CO_Tipo" Type="Int16" />
+          <Property Name="CO_Programa" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="CO_Prov_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NB_Programa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DE_Programa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="NB_ProgramaIngles" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CO_Hacienda" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="IN_Inactivo" Type="Boolean" Nullable="false" />
+          <Property Name="IN_Creado_Fed" Type="Boolean" Nullable="false" />
+          <Property Name="IN_TEDS" Type="Boolean" Nullable="false" />
+          <Property Name="REP_TEDS" Type="Boolean" />
+          <Property Name="PREOW" Type="Boolean" />
+          <Property Name="IN_SUST" Type="Boolean" />
+          <Property Name="IN_INF_ANUAL" Type="Boolean" />
+          <Property Name="REP_TEDS_MH" Type="Boolean" />
+          <Property Name="IN_SELECCIONADO_REP" Type="Boolean" />
+          <Property Name="IN_CONVENIO" Type="Boolean" />
+          <Property Name="REP_URS_MH" Type="Boolean" />
+          <Property Name="FK_CATEGORIA_PROGRAMA" Type="Int32" />
+          <Property Name="CERRAR_EPISODIO_ADMISION" Type="Boolean" />
+          <NavigationProperty Name="SA_EPISODIO" Relationship="SEPSModel.FK_SA_EPISODIO_SA_PROGRAMA" FromRole="SA_PROGRAMA" ToRole="SA_EPISODIO" />
+          <NavigationProperty Name="SA_PERSONA_PROGRAMA" Relationship="SEPSModel.FK_SA_PERSONA_CENTRO_SA_CENTRO" FromRole="SA_PROGRAMA" ToRole="SA_PERSONA_PROGRAMA" />
+          <NavigationProperty Name="SA_PROGRAMA1" Relationship="SEPSModel.FK_SA_PROGRAMA_SA_PROGRAMA" FromRole="SA_PROGRAMA" ToRole="SA_PROGRAMA1" />
+          <NavigationProperty Name="SA_PROGRAMA2" Relationship="SEPSModel.FK_SA_PROGRAMA_SA_PROGRAMA" FromRole="SA_PROGRAMA1" ToRole="SA_PROGRAMA" />
+        </EntityType>
+        <Association Name="FK_SA_EPISODIO_SA_PROGRAMA">
+          <End Type="SEPSModel.SA_PROGRAMA" Role="SA_PROGRAMA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SEPSModel.SA_EPISODIO" Role="SA_EPISODIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SA_PROGRAMA">
+              <PropertyRef Name="PK_Programa" />
+            </Principal>
+            <Dependent Role="SA_EPISODIO">
+              <PropertyRef Name="FK_Programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SA_PERSONA_CENTRO_SA_CENTRO">
+          <End Type="SEPSModel.SA_PROGRAMA" Role="SA_PROGRAMA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SEPSModel.SA_PERSONA_PROGRAMA" Role="SA_PERSONA_PROGRAMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SA_PROGRAMA">
+              <PropertyRef Name="PK_Programa" />
+            </Principal>
+            <Dependent Role="SA_PERSONA_PROGRAMA">
+              <PropertyRef Name="FK_Programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SA_PROGRAMA_SA_PROGRAMA">
+          <End Type="SEPSModel.SA_PROGRAMA" Role="SA_PROGRAMA" Multiplicity="1" />
+          <End Type="SEPSModel.SA_PROGRAMA" Role="SA_PROGRAMA1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SA_PROGRAMA">
+              <PropertyRef Name="PK_Programa" />
+            </Principal>
+            <Dependent Role="SA_PROGRAMA1">
+              <PropertyRef Name="PK_Programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2657,6 +2924,137 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
                 <ScalarProperty Name="NR_Expediente" ColumnName="NR_Expediente" />
                 <ScalarProperty Name="FK_Programa" ColumnName="FK_Programa" />
                 <ScalarProperty Name="FK_Persona" ColumnName="FK_Persona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS" FunctionName="SEPSModel.Store.SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SEPSModel.SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result">
+                <ScalarProperty Name="PK_Episodio" ColumnName="PK_Episodio" />
+                <ScalarProperty Name="FK_Persona" ColumnName="FK_Persona" />
+                <ScalarProperty Name="FK_Programa" ColumnName="FK_Programa" />
+                <ScalarProperty Name="NB_Programa" ColumnName="NB_Programa" />
+                <ScalarProperty Name="FE_FechaConvenio" ColumnName="FE_FechaConvenio" />
+                <ScalarProperty Name="PK_Administracion" ColumnName="PK_Administracion" />
+                <ScalarProperty Name="NB_Administracion" ColumnName="NB_Administracion" />
+                <ScalarProperty Name="FE_Episodio" ColumnName="FE_Episodio" />
+                <ScalarProperty Name="FK_SeguroSalud" ColumnName="FK_SeguroSalud" />
+                <ScalarProperty Name="DE_SeguroSalud" ColumnName="DE_SeguroSalud" />
+                <ScalarProperty Name="FK_FuentePago" ColumnName="FK_FuentePago" />
+                <ScalarProperty Name="DE_Pago" ColumnName="DE_Pago" />
+                <ScalarProperty Name="FK_FeminaHijos" ColumnName="FK_FeminaHijos" />
+                <ScalarProperty Name="DE_Femina" ColumnName="DE_Femina" />
+                <ScalarProperty Name="IN_VaronHijos" ColumnName="IN_VaronHijos" />
+                <ScalarProperty Name="DE_VaronHijos" ColumnName="DE_VaronHijos" />
+                <ScalarProperty Name="FK_FuenteIngreso" ColumnName="FK_FuenteIngreso" />
+                <ScalarProperty Name="DE_FuenteIngreso" ColumnName="DE_FuenteIngreso" />
+                <ScalarProperty Name="FK_IngresoIndividual" ColumnName="FK_IngresoIndividual" />
+                <ScalarProperty Name="DE_IngresoAnualIndividual" ColumnName="DE_IngresoAnualIndividual" />
+                <ScalarProperty Name="FK_IngresoFamiliar" ColumnName="FK_IngresoFamiliar" />
+                <ScalarProperty Name="DE_IngresoAnualFamiliar" ColumnName="DE_IngresoAnualFamiliar" />
+                <ScalarProperty Name="FK_TiempoResidencia" ColumnName="FK_TiempoResidencia" />
+                <ScalarProperty Name="DE_TiempoResidencia" ColumnName="DE_TiempoResidencia" />
+                <ScalarProperty Name="FK_Municipio" ColumnName="FK_Municipio" />
+                <ScalarProperty Name="DE_Municipio" ColumnName="DE_Municipio" />
+                <ScalarProperty Name="IN_Zona" ColumnName="IN_Zona" />
+                <ScalarProperty Name="DE_Zona" ColumnName="DE_Zona" />
+                <ScalarProperty Name="NR_ZipCode" ColumnName="NR_ZipCode" />
+                <ScalarProperty Name="DE_Barrio" ColumnName="DE_Barrio" />
+                <ScalarProperty Name="FK_EtapaServicio" ColumnName="FK_EtapaServicio" />
+                <ScalarProperty Name="DE_EtapaServicio" ColumnName="DE_EtapaServicio" />
+                <ScalarProperty Name="FK_NivelCuidadoSustancias" ColumnName="FK_NivelCuidadoSustancias" />
+                <ScalarProperty Name="DE_AbusoSustancias" ColumnName="DE_AbusoSustancias" />
+                <ScalarProperty Name="FK_NivelCuidadoMental" ColumnName="FK_NivelCuidadoMental" />
+                <ScalarProperty Name="DE_SaludMental" ColumnName="DE_SaludMental" />
+                <ScalarProperty Name="IN_Metadona" ColumnName="IN_Metadona" />
+                <ScalarProperty Name="DE_Metadona" ColumnName="DE_Metadona" />
+                <ScalarProperty Name="IN_CodDependiente" ColumnName="IN_CodDependiente" />
+                <ScalarProperty Name="DE_CodDependiente" ColumnName="DE_CodDependiente" />
+                <ScalarProperty Name="IN_DiagnosticoDual" ColumnName="IN_DiagnosticoDual" />
+                <ScalarProperty Name="DE_DiagnosticoDual" ColumnName="DE_DiagnosticoDual" />
+                <ScalarProperty Name="FK_FuenteReferido" ColumnName="FK_FuenteReferido" />
+                <ScalarProperty Name="DE_Referido" ColumnName="DE_Referido" />
+                <ScalarProperty Name="FK_EstadoLegal" ColumnName="FK_EstadoLegal" />
+                <ScalarProperty Name="DE_EstadoLegal" ColumnName="DE_EstadoLegal" />
+                <ScalarProperty Name="IN_ArrestadoAnteriormente" ColumnName="IN_ArrestadoAnteriormente" />
+                <ScalarProperty Name="DE_ArrestadoAnteriormente" ColumnName="DE_ArrestadoAnteriormente" />
+                <ScalarProperty Name="NR_TotalArrestosPasado" ColumnName="NR_TotalArrestosPasado" />
+                <ScalarProperty Name="FK_Justicia" ColumnName="FK_Justicia" />
+                <ScalarProperty Name="DE_ProbJusticia" ColumnName="DE_ProbJusticia" />
+                <ScalarProperty Name="NR_DiasEsperaSustancias" ColumnName="NR_DiasEsperaSustancias" />
+                <ScalarProperty Name="FK_EpisodiosSustancias" ColumnName="FK_EpisodiosSustancias" />
+                <ScalarProperty Name="DE_EpisodiosPreviosSustancias" ColumnName="DE_EpisodiosPreviosSustancias" />
+                <ScalarProperty Name="FK_DuracionSustancias" ColumnName="FK_DuracionSustancias" />
+                <ScalarProperty Name="DE_TiempoUltTratSustancias" ColumnName="DE_TiempoUltTratSustancias" />
+                <ScalarProperty Name="NR_DiasUltimaAltaSustancias" ColumnName="NR_DiasUltimaAltaSustancias" />
+                <ScalarProperty Name="NR_MesesUltimaAltaSustancias" ColumnName="NR_MesesUltimaAltaSustancias" />
+                <ScalarProperty Name="FK_NivelCuidadoSustanciasAnterior" ColumnName="FK_NivelCuidadoSustanciasAnterior" />
+                <ScalarProperty Name="DE_AbusoSustanciasAnterior" ColumnName="DE_AbusoSustanciasAnterior" />
+                <ScalarProperty Name="IN_SaludMental" ColumnName="IN_SaludMental" />
+                <ScalarProperty Name="DE_IN_SaludMental" ColumnName="DE_IN_SaludMental" />
+                <ScalarProperty Name="NR_DiasEsperaMental" ColumnName="NR_DiasEsperaMental" />
+                <ScalarProperty Name="FK_EpisodiosMental" ColumnName="FK_EpisodiosMental" />
+                <ScalarProperty Name="DE_EpisodiosPreviosMental" ColumnName="DE_EpisodiosPreviosMental" />
+                <ScalarProperty Name="FK_DuracionMental" ColumnName="FK_DuracionMental" />
+                <ScalarProperty Name="DE_TiempoUltTratMental" ColumnName="DE_TiempoUltTratMental" />
+                <ScalarProperty Name="NR_DiasUltimaAltaMental" ColumnName="NR_DiasUltimaAltaMental" />
+                <ScalarProperty Name="NR_MesesUltimaAltaMental" ColumnName="NR_MesesUltimaAltaMental" />
+                <ScalarProperty Name="FK_NivelCuidadoMentalAnterior" ColumnName="FK_NivelCuidadoMentalAnterior" />
+                <ScalarProperty Name="DE_SaludMentalAnterior" ColumnName="DE_SaludMentalAnterior" />
+                <ScalarProperty Name="IN_AbusoSustancias" ColumnName="IN_AbusoSustancias" />
+                <ScalarProperty Name="DE_IN_AbusoSustancias" ColumnName="DE_IN_AbusoSustancias" />
+                <ScalarProperty Name="IN_ViolenciaDomestica" ColumnName="IN_ViolenciaDomestica" />
+                <ScalarProperty Name="DE_ViolenciaDomestica" ColumnName="DE_ViolenciaDomestica" />
+                <ScalarProperty Name="IN_Maltrato" ColumnName="IN_Maltrato" />
+                <ScalarProperty Name="DE_Maltrato" ColumnName="DE_Maltrato" />
+                <ScalarProperty Name="IN_TI_Maltrato" ColumnName="IN_TI_Maltrato" />
+                <ScalarProperty Name="DE_TI_Maltrato" ColumnName="DE_TI_Maltrato" />
+                <ScalarProperty Name="DE_Suicida" ColumnName="DE_Suicida" />
+                <ScalarProperty Name="IN_TratadoMental" ColumnName="IN_TratadoMental" />
+                <ScalarProperty Name="DE_TratadoMental" ColumnName="DE_TratadoMental" />
+                <ScalarProperty Name="IN_Ambulatorio" ColumnName="IN_Ambulatorio" />
+                <ScalarProperty Name="DE_Ambulatorio" ColumnName="DE_Ambulatorio" />
+                <ScalarProperty Name="IN_HospitalizadoMental" ColumnName="IN_HospitalizadoMental" />
+                <ScalarProperty Name="DE_HospitalizadoMental" ColumnName="DE_HospitalizadoMental" />
+                <ScalarProperty Name="IN_TI_Hospital" ColumnName="IN_TI_Hospital" />
+                <ScalarProperty Name="DE_TI_Hospital" ColumnName="DE_TI_Hospital" />
+                <ScalarProperty Name="IN_TratamientoResidencial" ColumnName="IN_TratamientoResidencial" />
+                <ScalarProperty Name="DE_TratamientoResidencial" ColumnName="DE_TratamientoResidencial" />
+                <ScalarProperty Name="ES_Episodio" ColumnName="ES_Episodio" />
+                <ScalarProperty Name="DE_ES_Episodio" ColumnName="DE_ES_Episodio" />
+                <ScalarProperty Name="IN_IdeaSuicida" ColumnName="IN_IdeaSuicida" />
+                <ScalarProperty Name="DE_IdeaSuicida" ColumnName="DE_IdeaSuicida" />
+                <ScalarProperty Name="IN_Suicida" ColumnName="IN_Suicida" />
+                <ScalarProperty Name="FE_Alta" ColumnName="FE_Alta" />
+                <ScalarProperty Name="CERRAR_EPISODIO_ADMISION" ColumnName="CERRAR_EPISODIO_ADMISION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="SA_PROGRAMA">
+            <EntityTypeMapping TypeName="SEPSModel.SA_PROGRAMA">
+              <MappingFragment StoreEntitySet="SA_PROGRAMA">
+                <ScalarProperty Name="CERRAR_EPISODIO_ADMISION" ColumnName="CERRAR_EPISODIO_ADMISION" />
+                <ScalarProperty Name="FK_CATEGORIA_PROGRAMA" ColumnName="FK_CATEGORIA_PROGRAMA" />
+                <ScalarProperty Name="REP_URS_MH" ColumnName="REP_URS_MH" />
+                <ScalarProperty Name="IN_CONVENIO" ColumnName="IN_CONVENIO" />
+                <ScalarProperty Name="IN_SELECCIONADO_REP" ColumnName="IN_SELECCIONADO_REP" />
+                <ScalarProperty Name="REP_TEDS_MH" ColumnName="REP_TEDS_MH" />
+                <ScalarProperty Name="IN_INF_ANUAL" ColumnName="IN_INF_ANUAL" />
+                <ScalarProperty Name="IN_SUST" ColumnName="IN_SUST" />
+                <ScalarProperty Name="PREOW" ColumnName="PREOW" />
+                <ScalarProperty Name="REP_TEDS" ColumnName="REP_TEDS" />
+                <ScalarProperty Name="IN_TEDS" ColumnName="IN_TEDS" />
+                <ScalarProperty Name="IN_Creado_Fed" ColumnName="IN_Creado_Fed" />
+                <ScalarProperty Name="IN_Inactivo" ColumnName="IN_Inactivo" />
+                <ScalarProperty Name="CO_Hacienda" ColumnName="CO_Hacienda" />
+                <ScalarProperty Name="NB_ProgramaIngles" ColumnName="NB_ProgramaIngles" />
+                <ScalarProperty Name="DE_Programa" ColumnName="DE_Programa" />
+                <ScalarProperty Name="NB_Programa" ColumnName="NB_Programa" />
+                <ScalarProperty Name="CO_Prov_ID" ColumnName="CO_Prov_ID" />
+                <ScalarProperty Name="CO_Programa" ColumnName="CO_Programa" />
+                <ScalarProperty Name="CO_Tipo" ColumnName="CO_Tipo" />
+                <ScalarProperty Name="FK_Administracion" ColumnName="FK_Administracion" />
+                <ScalarProperty Name="PK_Programa" ColumnName="PK_Programa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

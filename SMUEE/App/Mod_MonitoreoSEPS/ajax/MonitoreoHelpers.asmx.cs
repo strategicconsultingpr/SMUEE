@@ -64,5 +64,50 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
             }
         }
 
+        public List<SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result> GetCloseEpisodeWithoutDischarge()
+        {
+            using(var seps = new SEPSEntities())
+            {
+                return seps.SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS().ToList();
+            }
+        }
+
+        [WebMethod]
+        public List<SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result> GetCloseEpisodeWithoutDischargeByProgram(int pk_programa)
+        {
+            return GetCloseEpisodeWithoutDischarge().Where(x => x.FK_Programa == pk_programa).OrderByDescending(x => x.FE_Episodio).ToList();
+        }
+
+        [WebMethod]
+        public List<SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result> GetCloseEpisodeWithoutDischargeByIUP(int iup)
+        {
+            return GetCloseEpisodeWithoutDischarge().Where(x => x.FK_Persona == iup).OrderByDescending(x => x.FE_Episodio).ToList();
+        }
+
+        [WebMethod]
+        public List<SA_PROGRAMA> GetProgramas()
+        {
+            using (var seps = new SEPSEntities())
+            {
+                return seps.SA_PROGRAMA.ToList();
+            }
+        }
+
+        [WebMethod]
+        public List<SA_PROGRAMA> GetProgramasNotCloseEpisodeInAdm()
+        {
+            using (var seps = new SEPSEntities())
+            {
+                return seps.SA_PROGRAMA.Where(x=>x.CERRAR_EPISODIO_ADMISION == false).OrderBy(x=>x.NB_Programa).ToList();
+            }
+        }
+
+
+
+
+
+
+
     }
 }
+
