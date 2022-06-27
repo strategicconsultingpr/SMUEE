@@ -761,6 +761,41 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
           <Property Name="REP_TEDS" Type="bit" />
           <Property Name="IN_SUST" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_ABUSO_SUSTANCIA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_REF_ABUSO_SUSTANCIA">
+          <Key>
+            <PropertyRef Name="PK_Item" />
+            <PropertyRef Name="PK_Programa" />
+            <PropertyRef Name="PK_Sustancia" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="DE_AbusoSustancias" />
+            <PropertyRef Name="CO_TEDS" />
+          </Key>
+          <Property Name="PK_Item" Type="int" Nullable="false" />
+          <Property Name="PK_Programa" Type="int" Nullable="false" />
+          <Property Name="PK_Sustancia" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DE_AbusoSustancias" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="CO_TEDS" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_REF_SALUD_MENTAL">
+          <Key>
+            <PropertyRef Name="PK_Item" />
+            <PropertyRef Name="PK_Programa" />
+            <PropertyRef Name="PK_Mental" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="DE_SaludMental" />
+          </Key>
+          <Property Name="PK_Item" Type="int" Nullable="false" />
+          <Property Name="PK_Programa" Type="int" Nullable="false" />
+          <Property Name="PK_Mental" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DE_SaludMental" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CO_TEDS_MH" Type="char" MaxLength="2" />
+        </EntityType>
         <Association Name="FK_SA_EPISODIO_SA_PERSONA">
           <End Role="SA_PERSONA" Type="Self.SA_PERSONA" Multiplicity="1" />
           <End Role="SA_EPISODIO" Type="Self.SA_EPISODIO" Multiplicity="*" />
@@ -1242,6 +1277,26 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
     [VW_PROGRAMAS].[IN_SUST] AS [IN_SUST]
     FROM [dbo].[VW_PROGRAMAS] AS [VW_PROGRAMAS]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VW_REF_ABUSO_SUSTANCIA" EntityType="Self.VW_REF_ABUSO_SUSTANCIA" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_REF_ABUSO_SUSTANCIA].[PK_Item] AS [PK_Item], 
+    [VW_REF_ABUSO_SUSTANCIA].[PK_Programa] AS [PK_Programa], 
+    [VW_REF_ABUSO_SUSTANCIA].[PK_Sustancia] AS [PK_Sustancia], 
+    [VW_REF_ABUSO_SUSTANCIA].[Active] AS [Active], 
+    [VW_REF_ABUSO_SUSTANCIA].[DE_AbusoSustancias] AS [DE_AbusoSustancias], 
+    [VW_REF_ABUSO_SUSTANCIA].[CO_TEDS] AS [CO_TEDS]
+    FROM [dbo].[VW_REF_ABUSO_SUSTANCIA] AS [VW_REF_ABUSO_SUSTANCIA]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_REF_SALUD_MENTAL" EntityType="Self.VW_REF_SALUD_MENTAL" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_REF_SALUD_MENTAL].[PK_Item] AS [PK_Item], 
+    [VW_REF_SALUD_MENTAL].[PK_Programa] AS [PK_Programa], 
+    [VW_REF_SALUD_MENTAL].[PK_Mental] AS [PK_Mental], 
+    [VW_REF_SALUD_MENTAL].[Active] AS [Active], 
+    [VW_REF_SALUD_MENTAL].[DE_SaludMental] AS [DE_SaludMental], 
+    [VW_REF_SALUD_MENTAL].[CO_TEDS_MH] AS [CO_TEDS_MH]
+    FROM [dbo].[VW_REF_SALUD_MENTAL] AS [VW_REF_SALUD_MENTAL]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_SA_EPISODIO_SA_PERSONA" Association="Self.FK_SA_EPISODIO_SA_PERSONA">
             <End Role="SA_PERSONA" EntitySet="SA_PERSONA" />
             <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
@@ -1622,6 +1677,8 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             <End Role="SA_PROGRAMA" EntitySet="SA_PROGRAMA" />
             <End Role="SA_PROGRAMA1" EntitySet="SA_PROGRAMA" />
           </AssociationSet>
+          <EntitySet Name="VW_REF_ABUSO_SUSTANCIA" EntityType="SEPSModel.VW_REF_ABUSO_SUSTANCIA" />
+          <EntitySet Name="VW_REF_SALUD_MENTAL" EntityType="SEPSModel.VW_REF_SALUD_MENTAL" />
         </EntityContainer>
         <EntityType Name="VW_EPISODIO">
           <Key>
@@ -2269,6 +2326,37 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VW_REF_ABUSO_SUSTANCIA">
+          <Key>
+            <PropertyRef Name="PK_Item" />
+            <PropertyRef Name="PK_Programa" />
+            <PropertyRef Name="PK_Sustancia" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="DE_AbusoSustancias" />
+            <PropertyRef Name="CO_TEDS" />
+          </Key>
+          <Property Name="PK_Item" Type="Int32" Nullable="false" />
+          <Property Name="PK_Programa" Type="Int32" Nullable="false" />
+          <Property Name="PK_Sustancia" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DE_AbusoSustancias" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="CO_TEDS" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VW_REF_SALUD_MENTAL">
+          <Key>
+            <PropertyRef Name="PK_Item" />
+            <PropertyRef Name="PK_Programa" />
+            <PropertyRef Name="PK_Mental" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="DE_SaludMental" />
+          </Key>
+          <Property Name="PK_Item" Type="Int32" Nullable="false" />
+          <Property Name="PK_Programa" Type="Int32" Nullable="false" />
+          <Property Name="PK_Mental" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DE_SaludMental" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CO_TEDS_MH" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3055,6 +3143,30 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_PROGRAMAS' does not have a primary 
                 <ScalarProperty Name="CO_Tipo" ColumnName="CO_Tipo" />
                 <ScalarProperty Name="FK_Administracion" ColumnName="FK_Administracion" />
                 <ScalarProperty Name="PK_Programa" ColumnName="PK_Programa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_REF_ABUSO_SUSTANCIA">
+            <EntityTypeMapping TypeName="SEPSModel.VW_REF_ABUSO_SUSTANCIA">
+              <MappingFragment StoreEntitySet="VW_REF_ABUSO_SUSTANCIA">
+                <ScalarProperty Name="CO_TEDS" ColumnName="CO_TEDS" />
+                <ScalarProperty Name="DE_AbusoSustancias" ColumnName="DE_AbusoSustancias" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PK_Sustancia" ColumnName="PK_Sustancia" />
+                <ScalarProperty Name="PK_Programa" ColumnName="PK_Programa" />
+                <ScalarProperty Name="PK_Item" ColumnName="PK_Item" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_REF_SALUD_MENTAL">
+            <EntityTypeMapping TypeName="SEPSModel.VW_REF_SALUD_MENTAL">
+              <MappingFragment StoreEntitySet="VW_REF_SALUD_MENTAL">
+                <ScalarProperty Name="CO_TEDS_MH" ColumnName="CO_TEDS_MH" />
+                <ScalarProperty Name="DE_SaludMental" ColumnName="DE_SaludMental" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PK_Mental" ColumnName="PK_Mental" />
+                <ScalarProperty Name="PK_Programa" ColumnName="PK_Programa" />
+                <ScalarProperty Name="PK_Item" ColumnName="PK_Item" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

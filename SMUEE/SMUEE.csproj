@@ -206,9 +206,11 @@
     <Content Include="App\Mod_MonitoreoSEPS\ajax\EpisodiosCerrados.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\MonitoreoHelpers.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodePerson.asmx" />
+    <Content Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodioPrograma.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\EliminarPersona.aspx" />
     <Content Include="App\Mod_MonitoreoSEPS\EpisodiosCerrados.aspx" />
     <Content Include="App\Mod_MonitoreoSEPS\ReportesMonitoreoSEPS.aspx" />
+    <Content Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodiosProgramas.aspx" />
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ReportesTEDS.aspx" />
@@ -425,6 +427,7 @@
     <Content Include="Scripts\modulos\monitoreoSEPS\EliminarPersona.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\EpisodiosCerrados.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPersona.js" />
+    <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPrograma.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -2293,6 +2296,10 @@
       <DependentUpon>TransferEpisodePerson.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodioPrograma.asmx.cs">
+      <DependentUpon>TransferEpisodioPrograma.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\EliminarPersona.aspx.cs">
       <DependentUpon>EliminarPersona.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2313,6 +2320,13 @@
     </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\ReportesMonitoreoSEPS.aspx.designer.cs">
       <DependentUpon>ReportesMonitoreoSEPS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodiosProgramas.aspx.cs">
+      <DependentUpon>TransferenciaEpisodiosProgramas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodiosProgramas.aspx.designer.cs">
+      <DependentUpon>TransferenciaEpisodiosProgramas.aspx</DependentUpon>
     </Compile>
     <Compile Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx.cs">
       <DependentUpon>ReportesInformativos.aspx</DependentUpon>
@@ -2495,6 +2509,12 @@
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_PROGRAMAS.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_REF_ABUSO_SUSTANCIA.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_REF_SALUD_MENTAL.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_REPORTES.cs">

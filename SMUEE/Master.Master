@@ -155,18 +155,18 @@
                     <div id="monitoreoSEPS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Procesos:</h6>
-<%--                            <a class="collapse-item text-wrap" href="#">Envio de Notificaciones</a>--%>
+                            <%--                            <a class="collapse-item text-wrap" href="#">Envio de Notificaciones</a>--%>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EliminarPersona")%>">Eliminar Personas</a>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EpisodiosCerrados")%>">Reabrir Episodios</a>
+
                             <div class="collapse-divider"></div>
                             <h6 class="collapse-header">Transferencias de:</h6>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/TransferenciaEpisodioPersona")%>">Episodios a Personas</a>
-                            <a class="collapse-item text-wrap" href="#">Envio de Notificaciones</a>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/TransferenciaEpisodiosProgramas")%>">Episodios a otro Programa</a>
 
-                            <h6 class="collapse-header">Otros:</h6>
-                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EliminarPersona")%>">Eliminar Personas</a>
-                           <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EpisodiosCerrados")%>">Reabrir Episodios</a>
 
-                            <div class="collapse-divider"></div>
-                           
+
+
                             <h6 class="collapse-header">Reportes:</h6>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/ReportesMonitoreoSEPS")%>">Reportes de Monitoreo</a>
                         </div>

@@ -38,6 +38,8 @@ namespace SMUEE
         public virtual DbSet<SA_PERSONA_PROGRAMA> SA_PERSONA_PROGRAMA { get; set; }
         public virtual DbSet<VW_EXPEDIENTE_PROGRAMA> VW_EXPEDIENTE_PROGRAMA { get; set; }
         public virtual DbSet<SA_PROGRAMA> SA_PROGRAMA { get; set; }
+        public virtual DbSet<VW_REF_ABUSO_SUSTANCIA> VW_REF_ABUSO_SUSTANCIA { get; set; }
+        public virtual DbSet<VW_REF_SALUD_MENTAL> VW_REF_SALUD_MENTAL { get; set; }
     
         public virtual ObjectResult<SPC_SESION_Result> SPC_SESION(string nB_Login, string pASSWORD, ObjectParameter pK_Sesion)
         {

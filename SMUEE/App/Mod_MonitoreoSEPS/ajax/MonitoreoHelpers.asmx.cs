@@ -102,6 +102,24 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
             }
         }
 
+        [WebMethod]
+        public List<VW_REF_ABUSO_SUSTANCIA> GetNivelCuidadoAsByProgram(int programa)
+        {
+            using (var seps = new SEPSEntities())
+            {
+                return seps.VW_REF_ABUSO_SUSTANCIA.Where(x =>x.PK_Programa  == programa).OrderBy(x => x.DE_AbusoSustancias).ToList();
+            }
+        }
+
+
+        [WebMethod]
+        public List<VW_REF_SALUD_MENTAL> GetNivelCuidadoMhByProgram(int programa)
+        {
+            using (var seps = new SEPSEntities())
+            {
+                return seps.VW_REF_SALUD_MENTAL.Where(x => x.PK_Programa == programa).OrderBy(x => x.DE_SaludMental).ToList();
+            }
+        }
 
 
 
