@@ -47,6 +47,25 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
         }
 
         [WebMethod]
+        public VW_PERSONAS GetExpediente2(int iup, int programa,int programa2)
+        {
+            using (var seps = new SEPSEntities())
+            {
+
+                var expediente = seps.VW_PERSONAS.FirstOrDefault(x => x.PK_Persona == iup && x.FK_Programa == programa);
+
+                if (expediente != null)
+                {
+                    if (seps.VW_PERSONAS.FirstOrDefault(x => x.NR_Expediente == expediente.NR_Expediente && x.FK_Programa == programa2) == null)
+                        return expediente; 
+                }
+
+                return null;
+
+            }
+        }
+
+        [WebMethod]
         public List<VW_EXPEDIENTE_PROGRAMA> GetExpedienteById(int iup)
         {
             using (var seps = new SEPSEntities())

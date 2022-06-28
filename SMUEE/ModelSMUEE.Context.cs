@@ -12,6 +12,8 @@ namespace SMUEE
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SMUEEEntities : DbContext
     {
@@ -29,5 +31,16 @@ namespace SMUEE
         public virtual DbSet<VW_REPORTES> VW_REPORTES { get; set; }
         public virtual DbSet<VW_UsersList> VW_UsersList { get; set; }
         public virtual DbSet<SM_NOTIFICACIONES> SM_NOTIFICACIONES { get; set; }
+        public virtual DbSet<SM_HISTORIAL> SM_HISTORIAL { get; set; }
+        public virtual DbSet<SM_MODULO> SM_MODULO { get; set; }
+    
+        public virtual int SPC_SESION(string fK_Usuario, ObjectParameter pK_Sesion)
+        {
+            var fK_UsuarioParameter = fK_Usuario != null ?
+                new ObjectParameter("FK_Usuario", fK_Usuario) :
+                new ObjectParameter("FK_Usuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_SESION", fK_UsuarioParameter, pK_Sesion);
+        }
     }
 }

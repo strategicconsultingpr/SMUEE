@@ -14,7 +14,7 @@
                                 <div class="page-header-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    Transferencia de Episodios a Personas (Bajo un Mismo Programa)
+                                    Transferencia de Episodio a Participante (Bajo un Mismo Programa)
                                 </div>
 
                             </h3>
@@ -43,7 +43,7 @@
                             <a class="nav-link" id="wizard2Tab" data-toggle="tab" runat="server" href="#wizard2"  role="tab" aria-controls="wizard2" aria-selected="false">
                                 <div class="wizard-step-icon">2</div>
                                 <div class="wizard-step-text">
-                                    <div class="wizard-step-text-name">Seleccionar Persona</div>
+                                    <div class="wizard-step-text-name">Seleccionar Participante</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
@@ -189,7 +189,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 2</h3>
-                                    <h5 class="card-title mb-4">Seleccionar persona el cual se desea transferir el episodio</h5>
+                                    <h5 class="card-title mb-4">Seleccionar participante el cual se desea transferir el episodio</h5>
 
                                     <div>
                                         <label>Ingresar IUP del participante al que se desea transferir el episodio:</label>

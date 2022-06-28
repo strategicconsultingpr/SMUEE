@@ -13,7 +13,7 @@
                                 <div class="page-header-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    Eliminar Personas (Sin episodios registrados)
+                                    Eliminar Participante (Sin episodios registrados)
                                 </div>
 
                             </h3>
@@ -33,7 +33,7 @@
                             <a class="nav-link active" id="wizard1Tab" runat="server"  href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
                                 <div class="wizard-step-icon">1</div>
                                 <div class="wizard-step-text">
-                                    <div class="wizard-step-text-name">Seleccionar Persona</div>
+                                    <div class="wizard-step-text-name">Seleccionar Participante</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
@@ -75,7 +75,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 1</h3>
-                                    <h5 class="card-title mb-4">Seleccionar la persona la cual desea eliminar</h5>
+                                    <h5 class="card-title mb-4">Seleccionar el participante la cual desea eliminar</h5>
 
                                     <div>
 
@@ -137,7 +137,7 @@
                                         </div>
 
                                         <div runat="server" id="lblNotEpisode" class="alert alert-warning" role="alert">
-                                            No se puede eliminar personas con episodios existentes
+                                            No se puede eliminar participantes con episodios existentes
 
                                         </div>
                                         <div runat="server" id="divEpisodes">
@@ -204,7 +204,7 @@
                                     <h5 class="card-title mb-4">Resumen de la transacción que desea realizar</h5>
                                       <label>Resumen</label>
                                     <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em>Persona para eliminar:</em></div>
+                                        <div class="col-sm-3 text-truncate"><em>Participante para eliminar:</em></div>
                                         <div class="col" runat="server" id="lblPersonaResume"></div>
                                     </div>
                                     

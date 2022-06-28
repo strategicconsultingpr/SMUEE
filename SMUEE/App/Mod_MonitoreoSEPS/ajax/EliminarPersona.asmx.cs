@@ -20,18 +20,13 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
     public class EliminarPersona : System.Web.Services.WebService
     {
 
-        [WebMethod]
-        public string HelloWorld()
-        {
-            return "Hello World";
-        }
-
-
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public bool EliminarPersonas(int iup)
         {
             var user = ConfigurationManager.AppSettings["SEPS_USER"].ToString();
             var password = ConfigurationManager.AppSettings["SEPS_PASSWORD"].ToString();
+            var sesionSMUEE = HttpContext.Current.Session["PK_Sesion"].ToString();
+            var listLogs = new List<SM_HISTORIAL>();
 
             using (var seps = new SEPSEntities())
             {
@@ -56,19 +51,36 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
                                 foreach (var expediente in expedientes)
                                 {
                                     seps.Entry(expediente).State = System.Data.Entity.EntityState.Deleted;
+                                    listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 2, DE_Historial = $"Elimino expediente #{expediente.NR_Expediente} para IUP:{expediente.FK_Persona} en programa #{expediente.FK_Programa}" });
+
                                 }
 
                             }
 
                             seps.Entry(participante).State = System.Data.Entity.EntityState.Deleted;
+                            listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 2, DE_Historial = $"Elimino participante para IUP:{participante.PK_Persona}" });
+
 
                             if (seps.SaveChanges() > 0)
                             {
-                                Logs.Add();
+                                if (listLogs.Count > 0)
+                                {
+                                    foreach (var historial in listLogs)
+                                    {
+                                        historial.FK_Sesion = sesionSMUEE;
+                                        historial.FE_Historial = DateTime.Now;
+                                        historial.FK_Modulo = "MonitoreoSEPS";
+                                        Logs.Add(historial);
+                                    }
+                                }
                                 return true;
                             }
+
                         }
+
                     }
+                    seps.SPD_SESION(Guid.Parse(sesion.Value.ToString()));
+
                 }
             }
             return false;

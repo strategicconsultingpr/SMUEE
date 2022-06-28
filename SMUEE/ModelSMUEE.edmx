@@ -5,6 +5,25 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SMUEEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SM_HISTORIAL">
+          <Key>
+            <PropertyRef Name="PK_Historial" />
+          </Key>
+          <Property Name="PK_Historial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_Sesion" Type="nvarchar" MaxLength="128" />
+          <Property Name="FE_Historial" Type="datetime" />
+          <Property Name="DE_Historial" Type="nvarchar" MaxLength="300" />
+          <Property Name="TI_ACCION" Type="tinyint" />
+          <Property Name="FK_Modulo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="SM_MODULO">
+          <Key>
+            <PropertyRef Name="PK_Modulo" />
+          </Key>
+          <Property Name="PK_Modulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DE_Modulo" Type="varchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" />
+        </EntityType>
         <EntityType Name="SM_NOTIFICACIONES">
           <Key>
             <PropertyRef Name="PK_NOTIFICACIONES" />
@@ -62,7 +81,25 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Property Name="Confirmado" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="Estatus" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Modulo">
+          <End Role="SM_MODULO" Type="Self.SM_MODULO" Multiplicity="0..1" />
+          <End Role="SM_HISTORIAL" Type="Self.SM_HISTORIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM_MODULO">
+              <PropertyRef Name="PK_Modulo" />
+            </Principal>
+            <Dependent Role="SM_HISTORIAL">
+              <PropertyRef Name="FK_Modulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SPC_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_Usuario" Type="nvarchar" Mode="In" />
+          <Parameter Name="PK_Sesion" Type="nvarchar" Mode="InOut" />
+        </Function>
         <EntityContainer Name="SMUEEModelStoreContainer">
+          <EntitySet Name="SM_HISTORIAL" EntityType="Self.SM_HISTORIAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SM_MODULO" EntityType="Self.SM_MODULO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SM_NOTIFICACIONES" EntityType="Self.SM_NOTIFICACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VW_CATEGORIA_REPORTE" EntityType="Self.VW_CATEGORIA_REPORTE" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -95,6 +132,10 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
     [VW_UsersList].[Estatus] AS [Estatus]
     FROM [dbo].[VW_UsersList] AS [VW_UsersList]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Modulo" Association="Self.FK_Modulo">
+            <End Role="SM_MODULO" EntitySet="SM_MODULO" />
+            <End Role="SM_HISTORIAL" EntitySet="SM_HISTORIAL" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -105,6 +146,16 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <EntitySet Name="VW_REPORTES" EntityType="SMUEEModel.VW_REPORTES" />
           <EntitySet Name="VW_UsersList" EntityType="SMUEEModel.VW_UsersList" />
           <EntitySet Name="SM_NOTIFICACIONES" EntityType="SMUEEModel.SM_NOTIFICACIONES" />
+          <EntitySet Name="SM_HISTORIAL" EntityType="SMUEEModel.SM_HISTORIAL" />
+          <EntitySet Name="SM_MODULO" EntityType="SMUEEModel.SM_MODULO" />
+          <AssociationSet Name="FK_Modulo" Association="SMUEEModel.FK_Modulo">
+            <End Role="SM_MODULO" EntitySet="SM_MODULO" />
+            <End Role="SM_HISTORIAL" EntitySet="SM_HISTORIAL" />
+          </AssociationSet>
+          <FunctionImport Name="SPC_SESION">
+            <Parameter Name="FK_Usuario" Mode="In" Type="String" />
+            <Parameter Name="PK_Sesion" Mode="InOut" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="VW_CATEGORIA_REPORTE">
           <Key>
@@ -157,6 +208,39 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Property Name="FE_ENVIADO" Type="DateTime" Precision="3" />
           <Property Name="VISTO" Type="Boolean" />
         </EntityType>
+        <EntityType Name="SM_HISTORIAL">
+          <Key>
+            <PropertyRef Name="PK_Historial" />
+          </Key>
+          <Property Name="PK_Historial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Sesion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FE_Historial" Type="DateTime" Precision="3" />
+          <Property Name="DE_Historial" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TI_ACCION" Type="Byte" />
+          <Property Name="FK_Modulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SM_MODULO" Relationship="SMUEEModel.FK_Modulo" FromRole="SM_HISTORIAL" ToRole="SM_MODULO" />
+        </EntityType>
+        <EntityType Name="SM_MODULO">
+          <Key>
+            <PropertyRef Name="PK_Modulo" />
+          </Key>
+          <Property Name="PK_Modulo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DE_Modulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="SM_HISTORIAL" Relationship="SMUEEModel.FK_Modulo" FromRole="SM_MODULO" ToRole="SM_HISTORIAL" />
+        </EntityType>
+        <Association Name="FK_Modulo">
+          <End Type="SMUEEModel.SM_MODULO" Role="SM_MODULO" Multiplicity="0..1" />
+          <End Type="SMUEEModel.SM_HISTORIAL" Role="SM_HISTORIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM_MODULO">
+              <PropertyRef Name="PK_Modulo" />
+            </Principal>
+            <Dependent Role="SM_HISTORIAL">
+              <PropertyRef Name="FK_Modulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -213,6 +297,28 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SM_HISTORIAL">
+            <EntityTypeMapping TypeName="SMUEEModel.SM_HISTORIAL">
+              <MappingFragment StoreEntitySet="SM_HISTORIAL">
+                <ScalarProperty Name="FK_Modulo" ColumnName="FK_Modulo" />
+                <ScalarProperty Name="TI_ACCION" ColumnName="TI_ACCION" />
+                <ScalarProperty Name="DE_Historial" ColumnName="DE_Historial" />
+                <ScalarProperty Name="FE_Historial" ColumnName="FE_Historial" />
+                <ScalarProperty Name="FK_Sesion" ColumnName="FK_Sesion" />
+                <ScalarProperty Name="PK_Historial" ColumnName="PK_Historial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SM_MODULO">
+            <EntityTypeMapping TypeName="SMUEEModel.SM_MODULO">
+              <MappingFragment StoreEntitySet="SM_MODULO">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="DE_Modulo" ColumnName="DE_Modulo" />
+                <ScalarProperty Name="PK_Modulo" ColumnName="PK_Modulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SPC_SESION" FunctionName="SMUEEModel.Store.SPC_SESION" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

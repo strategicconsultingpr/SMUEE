@@ -37,6 +37,19 @@ namespace SMUEE.Account
                     ddlRol.DataBind();
                     ddlRol.Items.Insert(0, new ListItem("", "0"));
 
+                    using(var smuee = new SMUEEEntities())
+                    {
+                        var listModulos = smuee.SM_MODULO.ToList();
+                        chkModulos.DataValueField = "PK_Modulo";
+                        chkModulos.DataTextField = "DE_Modulo";
+                        chkModulos.DataSource = listModulos;
+                        chkModulos.DataBind();
+
+                    }
+
+
+
+
 
                 }
                 catch (Exception ex)

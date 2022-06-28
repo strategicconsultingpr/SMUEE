@@ -172,7 +172,7 @@
                                     <h5 class="card-title mb-4">Resumen de la transacción que desea realizar</h5>
                                       <label>Resumen</label>
                                     <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em>Persona:</em></div>
+                                        <div class="col-sm-3 text-truncate"><em>Participante:</em></div>
                                         <div class="col" runat="server" id="lblPersonaResume"></div>
                                     </div>
                                      <div class="row small text-muted">
@@ -223,10 +223,10 @@
         </div>
     </main>
 
-    <input type="number" runat="server" id="lblPersona"  disabled />
-     <input type="number" runat="server" id="lblEpisode"  disabled />
-    <input type="number" runat="server" id="lblPrograma"  disabled />
-    <input type="text" runat="server" id="lblNbPrograma"  disabled />
+    <input type="number" runat="server" id="lblPersona" hidden  disabled />
+     <input type="number" runat="server" id="lblEpisode" hidden disabled />
+    <input type="number" runat="server" id="lblPrograma" hidden  disabled />
+    <input type="text" runat="server" id="lblNbPrograma" hidden disabled />
     
 
     <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/EpisodiosCerrados.js")%>"></script>

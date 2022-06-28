@@ -105,10 +105,10 @@
                                 <div class="form-group col-6">
                                     <label class="control-label">Modulos Accesbiles</label>
                                     <asp:CheckBoxList ID="chkModulos" runat="server">
-                                        <asp:ListItem Value="TEDS" Text="TEDS" />
+                                        <%--<asp:ListItem Value="TEDS" Text="TEDS" />
                                         <asp:ListItem Value="MonitoreoSEPS" Text="Monitoreo SEPS" />
                                         <asp:ListItem Value="MantenimientoSEPS" Text="Mantenimiento SEPS" />
-                                        <asp:ListItem Value="ReportesInformativos" Text="Reportes Informativos" />
+                                        <asp:ListItem Value="ReportesInformativos" Text="Reportes Informativos" />--%>
                                     </asp:CheckBoxList>
                                 </div>
                             </div>

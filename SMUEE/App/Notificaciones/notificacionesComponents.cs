@@ -70,7 +70,9 @@ namespace SMUEE.App.Notificaciones
             {
                 using (SMUEEEntities dsSMUEE = new SMUEEEntities())
                 {
-                    return dsSMUEE.SM_NOTIFICACIONES.Where(b => b.FK_Usuario.Equals(pk_usuario)).Where(a => a.VISTO.Equals(false)).ToList();
+                    //return dsSMUEE.SM_NOTIFICACIONES.Where(b => b.FK_Usuario.Equals(pk_usuario)).Where(a => a.VISTO.Equals(false)).ToList();
+                    return dsSMUEE.SM_NOTIFICACIONES.Where(b => b.FK_Usuario ==pk_usuario && b.VISTO == false).ToList();
+
                 }
             }
             catch (Exception)

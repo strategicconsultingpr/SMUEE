@@ -58,5 +58,14 @@ namespace SMUEE
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result>("SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS");
         }
+    
+        public virtual int SPD_SESION(Nullable<System.Guid> pK_Sesion)
+        {
+            var pK_SesionParameter = pK_Sesion.HasValue ?
+                new ObjectParameter("PK_Sesion", pK_Sesion) :
+                new ObjectParameter("PK_Sesion", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPD_SESION", pK_SesionParameter);
+        }
     }
 }

@@ -9,6 +9,9 @@
         <EntityTypeShape EntityType="SMUEEModel.VW_REPORTES" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="SMUEEModel.VW_UsersList" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="SMUEEModel.SM_NOTIFICACIONES" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SMUEEModel.SM_HISTORIAL" Width="1.5" PointX="9.625" PointY="1" />
+        <EntityTypeShape EntityType="SMUEEModel.SM_MODULO" Width="1.5" PointX="7.375" PointY="1.25" />
+        <AssociationConnector Association="SMUEEModel.FK_Modulo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

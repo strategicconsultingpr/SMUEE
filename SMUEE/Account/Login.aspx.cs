@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -66,19 +67,21 @@ namespace SMUEE.Account
                                 {
                                     ApplicationUser Usuario = context.Users.Where(u => u.Email.Equals(Email.Text, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
 
-                                    //using (CARAEntities dsCARA = new CARAEntities())
-                                    //{
-                                    //    System.Data.Entity.Core.Objects.ObjectParameter pk_Sesion_Output = new System.Data.Entity.Core.Objects.ObjectParameter("PK_Sesion", typeof(string));
+                                    using (var smuee = new SMUEEEntities())
+                                    {
+                                        System.Data.Entity.Core.Objects.ObjectParameter pk_Sesion_Output = new System.Data.Entity.Core.Objects.ObjectParameter("PK_Sesion", typeof(string));
 
-                                    //    var spc_sesion = dsCARA.SPC_SESION(Usuario.Id, pk_Sesion_Output);
+                                        var spc_sesion = smuee.SPC_SESION(Usuario.Id, pk_Sesion_Output);
 
-                                    //    Session["PK_Sesion"] = pk_Sesion_Output.Value.ToString();
-                                    //}
+                                        Session["PK_Sesion"] = pk_Sesion_Output.Value.ToString();
+                                    }
 
                                     Session["Usuario"] = Usuario;
 
+
                                     if (Usuario.PasswordChanged)
                                     {
+
                                         Response.Redirect("~/App/Entrada", false);
                                     }
                                     else

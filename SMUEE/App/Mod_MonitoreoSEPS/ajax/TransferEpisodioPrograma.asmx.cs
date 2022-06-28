@@ -20,11 +20,13 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
     [System.Web.Script.Services.ScriptService]
     public class TransferEpisodioPrograma : System.Web.Services.WebService
     {
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public bool TransferEpisode(int episode, int program, int nvlMh, int nvlAs, string expedienteNumber, string expedienteOption, bool deleteExpediente)
         {
             var user = ConfigurationManager.AppSettings["SEPS_USER"].ToString();
             var password = ConfigurationManager.AppSettings["SEPS_PASSWORD"].ToString();
+            var sesionSMUEE = HttpContext.Current.Session["PK_Sesion"].ToString();
+            var listLogs = new List<SM_HISTORIAL>();
 
             using (var seps = new SEPSEntities())
             {
@@ -46,6 +48,8 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
                         e.FK_NivelCuidadoSustancias = (byte?)nvlAs;
                         var expediente = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == e.FK_Persona && x.FK_Programa == e.FK_Programa);
                         var expedienteOriginal = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == e.FK_Persona && x.FK_Programa == oldProgram);
+                        listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 1, DE_Historial = $"Transfirió episodio {e.PK_Episodio} en programa #{oldProgram} a programa #{e.FK_Programa}" });
+
 
                         if (expedienteOption == "rdExpediente2")
                         {
@@ -65,6 +69,8 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
                                 };
 
                                 seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
+                                listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Agrego expediente #{expedienteNumber} para IUP:{e.FK_Persona} en Programa #{program}" });
+
                             }
                             else
                                 return false;
@@ -88,6 +94,8 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
                                 };
 
                                 seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
+                                listLogs.Add(new SM_HISTORIAL() {TI_ACCION = 0, DE_Historial = $"Agrego expediente #{expedienteOriginal.NR_Expediente} para IUP:{e.FK_Persona} en Programa #{program}" });
+
                             }
                             else
                                 return false;
@@ -100,6 +108,7 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
                             if (eps.Count <=1)
                             {
                                 seps.Entry(expedienteOriginal).State = EntityState.Deleted;
+                                listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 2, DE_Historial = $"Elimino expediente #{expedienteOriginal.NR_Expediente} para IUP:{expedienteOriginal.FK_Persona} en programa #{expedienteOriginal.FK_Programa}" });
 
                             }
 
@@ -109,11 +118,24 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
 
                         if (seps.SaveChanges() > 0)
                         {
-                            Logs.Add();
+                            if(listLogs.Count >0)
+                            {
+                                foreach(var historial in listLogs)
+                                {
+                                    historial.FK_Sesion = sesionSMUEE;
+                                    historial.FE_Historial = DateTime.Now;
+                                    historial.FK_Modulo = "MonitoreoSEPS";
+                                    Logs.Add(historial);
+                                }
+                            }
                             return true;
                         }
                     }
+
+                    seps.SPD_SESION(Guid.Parse(sesion.Value.ToString()));
+
                 }
+
             }
 
             return false;

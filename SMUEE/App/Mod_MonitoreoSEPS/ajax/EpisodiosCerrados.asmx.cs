@@ -20,11 +20,12 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
     [System.Web.Script.Services.ScriptService]
     public class EpisodiosCerrados : System.Web.Services.WebService
     {
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public int OpenEpisode(int episode)
         {
             var user = ConfigurationManager.AppSettings["SEPS_USER"].ToString();
             var password = ConfigurationManager.AppSettings["SEPS_PASSWORD"].ToString();
+            var sesionSMUEE = HttpContext.Current.Session["PK_Sesion"].ToString();
 
             using (var seps = new SEPSEntities())
             {
@@ -53,14 +54,18 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
 
                             if (seps.SaveChanges() > 0)
                             {
-                                Logs.Add();
-                                //Episodio Reabierto
+                                Logs.Add(new SM_HISTORIAL() {FK_Sesion = sesionSMUEE,FE_Historial = DateTime.Now,
+                                FK_Modulo = "MonitoreoSEPS", TI_ACCION = 1, DE_Historial = $"Reabrió episodio {e.PK_Episodio}" });
+
                                 return 1;
                             }
                         }
                     }
                     else
                         return 2;
+
+                    seps.SPD_SESION(Guid.Parse(sesion.Value.ToString()));
+
                 }
             }
             //No se pudo reabir

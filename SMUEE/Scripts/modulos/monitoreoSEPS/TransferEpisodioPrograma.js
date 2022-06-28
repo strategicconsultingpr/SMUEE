@@ -387,11 +387,14 @@ function GetEpisode(iup) {
 
 }
 
-function GetExpedienteOriginal(iup, programa) {
+function GetExpedienteOriginal(iup, programa, programa2) {
+
+    $('#lblDeleteExpediente').text(`Eliminar expediente de ${$("#MainContent_lblNbPrograma").val()}`);
+
     $.ajax({
         type: "POST", //POST
-        url: "ajax/MonitoreoHelpers.asmx/GetExpediente",
-        data: `{iup:${iup} , programa:${programa}}`,
+        url: "ajax/MonitoreoHelpers.asmx/GetExpediente2",
+        data: `{iup:${iup} , programa:${programa},programa2:${programa2}}`,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
@@ -400,7 +403,6 @@ function GetExpedienteOriginal(iup, programa) {
             if (obj != null) {
                 var p = obj.d;
                 if (p != null) {
-                    $('#lblDeleteExpediente').text(`Eliminar expediente de ${$("#MainContent_lblNbPrograma").val()}`);
                     $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(3);"  name="expediente" id="rdExpediente3" value="${p.NR_Expediente}"><label> ${p.NR_Expediente} - Copiar Expediente de ${$("#MainContent_lblNbPrograma").val()}</label><br>`);
                 }
             }
@@ -445,7 +447,7 @@ function GetExpediente(iup, programa) {
 
                     $("#MainContent_lblExpedienteMsg").text(`(IUP: ${lblIUPInfo1}) ${lblNameInfo1} no cuenta con un expediente en ${$("#MainContent_ddlPrograma option:selected").text()}`);
                     $("#MainContent_lblExpedienteMsg").show();
-                    GetExpedienteOriginal(iup, $("#MainContent_lblPrograma").val());
+                    GetExpedienteOriginal(iup, $("#MainContent_lblPrograma").val(), programa);
                     $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(2);"  name="expediente" id="rdExpediente2" value=""><label>Crear Expediente</label><br>`);
                 }
 

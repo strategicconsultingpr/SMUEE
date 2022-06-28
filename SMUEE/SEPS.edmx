@@ -880,6 +880,9 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
           <Parameter Name="PASSWORD" Type="varchar" Mode="In" />
           <Parameter Name="PK_Sesion" Type="uniqueidentifier" Mode="InOut" />
         </Function>
+        <Function Name="SPD_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PK_Sesion" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <EntityContainer Name="SEPSModelStoreContainer">
           <EntitySet Name="SA_EPISODIO" EntityType="Self.SA_EPISODIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERFIL" EntityType="Self.SA_PERFIL" Schema="dbo" store:Type="Tables" />
@@ -1679,6 +1682,9 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
           </AssociationSet>
           <EntitySet Name="VW_REF_ABUSO_SUSTANCIA" EntityType="SEPSModel.VW_REF_ABUSO_SUSTANCIA" />
           <EntitySet Name="VW_REF_SALUD_MENTAL" EntityType="SEPSModel.VW_REF_SALUD_MENTAL" />
+          <FunctionImport Name="SPD_SESION">
+            <Parameter Name="PK_Sesion" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="VW_EPISODIO">
           <Key>
@@ -3170,6 +3176,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SPD_SESION" FunctionName="SEPSModel.Store.SPD_SESION" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

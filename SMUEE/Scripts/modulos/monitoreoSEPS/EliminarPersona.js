@@ -262,12 +262,12 @@ function Delete(iup) {
 
                 if (p == true) {
 
-                    $("#lblConfirmacion").text(`Se ha eliminado exitosamente la persona (IUP: ${$("#MainContent_lblIUPInfo1").text()}) ${$("#MainContent_lblNameInfo1").text()}`);
+                    $("#lblConfirmacion").text(`Se ha eliminado exitosamente el participante (IUP: ${$("#MainContent_lblIUPInfo1").text()}) ${$("#MainContent_lblNameInfo1").text()}`);
                     $("#btnNextStep4").show();
                     $("#btnBackStep4").hide();
                 }
                 else {
-                    $("#lblConfirmacion").text(`No se ha podido eliminar la persona (IUP: ${$("#MainContent_lblIUPInfo1").text()}) ${$("#MainContent_lblNameInfo1").text()}`);
+                    $("#lblConfirmacion").text(`No se ha podido eliminar la participante (IUP: ${$("#MainContent_lblIUPInfo1").text()}) ${$("#MainContent_lblNameInfo1").text()}`);
                     $("#btnNextStep4").hide();
                     $("#btnBackStep4").show();
                 }

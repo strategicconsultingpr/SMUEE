@@ -12,7 +12,7 @@
                                 <div class="page-header-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    Transferencia de Episodios a otro programa
+                                    Transferencia de Episodios a Otro Programa
                                 </div>
 
                             </h3>
@@ -338,7 +338,7 @@
                                     <hr class="my-4">
                                     <div class="d-flex justify-content-between">
                                         <a class="btn btn-light" id="btnBackStep6" data-toggle="tab" href="#wizard5" role="tab" aria-controls="wizard6" onclick="wizard6to5();" type="button">Anterior</a>
-                                        <a class="btn btn-primary" id="btnNextStep6" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/TransferenciaEpisodiosPrograma")%>">Terminar</a>
+                                        <a class="btn btn-primary" id="btnNextStep6" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/TransferenciaEpisodiosProgramas")%>">Terminar</a>
                                     </div>
                                 </div>
                             </div>

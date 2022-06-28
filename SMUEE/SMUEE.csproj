@@ -2472,6 +2472,12 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="SM_HISTORIAL.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SM_MODULO.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
     <Compile Include="SM_NOTIFICACIONES.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
