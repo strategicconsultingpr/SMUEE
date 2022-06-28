@@ -97,6 +97,9 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Parameter Name="FK_Usuario" Type="nvarchar" Mode="In" />
           <Parameter Name="PK_Sesion" Type="nvarchar" Mode="InOut" />
         </Function>
+        <Function Name="SPD_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PK_Sesion" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="SMUEEModelStoreContainer">
           <EntitySet Name="SM_HISTORIAL" EntityType="Self.SM_HISTORIAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SM_MODULO" EntityType="Self.SM_MODULO" Schema="dbo" store:Type="Tables" />
@@ -155,6 +158,9 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <FunctionImport Name="SPC_SESION">
             <Parameter Name="FK_Usuario" Mode="In" Type="String" />
             <Parameter Name="PK_Sesion" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SPD_SESION">
+            <Parameter Name="PK_Sesion" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="VW_CATEGORIA_REPORTE">
@@ -319,6 +325,7 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SPC_SESION" FunctionName="SMUEEModel.Store.SPC_SESION" />
+          <FunctionImportMapping FunctionImportName="SPD_SESION" FunctionName="SMUEEModel.Store.SPD_SESION" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

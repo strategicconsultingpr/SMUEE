@@ -126,18 +126,18 @@ namespace SMUEE
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
-            //try
-            //{
-            //    using (CARAEntities dsCARA = new CARAEntities())
-            //    {
-            //        var spd_sesion = dsCARA.SPD_SESION(Session["PK_Sesion"].ToString());
-            //    }
-            //}
-            //catch (Exception)
-            //{
+            try
+            {
+                using (var  smuee = new SMUEEEntities())
+                {
+                    var spd_sesion = smuee.SPD_SESION(Session["PK_Sesion"].ToString());
+                }
+            }
+            catch (Exception)
+            {
 
-            //    throw;
-            //}
+                throw;
+            }
 
             Session["Usuario"] = null;
             Session["PK_Sesion"] = null;

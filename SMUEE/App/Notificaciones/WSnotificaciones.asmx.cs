@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SMUEE.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,16 +7,7 @@ using System.Web.Services;
 
 namespace SMUEE.App.Notificaciones
 {
-    public class listaNotificaciones
-    {
-        public int PK_NOTIFICACIONES;
-        public string DE_NOTIFICACIONES;
-        public string FK_Usuario;
-        public string COLOR_ICONO;
-        public string NB_ICONO;
-        public DateTime FE_ENVIADO;
-        public bool VISTO;
-    }
+
     /// <summary>
     /// Summary description for WSnotificaciones
     /// </summary>
@@ -27,15 +19,13 @@ namespace SMUEE.App.Notificaciones
     public class WSnotificaciones : System.Web.Services.WebService
     {
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public List<SM_NOTIFICACIONES> getListaNotificaciones()
         {
-            listaNotificaciones lista = new listaNotificaciones();
             notificacionesComponents NC = new notificacionesComponents();
+            var Usuario = (ApplicationUser)Session["Usuario"];
 
-            string pk_usuario = "a3f1ae28-44e8-4a5e-b789-5e8817a2c388";
-
-            return NC.GetNotifications(pk_usuario);
+            return NC.GetNotifications(Usuario.Id);
 
 
         }

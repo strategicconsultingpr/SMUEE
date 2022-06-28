@@ -313,7 +313,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell fa-fw"></i>
                                     <!-- Counter - Alerts -->
-                                    <span class="badge badge-danger badge-counter count"></span>
+                                    <span id="alertasCount" class="badge badge-danger badge-counter count"></span>
                                 </a>
                                 <!-- Dropdown - Alerts -->
                                 <div class="dpAlertas dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -502,21 +502,37 @@
 
         $(function () {
            <%-- var usuario = '{pk_usuario:"' + <%: Context.User.Identity.GetUserId().ToString()  %> + '"}'--%>
-            var usuario = '{pk_usuario: "a3f1ae28-44e8-4a5e-b789-5e8817a2c388"}'
+            //var usuario = '{pk_usuario: "a3f1ae28-44e8-4a5e-b789-5e8817a2c388"}'
             $.ajax({
                 type: 'POST',
                 url: 'Notificaciones/WSnotificaciones.asmx/getListaNotificaciones',
-                //data: usuario,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    $('.dpAlertas').empty();
-                    //if (response.length == 0) {
 
-                    //}
-                    $.each(response, function (index, value) {
-                        $('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle"' + value.COLOR_ICONO + '"><i class="' + value.NB_ICONO + ' text-white"></i></div></div><div><div class="small text-gray-500">' + value.FE_ENVIADO + '</div><span class="font-weight-bold">' + value.DE_NOTIFICACIONES + '</span></div> </a>'));
-                    });
+                    $('.dpAlertas').empty();
+                    $("#alertasCount").text("");
+
+
+                    if (response.d != null)
+                    {
+                        var lista = response.d;
+
+                        if (lista.length > 0) {
+
+                            $("#alertasCount").text(lista.length);
+
+                        $.each(lista, function (index, value) {
+                                var fe = new Date(parseInt(value.FE_ENVIADO.substr(6)));
+                                var fe_s = fe.format("MMMM dd, yyyy");
+                                $('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle ' + value.COLOR_ICONO + '"><i class="' + value.NB_ICONO + '"></i></div></div><div><div class="small text-gray-500">' + fe_s + '</div><span class="font-weight-bold">' + value.DE_NOTIFICACIONES + '</span></div> </a>'));
+                            });
+                        }
+
+
+                    }
+
+                   
                 },
                 error: function (error) {
                     console.log(error);

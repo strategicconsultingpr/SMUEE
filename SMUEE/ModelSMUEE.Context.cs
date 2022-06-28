@@ -42,5 +42,14 @@ namespace SMUEE
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_SESION", fK_UsuarioParameter, pK_Sesion);
         }
+    
+        public virtual int SPD_SESION(string pK_Sesion)
+        {
+            var pK_SesionParameter = pK_Sesion != null ?
+                new ObjectParameter("PK_Sesion", pK_Sesion) :
+                new ObjectParameter("PK_Sesion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPD_SESION", pK_SesionParameter);
+        }
     }
 }
