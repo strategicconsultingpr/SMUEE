@@ -8,10 +8,16 @@
         <EntityTypeShape EntityType="SMUEEModel.VW_CATEGORIA_REPORTE" Width="1.5" PointX="3.75" PointY="0.75" />
         <EntityTypeShape EntityType="SMUEEModel.VW_REPORTES" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="SMUEEModel.VW_UsersList" Width="1.5" PointX="3.375" PointY="3.75" />
-        <EntityTypeShape EntityType="SMUEEModel.SM_NOTIFICACIONES" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="SMUEEModel.SM_HISTORIAL" Width="1.5" PointX="9.625" PointY="1" />
         <EntityTypeShape EntityType="SMUEEModel.SM_MODULO" Width="1.5" PointX="7.375" PointY="1.25" />
         <AssociationConnector Association="SMUEEModel.FK_Modulo" />
+        <EntityTypeShape EntityType="SMUEEModel.SM_LKP_ICONO_NOTIFICACIONES" Width="1.5" PointX="5.75" PointY="5.125" />
+        <EntityTypeShape EntityType="SMUEEModel.SM_NOTIFICACIONES" Width="1.5" PointX="8" PointY="5" />
+        <EntityTypeShape EntityType="SMUEEModel.SM_NOTIFICACIONES_USUARIO" Width="1.5" PointX="10.25" PointY="5.375" />
+        <AssociationConnector Association="SMUEEModel.FK__SM_NOTIFI__FK_IC__7908F585" />
+        <AssociationConnector Association="SMUEEModel.FK_NOTIFICACION2" />
+        <EntityTypeShape EntityType="SMUEEModel.VW_NOTIFICACIONES_USUARIO" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SMUEEModel.VW_NOTIFICACIONES" Width="1.5" PointX="5.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -20,7 +20,7 @@ namespace SMUEE.App.Notificaciones
     {
 
         [WebMethod(EnableSession = true)]
-        public List<SM_NOTIFICACIONES> getListaNotificaciones()
+        public List<VW_NOTIFICACIONES_USUARIO> getListaNotificaciones()
         {
             notificacionesComponents NC = new notificacionesComponents();
             var Usuario = (ApplicationUser)Session["Usuario"];
@@ -29,5 +29,37 @@ namespace SMUEE.App.Notificaciones
 
 
         }
+
+
+        [WebMethod(EnableSession = true)]
+        public bool CheckNotificaciones(int id)
+        {
+            var Usuario = (ApplicationUser)Session["Usuario"];
+
+
+            using(var smuee = new SMUEEEntities())
+            {
+                var ref_notfication = smuee.SM_NOTIFICACIONES_USUARIO.FirstOrDefault(x=>x.FK_NOTIFICACIONES == id && x.FK_USUARIO == Usuario.Id);
+
+                if(ref_notfication != null)
+                {
+                    ref_notfication.VISTO = true;
+                    smuee.Entry(ref_notfication).State = System.Data.Entity.EntityState.Modified;
+
+                    if (smuee.SaveChanges() > 0)
+                        return true;
+
+                }
+            }
+
+            return false;
+
+        }
+
+
+
+
+
+
     }
 }

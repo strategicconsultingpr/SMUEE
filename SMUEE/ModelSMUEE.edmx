@@ -16,6 +16,16 @@
           <Property Name="TI_ACCION" Type="tinyint" />
           <Property Name="FK_Modulo" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="SM_LKP_ICONO_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="PK_ICONO" />
+          </Key>
+          <Property Name="PK_ICONO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COLOR_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NB_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DE_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ACTIVO" Type="bit" />
+        </EntityType>
         <EntityType Name="SM_MODULO">
           <Key>
             <PropertyRef Name="PK_Modulo" />
@@ -30,10 +40,18 @@
           </Key>
           <Property Name="PK_NOTIFICACIONES" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DE_NOTIFICACIONES" Type="varchar(max)" />
-          <Property Name="FK_Usuario" Type="nvarchar" MaxLength="128" />
-          <Property Name="COLOR_ICONO" Type="nvarchar" MaxLength="100" />
-          <Property Name="NB_ICONO" Type="nvarchar" MaxLength="100" />
           <Property Name="FE_ENVIADO" Type="datetime" />
+          <Property Name="TITULO" Type="varchar" MaxLength="100" />
+          <Property Name="FK_ICONO" Type="int" />
+          <Property Name="ACTIVO" Type="bit" />
+        </EntityType>
+        <EntityType Name="SM_NOTIFICACIONES_USUARIO">
+          <Key>
+            <PropertyRef Name="FK_USUARIO" />
+            <PropertyRef Name="FK_NOTIFICACIONES" />
+          </Key>
+          <Property Name="FK_USUARIO" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FK_NOTIFICACIONES" Type="int" Nullable="false" />
           <Property Name="VISTO" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -46,6 +64,47 @@ warning 6002: The table/view 'SMUEE.dbo.VW_CATEGORIA_REPORTE' does not have a pr
           <Property Name="NB_CATEGORIA_REPORTE" Type="varchar" MaxLength="100" />
           <Property Name="ACTIVE" Type="bit" />
           <Property Name="MODULO_REPORTE" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUEE.dbo.VW_NOTIFICACIONES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="PK_NOTIFICACIONES" />
+            <PropertyRef Name="COLOR_ICONO" />
+            <PropertyRef Name="NB_ICONO" />
+            <PropertyRef Name="DE_ICONO" />
+          </Key>
+          <Property Name="PK_NOTIFICACIONES" Type="int" Nullable="false" />
+          <Property Name="DE_NOTIFICACIONES" Type="varchar(max)" />
+          <Property Name="FE_ENVIADO" Type="datetime" />
+          <Property Name="TITULO" Type="varchar" MaxLength="100" />
+          <Property Name="FK_ICONO" Type="int" />
+          <Property Name="ACTIVO" Type="bit" />
+          <Property Name="COLOR_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NB_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DE_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUEE.dbo.VW_NOTIFICACIONES_USUARIO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_NOTIFICACIONES_USUARIO">
+          <Key>
+            <PropertyRef Name="FK_USUARIO" />
+            <PropertyRef Name="FK_NOTIFICACIONES" />
+            <PropertyRef Name="COLOR_ICONO" />
+            <PropertyRef Name="NB_ICONO" />
+            <PropertyRef Name="DE_ICONO" />
+          </Key>
+          <Property Name="DE_NOTIFICACIONES" Type="varchar(max)" />
+          <Property Name="FE_ENVIADO" Type="datetime" />
+          <Property Name="TITULO" Type="varchar" MaxLength="100" />
+          <Property Name="FK_ICONO" Type="int" />
+          <Property Name="ACTIVO" Type="bit" />
+          <Property Name="VISTO" Type="bit" />
+          <Property Name="FK_USUARIO" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FK_NOTIFICACIONES" Type="int" Nullable="false" />
+          <Property Name="COLOR_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NB_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DE_ICONO" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SMUEE.dbo.VW_REPORTES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -81,6 +140,18 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Property Name="Confirmado" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="Estatus" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
+        <Association Name="FK__SM_NOTIFI__FK_IC__7908F585">
+          <End Role="SM_LKP_ICONO_NOTIFICACIONES" Type="Self.SM_LKP_ICONO_NOTIFICACIONES" Multiplicity="0..1" />
+          <End Role="SM_NOTIFICACIONES" Type="Self.SM_NOTIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM_LKP_ICONO_NOTIFICACIONES">
+              <PropertyRef Name="PK_ICONO" />
+            </Principal>
+            <Dependent Role="SM_NOTIFICACIONES">
+              <PropertyRef Name="FK_ICONO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Modulo">
           <End Role="SM_MODULO" Type="Self.SM_MODULO" Multiplicity="0..1" />
           <End Role="SM_HISTORIAL" Type="Self.SM_HISTORIAL" Multiplicity="*" />
@@ -93,6 +164,18 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NOTIFICACION2">
+          <End Role="SM_NOTIFICACIONES" Type="Self.SM_NOTIFICACIONES" Multiplicity="1" />
+          <End Role="SM_NOTIFICACIONES_USUARIO" Type="Self.SM_NOTIFICACIONES_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM_NOTIFICACIONES">
+              <PropertyRef Name="PK_NOTIFICACIONES" />
+            </Principal>
+            <Dependent Role="SM_NOTIFICACIONES_USUARIO">
+              <PropertyRef Name="FK_NOTIFICACIONES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SPC_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FK_Usuario" Type="nvarchar" Mode="In" />
           <Parameter Name="PK_Sesion" Type="nvarchar" Mode="InOut" />
@@ -102,8 +185,10 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
         </Function>
         <EntityContainer Name="SMUEEModelStoreContainer">
           <EntitySet Name="SM_HISTORIAL" EntityType="Self.SM_HISTORIAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SM_LKP_ICONO_NOTIFICACIONES" EntityType="Self.SM_LKP_ICONO_NOTIFICACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SM_MODULO" EntityType="Self.SM_MODULO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SM_NOTIFICACIONES" EntityType="Self.SM_NOTIFICACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SM_NOTIFICACIONES_USUARIO" EntityType="Self.SM_NOTIFICACIONES_USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VW_CATEGORIA_REPORTE" EntityType="Self.VW_CATEGORIA_REPORTE" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VW_CATEGORIA_REPORTE].[PK_CATEGORIA_REPORTE] AS [PK_CATEGORIA_REPORTE], 
@@ -111,6 +196,34 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
     [VW_CATEGORIA_REPORTE].[ACTIVE] AS [ACTIVE], 
     [VW_CATEGORIA_REPORTE].[MODULO_REPORTE] AS [MODULO_REPORTE]
     FROM [dbo].[VW_CATEGORIA_REPORTE] AS [VW_CATEGORIA_REPORTE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_NOTIFICACIONES" EntityType="Self.VW_NOTIFICACIONES" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_NOTIFICACIONES].[PK_NOTIFICACIONES] AS [PK_NOTIFICACIONES], 
+    [VW_NOTIFICACIONES].[DE_NOTIFICACIONES] AS [DE_NOTIFICACIONES], 
+    [VW_NOTIFICACIONES].[FE_ENVIADO] AS [FE_ENVIADO], 
+    [VW_NOTIFICACIONES].[TITULO] AS [TITULO], 
+    [VW_NOTIFICACIONES].[FK_ICONO] AS [FK_ICONO], 
+    [VW_NOTIFICACIONES].[ACTIVO] AS [ACTIVO], 
+    [VW_NOTIFICACIONES].[COLOR_ICONO] AS [COLOR_ICONO], 
+    [VW_NOTIFICACIONES].[NB_ICONO] AS [NB_ICONO], 
+    [VW_NOTIFICACIONES].[DE_ICONO] AS [DE_ICONO]
+    FROM [dbo].[VW_NOTIFICACIONES] AS [VW_NOTIFICACIONES]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_NOTIFICACIONES_USUARIO" EntityType="Self.VW_NOTIFICACIONES_USUARIO" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_NOTIFICACIONES_USUARIO].[DE_NOTIFICACIONES] AS [DE_NOTIFICACIONES], 
+    [VW_NOTIFICACIONES_USUARIO].[FE_ENVIADO] AS [FE_ENVIADO], 
+    [VW_NOTIFICACIONES_USUARIO].[TITULO] AS [TITULO], 
+    [VW_NOTIFICACIONES_USUARIO].[FK_ICONO] AS [FK_ICONO], 
+    [VW_NOTIFICACIONES_USUARIO].[ACTIVO] AS [ACTIVO], 
+    [VW_NOTIFICACIONES_USUARIO].[VISTO] AS [VISTO], 
+    [VW_NOTIFICACIONES_USUARIO].[FK_USUARIO] AS [FK_USUARIO], 
+    [VW_NOTIFICACIONES_USUARIO].[FK_NOTIFICACIONES] AS [FK_NOTIFICACIONES], 
+    [VW_NOTIFICACIONES_USUARIO].[COLOR_ICONO] AS [COLOR_ICONO], 
+    [VW_NOTIFICACIONES_USUARIO].[NB_ICONO] AS [NB_ICONO], 
+    [VW_NOTIFICACIONES_USUARIO].[DE_ICONO] AS [DE_ICONO]
+    FROM [dbo].[VW_NOTIFICACIONES_USUARIO] AS [VW_NOTIFICACIONES_USUARIO]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VW_REPORTES" EntityType="Self.VW_REPORTES" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -135,9 +248,17 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
     [VW_UsersList].[Estatus] AS [Estatus]
     FROM [dbo].[VW_UsersList] AS [VW_UsersList]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__SM_NOTIFI__FK_IC__7908F585" Association="Self.FK__SM_NOTIFI__FK_IC__7908F585">
+            <End Role="SM_LKP_ICONO_NOTIFICACIONES" EntitySet="SM_LKP_ICONO_NOTIFICACIONES" />
+            <End Role="SM_NOTIFICACIONES" EntitySet="SM_NOTIFICACIONES" />
+          </AssociationSet>
           <AssociationSet Name="FK_Modulo" Association="Self.FK_Modulo">
             <End Role="SM_MODULO" EntitySet="SM_MODULO" />
             <End Role="SM_HISTORIAL" EntitySet="SM_HISTORIAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICACION2" Association="Self.FK_NOTIFICACION2">
+            <End Role="SM_NOTIFICACIONES" EntitySet="SM_NOTIFICACIONES" />
+            <End Role="SM_NOTIFICACIONES_USUARIO" EntitySet="SM_NOTIFICACIONES_USUARIO" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -148,7 +269,6 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <EntitySet Name="VW_CATEGORIA_REPORTE" EntityType="SMUEEModel.VW_CATEGORIA_REPORTE" />
           <EntitySet Name="VW_REPORTES" EntityType="SMUEEModel.VW_REPORTES" />
           <EntitySet Name="VW_UsersList" EntityType="SMUEEModel.VW_UsersList" />
-          <EntitySet Name="SM_NOTIFICACIONES" EntityType="SMUEEModel.SM_NOTIFICACIONES" />
           <EntitySet Name="SM_HISTORIAL" EntityType="SMUEEModel.SM_HISTORIAL" />
           <EntitySet Name="SM_MODULO" EntityType="SMUEEModel.SM_MODULO" />
           <AssociationSet Name="FK_Modulo" Association="SMUEEModel.FK_Modulo">
@@ -160,8 +280,21 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
             <Parameter Name="PK_Sesion" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SPD_SESION">
-            <Parameter Name="PK_Sesion" Mode="In" Type="String" />
+          <Parameter Name="PK_Sesion" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SM_LKP_ICONO_NOTIFICACIONES" EntityType="SMUEEModel.SM_LKP_ICONO_NOTIFICACIONES" />
+          <EntitySet Name="SM_NOTIFICACIONES" EntityType="SMUEEModel.SM_NOTIFICACIONES" />
+          <EntitySet Name="SM_NOTIFICACIONES_USUARIO" EntityType="SMUEEModel.SM_NOTIFICACIONES_USUARIO" />
+          <AssociationSet Name="FK__SM_NOTIFI__FK_IC__7908F585" Association="SMUEEModel.FK__SM_NOTIFI__FK_IC__7908F585">
+            <End Role="SM_LKP_ICONO_NOTIFICACIONES" EntitySet="SM_LKP_ICONO_NOTIFICACIONES" />
+            <End Role="SM_NOTIFICACIONES" EntitySet="SM_NOTIFICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICACION2" Association="SMUEEModel.FK_NOTIFICACION2">
+            <End Role="SM_NOTIFICACIONES" EntitySet="SM_NOTIFICACIONES" />
+            <End Role="SM_NOTIFICACIONES_USUARIO" EntitySet="SM_NOTIFICACIONES_USUARIO" />
+          </AssociationSet>
+          <EntitySet Name="VW_NOTIFICACIONES_USUARIO" EntityType="SMUEEModel.VW_NOTIFICACIONES_USUARIO" />
+          <EntitySet Name="VW_NOTIFICACIONES" EntityType="SMUEEModel.VW_NOTIFICACIONES" />
         </EntityContainer>
         <EntityType Name="VW_CATEGORIA_REPORTE">
           <Key>
@@ -202,18 +335,6 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Property Name="Confirmado" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="Estatus" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="SM_NOTIFICACIONES">
-          <Key>
-            <PropertyRef Name="PK_NOTIFICACIONES" />
-          </Key>
-          <Property Name="PK_NOTIFICACIONES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DE_NOTIFICACIONES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="FK_Usuario" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="COLOR_ICONO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NB_ICONO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FE_ENVIADO" Type="DateTime" Precision="3" />
-          <Property Name="VISTO" Type="Boolean" />
-        </EntityType>
         <EntityType Name="SM_HISTORIAL">
           <Key>
             <PropertyRef Name="PK_Historial" />
@@ -247,6 +368,101 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SM_LKP_ICONO_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="PK_ICONO" />
+          </Key>
+          <Property Name="PK_ICONO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COLOR_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NB_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DE_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVO" Type="Boolean" />
+          <NavigationProperty Name="SM_NOTIFICACIONES" Relationship="SMUEEModel.FK__SM_NOTIFI__FK_IC__7908F585" FromRole="SM_LKP_ICONO_NOTIFICACIONES" ToRole="SM_NOTIFICACIONES" />
+        </EntityType>
+        <EntityType Name="SM_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="PK_NOTIFICACIONES" />
+          </Key>
+          <Property Name="PK_NOTIFICACIONES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DE_NOTIFICACIONES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FE_ENVIADO" Type="DateTime" Precision="3" />
+          <Property Name="TITULO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FK_ICONO" Type="Int32" />
+          <Property Name="ACTIVO" Type="Boolean" />
+          <NavigationProperty Name="SM_LKP_ICONO_NOTIFICACIONES" Relationship="SMUEEModel.FK__SM_NOTIFI__FK_IC__7908F585" FromRole="SM_NOTIFICACIONES" ToRole="SM_LKP_ICONO_NOTIFICACIONES" />
+          <NavigationProperty Name="SM_NOTIFICACIONES_USUARIO" Relationship="SMUEEModel.FK_NOTIFICACION2" FromRole="SM_NOTIFICACIONES" ToRole="SM_NOTIFICACIONES_USUARIO" />
+        </EntityType>
+        <EntityType Name="SM_NOTIFICACIONES_USUARIO">
+          <Key>
+            <PropertyRef Name="FK_USUARIO" />
+            <PropertyRef Name="FK_NOTIFICACIONES" />
+          </Key>
+          <Property Name="FK_USUARIO" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FK_NOTIFICACIONES" Type="Int32" Nullable="false" />
+          <Property Name="VISTO" Type="Boolean" />
+          <NavigationProperty Name="SM_NOTIFICACIONES" Relationship="SMUEEModel.FK_NOTIFICACION2" FromRole="SM_NOTIFICACIONES_USUARIO" ToRole="SM_NOTIFICACIONES" />
+        </EntityType>
+        <Association Name="FK__SM_NOTIFI__FK_IC__7908F585">
+          <End Type="SMUEEModel.SM_LKP_ICONO_NOTIFICACIONES" Role="SM_LKP_ICONO_NOTIFICACIONES" Multiplicity="0..1" />
+          <End Type="SMUEEModel.SM_NOTIFICACIONES" Role="SM_NOTIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM_LKP_ICONO_NOTIFICACIONES">
+              <PropertyRef Name="PK_ICONO" />
+            </Principal>
+            <Dependent Role="SM_NOTIFICACIONES">
+              <PropertyRef Name="FK_ICONO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICACION2">
+          <End Type="SMUEEModel.SM_NOTIFICACIONES" Role="SM_NOTIFICACIONES" Multiplicity="1" />
+          <End Type="SMUEEModel.SM_NOTIFICACIONES_USUARIO" Role="SM_NOTIFICACIONES_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM_NOTIFICACIONES">
+              <PropertyRef Name="PK_NOTIFICACIONES" />
+            </Principal>
+            <Dependent Role="SM_NOTIFICACIONES_USUARIO">
+              <PropertyRef Name="FK_NOTIFICACIONES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VW_NOTIFICACIONES_USUARIO">
+          <Key>
+            <PropertyRef Name="FK_USUARIO" />
+            <PropertyRef Name="FK_NOTIFICACIONES" />
+            <PropertyRef Name="COLOR_ICONO" />
+            <PropertyRef Name="NB_ICONO" />
+            <PropertyRef Name="DE_ICONO" />
+          </Key>
+          <Property Name="DE_NOTIFICACIONES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FE_ENVIADO" Type="DateTime" Precision="3" />
+          <Property Name="TITULO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FK_ICONO" Type="Int32" />
+          <Property Name="ACTIVO" Type="Boolean" />
+          <Property Name="VISTO" Type="Boolean" />
+          <Property Name="FK_USUARIO" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FK_NOTIFICACIONES" Type="Int32" Nullable="false" />
+          <Property Name="COLOR_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NB_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DE_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VW_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="PK_NOTIFICACIONES" />
+            <PropertyRef Name="COLOR_ICONO" />
+            <PropertyRef Name="NB_ICONO" />
+            <PropertyRef Name="DE_ICONO" />
+          </Key>
+          <Property Name="PK_NOTIFICACIONES" Type="Int32" Nullable="false" />
+          <Property Name="DE_NOTIFICACIONES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FE_ENVIADO" Type="DateTime" Precision="3" />
+          <Property Name="TITULO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FK_ICONO" Type="Int32" />
+          <Property Name="ACTIVO" Type="Boolean" />
+          <Property Name="COLOR_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NB_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DE_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -290,19 +506,6 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SM_NOTIFICACIONES">
-            <EntityTypeMapping TypeName="SMUEEModel.SM_NOTIFICACIONES">
-              <MappingFragment StoreEntitySet="SM_NOTIFICACIONES">
-                <ScalarProperty Name="VISTO" ColumnName="VISTO" />
-                <ScalarProperty Name="FE_ENVIADO" ColumnName="FE_ENVIADO" />
-                <ScalarProperty Name="NB_ICONO" ColumnName="NB_ICONO" />
-                <ScalarProperty Name="COLOR_ICONO" ColumnName="COLOR_ICONO" />
-                <ScalarProperty Name="FK_Usuario" ColumnName="FK_Usuario" />
-                <ScalarProperty Name="DE_NOTIFICACIONES" ColumnName="DE_NOTIFICACIONES" />
-                <ScalarProperty Name="PK_NOTIFICACIONES" ColumnName="PK_NOTIFICACIONES" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SM_HISTORIAL">
             <EntityTypeMapping TypeName="SMUEEModel.SM_HISTORIAL">
               <MappingFragment StoreEntitySet="SM_HISTORIAL">
@@ -326,6 +529,70 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SPC_SESION" FunctionName="SMUEEModel.Store.SPC_SESION" />
           <FunctionImportMapping FunctionImportName="SPD_SESION" FunctionName="SMUEEModel.Store.SPD_SESION" />
+          <EntitySetMapping Name="SM_LKP_ICONO_NOTIFICACIONES">
+            <EntityTypeMapping TypeName="SMUEEModel.SM_LKP_ICONO_NOTIFICACIONES">
+              <MappingFragment StoreEntitySet="SM_LKP_ICONO_NOTIFICACIONES">
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="DE_ICONO" ColumnName="DE_ICONO" />
+                <ScalarProperty Name="NB_ICONO" ColumnName="NB_ICONO" />
+                <ScalarProperty Name="COLOR_ICONO" ColumnName="COLOR_ICONO" />
+                <ScalarProperty Name="PK_ICONO" ColumnName="PK_ICONO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SM_NOTIFICACIONES">
+            <EntityTypeMapping TypeName="SMUEEModel.SM_NOTIFICACIONES">
+              <MappingFragment StoreEntitySet="SM_NOTIFICACIONES">
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="FK_ICONO" ColumnName="FK_ICONO" />
+                <ScalarProperty Name="TITULO" ColumnName="TITULO" />
+                <ScalarProperty Name="FE_ENVIADO" ColumnName="FE_ENVIADO" />
+                <ScalarProperty Name="DE_NOTIFICACIONES" ColumnName="DE_NOTIFICACIONES" />
+                <ScalarProperty Name="PK_NOTIFICACIONES" ColumnName="PK_NOTIFICACIONES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SM_NOTIFICACIONES_USUARIO">
+            <EntityTypeMapping TypeName="SMUEEModel.SM_NOTIFICACIONES_USUARIO">
+              <MappingFragment StoreEntitySet="SM_NOTIFICACIONES_USUARIO">
+                <ScalarProperty Name="VISTO" ColumnName="VISTO" />
+                <ScalarProperty Name="FK_NOTIFICACIONES" ColumnName="FK_NOTIFICACIONES" />
+                <ScalarProperty Name="FK_USUARIO" ColumnName="FK_USUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_NOTIFICACIONES_USUARIO">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_NOTIFICACIONES_USUARIO">
+              <MappingFragment StoreEntitySet="VW_NOTIFICACIONES_USUARIO">
+                <ScalarProperty Name="DE_ICONO" ColumnName="DE_ICONO" />
+                <ScalarProperty Name="NB_ICONO" ColumnName="NB_ICONO" />
+                <ScalarProperty Name="COLOR_ICONO" ColumnName="COLOR_ICONO" />
+                <ScalarProperty Name="FK_NOTIFICACIONES" ColumnName="FK_NOTIFICACIONES" />
+                <ScalarProperty Name="FK_USUARIO" ColumnName="FK_USUARIO" />
+                <ScalarProperty Name="VISTO" ColumnName="VISTO" />
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="FK_ICONO" ColumnName="FK_ICONO" />
+                <ScalarProperty Name="TITULO" ColumnName="TITULO" />
+                <ScalarProperty Name="FE_ENVIADO" ColumnName="FE_ENVIADO" />
+                <ScalarProperty Name="DE_NOTIFICACIONES" ColumnName="DE_NOTIFICACIONES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_NOTIFICACIONES">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_NOTIFICACIONES">
+              <MappingFragment StoreEntitySet="VW_NOTIFICACIONES">
+                <ScalarProperty Name="DE_ICONO" ColumnName="DE_ICONO" />
+                <ScalarProperty Name="NB_ICONO" ColumnName="NB_ICONO" />
+                <ScalarProperty Name="COLOR_ICONO" ColumnName="COLOR_ICONO" />
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="FK_ICONO" ColumnName="FK_ICONO" />
+                <ScalarProperty Name="TITULO" ColumnName="TITULO" />
+                <ScalarProperty Name="FE_ENVIADO" ColumnName="FE_ENVIADO" />
+                <ScalarProperty Name="DE_NOTIFICACIONES" ColumnName="DE_NOTIFICACIONES" />
+                <ScalarProperty Name="PK_NOTIFICACIONES" ColumnName="PK_NOTIFICACIONES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

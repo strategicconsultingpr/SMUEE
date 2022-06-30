@@ -226,6 +226,9 @@
                                 <%--<h6 class="collapse-header">Login Screens:</h6>--%>
                                 <a class="collapse-item" runat="server" href="~/Account/UsersList">Lista de Usuarios</a>
                                 <a class="collapse-item" runat="server" href="~/Account/Register">Registrar Usuario</a>
+                                <div class="collapse-divider"></div>
+                                <a class="collapse-item text-wrap" href="<%=ResolveClientUrl("~/App/Notificaciones/Notificaciones")%>">Notificaciones</a>
+
                                 <%--<div class="collapse-divider"></div>
                             <h6 class="collapse-header">Other Pages:</h6>
                             <a class="collapse-item" href="404.html">404 Page</a>
@@ -466,6 +469,26 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="lblTitleModal">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="lblDescModal" class="modal-body">
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Atras</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </form>
 
@@ -500,53 +523,100 @@
             $('.reportsListTable').DataTable();
         });
 
-        $(function () {
-           <%-- var usuario = '{pk_usuario:"' + <%: Context.User.Identity.GetUserId().ToString()  %> + '"}'--%>
-            //var usuario = '{pk_usuario: "a3f1ae28-44e8-4a5e-b789-5e8817a2c388"}'
-            $.ajax({
-                type: 'POST',
-                url: 'Notificaciones/WSnotificaciones.asmx/getListaNotificaciones',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
+        $(document).ready(function () {
+            $('.notificationsListTable').DataTable();
+        });
 
-                    $('.dpAlertas').empty();
-                    $("#alertasCount").text("");
+        $(document).ready(function () {
+            getNotificaciones();
+        });
+
+        function getNotificaciones() {
+            $(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/App/Notificaciones/WSnotificaciones.asmx/getListaNotificaciones',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        $('.dpAlertas').empty();
+                        $("#alertasCount").text("");
 
 
-                    if (response.d != null)
-                    {
-                        var lista = response.d;
+                        if (response.d != null) {
+                            var lista = response.d;
 
-                        if (lista.length > 0) {
+                            if (lista.length > 0) {
 
-                            $("#alertasCount").text(lista.length);
+                                $("#alertasCount").text(lista.length);
 
-                        $.each(lista, function (index, value) {
-                                var fe = new Date(parseInt(value.FE_ENVIADO.substr(6)));
-                                var fe_s = fe.format("MMMM dd, yyyy");
-                                $('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle ' + value.COLOR_ICONO + '"><i class="' + value.NB_ICONO + '"></i></div></div><div><div class="small text-gray-500">' + fe_s + '</div><span class="font-weight-bold">' + value.DE_NOTIFICACIONES + '</span></div> </a>'));
-                            });
+
+
+                                $.each(lista, function (index, value) {
+                                    var fe = new Date(parseInt(value.FE_ENVIADO.substr(6)));
+                                    var fe_s = fe.format("MMMM dd, yyyy");
+
+
+
+
+
+
+                                    $('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#modalNotification"  onClick="selectNotification(' + value.FK_NOTIFICACIONES + ',\'' + value.TITULO + '\',\'<p>' + value.DE_NOTIFICACIONES + '</p>\',\'' + fe_s + '\');"><div class="mr-3"><div class="icon-circle ' + value.COLOR_ICONO + '"><i class="' + value.NB_ICONO + '"></i></div></div><div><div class="small text-gray-500">' + fe_s + '</div><span class="font-weight-bold">' + value.TITULO + '</span></div> </a>'));
+                                });
+                            }
+
+
                         }
 
 
+                    },
+                    error: function (error) {
+                        console.log(error);
                     }
+                })
 
-                   
-                },
-                error: function (error) {
-                    console.log(error);
-                }
+                //var count = 2;
+                //$('.count').html(count);
+
+                //$('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle bg-primary"><i class="fas fa-file-alt text-white"></i></div></div><div><div class="small text-gray-500">Enero 12, 2022</div><span class="font-weight-bold">¡El módulo de extracciones TEDS esta listo para utilizar!</span></div> </a>'));
+                //$('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle bg-success"><i class="fas fa-donate text-white"></i></div></div><div><div class="small text-gray-500">Enero 12, 2022</div><span class="font-weight-bold">¡Los reportes TEDS estan listos para utilizar!</span></div> </a>'))
+                //$('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle bg-warning"><i class="fas fa-exclamation-triangle text-white"></i></div></div><div><div class="small text-gray-500">Enero 12, 2022</div><span class="font-weight-bold">¡Los reportes informativos estan listos para utilizar!</span></div> </a>'))
+
             })
 
-            //var count = 2;
-            //$('.count').html(count);
+        }
 
-            //$('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle bg-primary"><i class="fas fa-file-alt text-white"></i></div></div><div><div class="small text-gray-500">Enero 12, 2022</div><span class="font-weight-bold">¡El módulo de extracciones TEDS esta listo para utilizar!</span></div> </a>'));
-            //$('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle bg-success"><i class="fas fa-donate text-white"></i></div></div><div><div class="small text-gray-500">Enero 12, 2022</div><span class="font-weight-bold">¡Los reportes TEDS estan listos para utilizar!</span></div> </a>'))
-            //$('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" href="#"><div class="mr-3"><div class="icon-circle bg-warning"><i class="fas fa-exclamation-triangle text-white"></i></div></div><div><div class="small text-gray-500">Enero 12, 2022</div><span class="font-weight-bold">¡Los reportes informativos estan listos para utilizar!</span></div> </a>'))
+        function selectNotification(id, titulo, desc, fe) {
 
-        })
+            $("#lblTitleModal").text(titulo);
+            $("#lblDescModal").html(desc);
+
+            $(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/App/Notificaciones/WSnotificaciones.asmx/CheckNotificaciones',
+                    data: `{id: ${id}}`,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+
+                        if (response.d == true) {
+                            getNotificaciones();
+                        }
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+
+    
+            })
+
+        }
 
         function updateNotificationCount() {
             var count = 0;

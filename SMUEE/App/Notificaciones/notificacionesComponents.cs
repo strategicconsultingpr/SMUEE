@@ -18,7 +18,8 @@ namespace SMUEE.App.Notificaciones
             //{
             //    using (SMUEEEntities dsSMUEE = new SMUEEEntities())
             //    {
-            //        var notificaciones = dsSMUEE.SM_NOTIFICACIONES.Where(a => a.VISTO.Equals(false)).ToList();
+            //        var notificaciones = dsSMUEE.SM_NOTIFICACIONES.Where(a => a.VISTO ==false).ToList();
+
             //        SqlDependency sqlDep = new SqlDependency(notificaciones);
             //    }
             //}
@@ -42,10 +43,7 @@ namespace SMUEE.App.Notificaciones
                 SqlDependency sqlDep = new SqlDependency(cmd);
                 sqlDep.OnChange += sqlDep_OnChange;
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-
-                }
+                cmd.ExecuteReader();
             }
         }
 
@@ -54,7 +52,7 @@ namespace SMUEE.App.Notificaciones
             if(e.Type == SqlNotificationType.Change)
             {
                 SqlDependency sqlDep = sender as SqlDependency;
-                sqlDep.OnChange -= sqlDep_OnChange;
+                sqlDep.OnChange += sqlDep_OnChange;
 
                 var notificationHub = GlobalHost.ConnectionManager.GetHubContext<notificacionesHub>();
                 notificationHub.Clients.All.notify("added");
@@ -64,14 +62,15 @@ namespace SMUEE.App.Notificaciones
             }
         }
 
-        public List<SM_NOTIFICACIONES> GetNotifications(string pk_usuario)
+        public List<VW_NOTIFICACIONES_USUARIO> GetNotifications(string pk_usuario)
         {
             try
             {
+
                 using (SMUEEEntities dsSMUEE = new SMUEEEntities())
                 {
                     //return dsSMUEE.SM_NOTIFICACIONES.Where(b => b.FK_Usuario.Equals(pk_usuario)).Where(a => a.VISTO.Equals(false)).ToList();
-                    return dsSMUEE.SM_NOTIFICACIONES.Where(b => b.FK_Usuario ==pk_usuario && b.VISTO == false).ToList();
+                    return dsSMUEE.VW_NOTIFICACIONES_USUARIO.Where(b => b.FK_USUARIO ==pk_usuario && b.VISTO == false).Take(10).ToList();
 
                 }
             }

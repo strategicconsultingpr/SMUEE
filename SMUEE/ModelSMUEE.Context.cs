@@ -30,9 +30,13 @@ namespace SMUEE
         public virtual DbSet<VW_CATEGORIA_REPORTE> VW_CATEGORIA_REPORTE { get; set; }
         public virtual DbSet<VW_REPORTES> VW_REPORTES { get; set; }
         public virtual DbSet<VW_UsersList> VW_UsersList { get; set; }
-        public virtual DbSet<SM_NOTIFICACIONES> SM_NOTIFICACIONES { get; set; }
         public virtual DbSet<SM_HISTORIAL> SM_HISTORIAL { get; set; }
         public virtual DbSet<SM_MODULO> SM_MODULO { get; set; }
+        public virtual DbSet<SM_LKP_ICONO_NOTIFICACIONES> SM_LKP_ICONO_NOTIFICACIONES { get; set; }
+        public virtual DbSet<SM_NOTIFICACIONES> SM_NOTIFICACIONES { get; set; }
+        public virtual DbSet<SM_NOTIFICACIONES_USUARIO> SM_NOTIFICACIONES_USUARIO { get; set; }
+        public virtual DbSet<VW_NOTIFICACIONES_USUARIO> VW_NOTIFICACIONES_USUARIO { get; set; }
+        public virtual DbSet<VW_NOTIFICACIONES> VW_NOTIFICACIONES { get; set; }
     
         public virtual int SPC_SESION(string fK_Usuario, ObjectParameter pK_Sesion)
         {

@@ -12,23 +12,16 @@ namespace SMUEE
     using System;
     using System.Collections.Generic;
     
-    public partial class SM_NOTIFICACIONES
+    public partial class VW_NOTIFICACIONES
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SM_NOTIFICACIONES()
-        {
-            this.SM_NOTIFICACIONES_USUARIO = new HashSet<SM_NOTIFICACIONES_USUARIO>();
-        }
-    
         public int PK_NOTIFICACIONES { get; set; }
         public string DE_NOTIFICACIONES { get; set; }
         public Nullable<System.DateTime> FE_ENVIADO { get; set; }
         public string TITULO { get; set; }
         public Nullable<int> FK_ICONO { get; set; }
         public Nullable<bool> ACTIVO { get; set; }
-    
-        public virtual SM_LKP_ICONO_NOTIFICACIONES SM_LKP_ICONO_NOTIFICACIONES { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SM_NOTIFICACIONES_USUARIO> SM_NOTIFICACIONES_USUARIO { get; set; }
+        public string COLOR_ICONO { get; set; }
+        public string NB_ICONO { get; set; }
+        public string DE_ICONO { get; set; }
     }
 }

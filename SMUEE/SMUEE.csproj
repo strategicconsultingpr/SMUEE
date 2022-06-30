@@ -214,6 +214,8 @@
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ReportesTEDS.aspx" />
+    <Content Include="App\Notificaciones\ManejarNotificaciones.aspx" />
+    <Content Include="App\Notificaciones\Notificaciones.aspx" />
     <Content Include="App\Notificaciones\WSnotificaciones.asmx" />
     <Content Include="App\ViewReport.aspx" />
     <Content Include="Content\bootstrap-datepicker.css" />
@@ -428,6 +430,7 @@
     <Content Include="Scripts\modulos\monitoreoSEPS\EpisodiosCerrados.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPersona.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPrograma.js" />
+    <Content Include="Scripts\modulos\notificaciones\notificaciones.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -2349,10 +2352,25 @@
     <Compile Include="App\Mod_TEDS\ReportesTEDS.aspx.designer.cs">
       <DependentUpon>ReportesTEDS.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\Notificaciones\ManejarNotificaciones.aspx.cs">
+      <DependentUpon>ManejarNotificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Notificaciones\ManejarNotificaciones.aspx.designer.cs">
+      <DependentUpon>ManejarNotificaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\Notificaciones\Notificaciones.aspx.cs">
+      <DependentUpon>Notificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Notificaciones\Notificaciones.aspx.designer.cs">
+      <DependentUpon>Notificaciones.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App\Notificaciones\notificacionesComponents.cs" />
     <Compile Include="App\Notificaciones\notificacionesHub.cs" />
     <Compile Include="App\Notificaciones\WSnotificaciones.asmx.cs">
       <DependentUpon>WSnotificaciones.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="App\ViewReport.aspx.cs">
       <DependentUpon>ViewReport.aspx</DependentUpon>
@@ -2475,10 +2493,16 @@
     <Compile Include="SM_HISTORIAL.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
+    <Compile Include="SM_LKP_ICONO_NOTIFICACIONES.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
     <Compile Include="SM_MODULO.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="SM_NOTIFICACIONES.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SM_NOTIFICACIONES_USUARIO.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="SPC_SESION_Result.cs">
@@ -2504,6 +2528,12 @@
     </Compile>
     <Compile Include="VW_EXPEDIENTE_PROGRAMA.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_NOTIFICACIONES.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_NOTIFICACIONES_USUARIO.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_PERFIL.cs">
       <DependentUpon>SEPS.tt</DependentUpon>

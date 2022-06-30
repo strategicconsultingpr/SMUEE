@@ -45,6 +45,7 @@ namespace SMUEE
             if (!Page.IsPostBack)
             {
                 setUserInformation();
+                
             }
         }
 
