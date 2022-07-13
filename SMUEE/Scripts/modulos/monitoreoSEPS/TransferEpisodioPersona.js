@@ -361,7 +361,7 @@ function GetEpisode(iup) {
                     $.each(lista, function (index, value) {
                         var fe = new Date(parseInt(value.FE_Episodio.substr(6)));
                         var fe_s = fe.format("dd/MM/yyyy");
-                        $('#gvEpisodeListBody').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona});" type="button">Elegir</a></td></tr>`);
+                        $('#gvEpisodeListBody').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona},${value.NR_Expediente});" type="button">Elegir</a></td></tr>`);
                     });
                 }
 
@@ -476,7 +476,7 @@ function GetExpediente(iup, programa) {
                 if (p != null) {
                     //Tiene expediente
                     if (p.NR_Expediente != "") {
-                        $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(1);" disabled checked name="expediente" id="rdExpediente1" value="${p.NR_Expediente}"><label>${p.NR_Expediente} - ${lblNameInfo2} (IUP: ${lblIUPInfo2})</label><br>`);
+                        $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(1);" disabled checked name="expediente" id="rdExpediente1" value="${p.NR_Expediente}"><label for="rdExpediente1">${p.NR_Expediente} - ${lblNameInfo2} (IUP: ${lblIUPInfo2})</label><br>`);
                         $("#MainContent_lblExpedienteMsg").text(`(IUP: ${lblIUPInfo2}) ${lblNameInfo2} cuenta con un expediente en ${lblNbPrograma}`);
                         $("#MainContent_lblExpedienteMsg").show();
                         $("#btnNextStep3").show();
@@ -487,7 +487,7 @@ function GetExpediente(iup, programa) {
 
                     $("#MainContent_lblExpedienteMsg").text(`(IUP: ${lblIUPInfo2}) ${lblNameInfo2} no cuenta con un expediente en ${lblNbPrograma}`);
                     $("#MainContent_lblExpedienteMsg").show();
-                    $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(2);"  name="expediente" id="rdExpediente2" value=""><label>Crear Expediente</label><br>`);
+                    $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(2);"  name="expediente" id="rdExpediente2" value=""><label for="rdExpediente2">Crear Expediente</label><br>`);
                 }
 
 
@@ -559,7 +559,7 @@ function TransferEpisode(episodio, iup, expedienteOption, numberExpediente) {
     });
 }
 
-function wizard1to2(episode, programa, nb_programa, persona) {
+function wizard1to2(episode, programa, nb_programa, persona, NR_Expeddiente) {
 
 
 
@@ -568,8 +568,9 @@ function wizard1to2(episode, programa, nb_programa, persona) {
         $("#MainContent_lblEpisode").val(episode);
         $("#MainContent_lblPrograma").val(programa);
         $("#MainContent_lblNbPrograma").val(nb_programa);
-
         $("#MainContent_lblPersona").val(persona);
+        $("#MainContent_lblExpedienteOriginal").val(NR_Expeddiente);
+        $("#MainContent_lblExpedienteOriginalResume").text(NR_Expeddiente);
 
 
 

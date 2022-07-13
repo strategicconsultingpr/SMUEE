@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="TransferenciaEpisodiosProgramas.aspx.cs" Inherits="SMUEE.App.Mod_MonitoreoSEPS.TransferenciaDeEpisodiosProgramas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
+      <style>
+        a.noclick       {
+  pointer-events: none;
+}
+    </style>
     <main>
         <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
             <div class="container-fluid px-4">
@@ -29,7 +33,7 @@
                 <div class="card-header border-bottom">
                     <ul class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
                         <li class="nav-item" role="presentation" id="wizard1TabCard">
-                            <a class="nav-link active" id="wizard1Tab" runat="server" href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
+                            <a class="nav-link active noclick" id="wizard1Tab" runat="server" href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
                                 <div class="wizard-step-icon">1</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Seleccionar Episodio</div>
@@ -38,7 +42,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard2TabCard">
-                            <a class="nav-link" id="wizard2Tab" data-toggle="tab" runat="server" href="#wizard2" role="tab" aria-controls="wizard2" aria-selected="false">
+                            <a class="nav-link noclick" id="wizard2Tab" data-toggle="tab" runat="server" href="#wizard2" role="tab" aria-controls="wizard2" aria-selected="false">
                                 <div class="wizard-step-icon">2</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Seleccionar Programa</div>
@@ -47,7 +51,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard3TabCard">
-                            <a class="nav-link" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3" role="tab" aria-controls="wizard3" aria-selected="false">
+                            <a class="nav-link noclick" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3" role="tab" aria-controls="wizard3" aria-selected="false">
                                 <div class="wizard-step-icon">3</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Expediente</div>
@@ -56,7 +60,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard4TabCard">
-                            <a class="nav-link" id="wizard4Tab" data-toggle="tab" runat="server" href="#wizard4" role="tab" aria-controls="wizard4" aria-selected="false">
+                            <a class="nav-link noclick" id="wizard4Tab" data-toggle="tab" runat="server" href="#wizard4" role="tab" aria-controls="wizard4" aria-selected="false">
                                 <div class="wizard-step-icon">4</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Niveles de Cuidado</div>
@@ -67,7 +71,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard5TabCard">
-                            <a class="nav-link" id="wizard5Tab" data-toggle="tab" runat="server" href="#wizard5" role="tab" aria-controls="wizard5" aria-selected="false">
+                            <a class="nav-link noclick" id="wizard5Tab" data-toggle="tab" runat="server" href="#wizard5" role="tab" aria-controls="wizard5" aria-selected="false">
                                 <div class="wizard-step-icon">5</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Resumen</div>
@@ -76,7 +80,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard6TabCard">
-                            <a class="nav-link" id="wizard6Tab" data-toggle="tab" runat="server" href="#wizard6" role="tab" aria-controls="wizard6" aria-selected="false">
+                            <a class="nav-link noclick" id="wizard6Tab" data-toggle="tab" runat="server" href="#wizard6" role="tab" aria-controls="wizard6" aria-selected="false">
                                 <div class="wizard-step-icon">6</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Confirmación</div>
@@ -101,7 +105,7 @@
 
 
                                         <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" runat="server" maxlength="9" id="txtIUP" placeholder="IUP" aria-label="Search" aria-describedby="basic-addon2">
+                                            <input type="number" class="form-control bg-light border-0 small" runat="server" maxlength="9" id="txtIUP" placeholder="IUP" aria-label="Search" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary" id="btnSearchIUP" type="button">
                                                     <i class="fas fa-search fa-sm"></i>
@@ -231,12 +235,12 @@
                                     <asp:TextBox runat="server" TextMode="Number" onBlur="txtExpedienteChange();" MaxLength="12" CssClass="form-control" ID="txtExpediente" />
 
                                     <div id="divDeleteExpediente">
-                                        
-                                                                        <hr class="my-4">
 
-                                                                        <label class="text">2) ¿Desea eliminar el expediente?</label>
-                                    <br />
-                               <input type="checkbox" id="chkDeleteExpediente" /><span><label id="lblDeleteExpediente" for="chkDeleteExpediente"></label></span>
+                                        <hr class="my-4">
+
+                                        <label class="text">2) ¿Desea eliminar el expediente?</label>
+                                        <br />
+                                        <input type="checkbox" id="chkDeleteExpediente" /><span><label id="lblDeleteExpediente" for="chkDeleteExpediente"></label></span>
 
 
                                     </div>
@@ -261,19 +265,54 @@
                                     <div id="divMsgNvlMh" class="alert alert-warning" role="alert">
                                     </div>
                                     <div>
-                                        <label>Actualizar nivel de cuidado de Abuso de Sustancia:</label>
-                                        <div class="input-group">
-                                            <asp:DropDownList CssClass="form-control bg-light border-0 small" runat="server" ID="ddlNvlAS" DataTextField="NB_Programa" DataValueField="PK_Programa" placeholder="Elige" aria-label="Search" aria-describedby="basic-addon2" />
+                                        <label>Actualizar nivel de cuidado</label>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Tipo</td>
+                                                        <td>Original</td>
+                                                        <td>Nuevo</td>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <label>Abuso de Sustancia</label>
+
+                                                        </td>
+                                                        <td>
+                                                            <label id="nvlASCuiadoOriginal"></label>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <asp:DropDownList CssClass="form-control bg-light border-0 small" runat="server" ID="ddlNvlAS" DataTextField="NB_Programa" DataValueField="PK_Programa" placeholder="Elige" aria-label="Search" aria-describedby="basic-addon2" />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label>Salud Mental</label>
+                                                        </td>
+                                                        <td>
+                                                            <label id="nvlMHCuiadoOriginal"></label>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <asp:DropDownList CssClass="form-control bg-light border-0 small" runat="server" ID="ddlNvlMH" DataTextField="NB_Programa" DataValueField="PK_Programa" placeholder="Elige" aria-label="Search" aria-describedby="basic-addon2" />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
                                         </div>
-
-
                                     </div>
                                     <div>
-                                        <label>Actualizar nivel de cuidado de Salud Mental:</label>
-                                        <div class="input-group">
-                                            <asp:DropDownList CssClass="form-control bg-light border-0 small" runat="server" ID="ddlNvlMH" DataTextField="NB_Programa" DataValueField="PK_Programa" placeholder="Elige" aria-label="Search" aria-describedby="basic-addon2" />
-                                        </div>
-
                                     </div>
                                     <hr class="my-4">
 
@@ -292,31 +331,67 @@
                                     <h5 class="card-title mb-4">Resumen de la transacción que desea realizar</h5>
 
                                     <label>Resumen</label>
-                                    <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em>Episodio:</em></div>
-                                        <div class="col" runat="server" id="lblEpisodeResume"></div>
-                                    </div>
+                                    <%--  --%>
 
-                                    <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em>Episodio pertenece a :</em></div>
-                                        <div class="col" runat="server" id="lblProgramaResume"></div>
-                                    </div>
-                                    <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em>Episodio transferido a:</em></div>
-                                        <div class="col" runat="server" id="lblProgramaResume2"></div>
-                                    </div>
-                                         <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em>Nvl. Abuso de Sustancias:</em></div>
-                                        <div class="col" runat="server" id="lblResumeNvlAs"></div>
-                                    </div>
-                                         <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em>Nvl. Salud Mental:</em></div>
-                                        <div class="col" runat="server" id="lblResumeNvlMh"></div>
-                                    </div>
-                                    <div class="row small text-muted">
-                                        <div class="col-sm-3 text-truncate"><em></em># Expediente:</div>
-                                        <div class="col" runat="server" id="lblExpedienteResume"></div>
-                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <td>Original</td>
+                                                <td>Nuevo</td>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>Episodio</td>
+                                                <td colspan="2">
+                                                    <div runat="server" id="lblEpisodeResume"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Programa</td>
+                                                <td>
+                                                    <div runat="server" id="lblProgramaResume"></div>
+                                                </td>
+                                                <td>
+                                                    <div runat="server" id="lblProgramaResume2"></div>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Nvl. Abuso de Sustancias</td>
+                                                <td>
+                                                    <div runat="server" id="lblResumeOriginalNvlAs"></div>
+                                                </td>
+                                                <td>
+                                                    <div runat="server" id="lblResumeNvlAs"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nvl. Salud Mental</td>
+                                                <td>
+                                                    <div runat="server" id="lblResumeOriginalNvlMh"></div>
+                                                </td>
+                                                <td>
+                                                    <div runat="server" id="lblResumeNvlMh"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td># Expediente</td>
+                                                <td>
+                                                    <div runat="server" id="lblExpedienteOriginalResume"></div>
+                                                </td>
+                                                <td>
+                                                    <div runat="server" id="lblExpedienteResume"></div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+
+
                                     <br />
                                     <input type="checkbox" id="chkConfirmation" /><span><label for="chkConfirmation">Para finalizar debe confirmar la transacción marcando el encasillado.</label></span>
 
@@ -358,6 +433,8 @@
     <input type="number" runat="server" id="lblNvlMh" hidden disabled />
     <input type="text" runat="server" id="lblDENvlAs" hidden disabled />
     <input type="text" runat="server" id="lblDENvlMh" hidden disabled />
-    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/TransferEpisodioPrograma.js")%>"></script>
+    <input type="text" runat="server" id="lblExpedienteOriginal" hidden disabled />
+
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/TransferEpisodioPrograma.js?ver=1")%>"></script>
 
 </asp:Content>

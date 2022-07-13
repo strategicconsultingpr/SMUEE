@@ -66,7 +66,7 @@ namespace SMUEE
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtIUP;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtIUP;
 
         /// <summary>
         /// rvIUP1 control.
@@ -192,7 +192,7 @@ namespace SMUEE
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtIUP2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtIUP2;
 
         /// <summary>
         /// rvIUP2 control.
@@ -339,15 +339,6 @@ namespace SMUEE
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblEpisodeResume;
 
         /// <summary>
-        /// lblProgramaResume control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblProgramaResume;
-
-        /// <summary>
         /// lblParResume control.
         /// </summary>
         /// <remarks>
@@ -364,6 +355,24 @@ namespace SMUEE
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblParResume2;
+
+        /// <summary>
+        /// lblProgramaResume control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblProgramaResume;
+
+        /// <summary>
+        /// lblExpedienteOriginalResume control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblExpedienteOriginalResume;
 
         /// <summary>
         /// lblExpedienteResume control.
@@ -418,5 +427,14 @@ namespace SMUEE
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText lblNbPrograma;
+
+        /// <summary>
+        /// lblExpedienteOriginal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText lblExpedienteOriginal;
     }
 }

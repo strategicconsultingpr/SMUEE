@@ -75,7 +75,7 @@ namespace SMUEE.App.Mod_MonitoreoSEPS
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtIUP;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtIUP;
 
         /// <summary>
         /// rvIUP1 control.
@@ -267,6 +267,15 @@ namespace SMUEE.App.Mod_MonitoreoSEPS
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblProgramaResume2;
 
         /// <summary>
+        /// lblResumeOriginalNvlAs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblResumeOriginalNvlAs;
+
+        /// <summary>
         /// lblResumeNvlAs control.
         /// </summary>
         /// <remarks>
@@ -276,6 +285,15 @@ namespace SMUEE.App.Mod_MonitoreoSEPS
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblResumeNvlAs;
 
         /// <summary>
+        /// lblResumeOriginalNvlMh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblResumeOriginalNvlMh;
+
+        /// <summary>
         /// lblResumeNvlMh control.
         /// </summary>
         /// <remarks>
@@ -283,6 +301,15 @@ namespace SMUEE.App.Mod_MonitoreoSEPS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblResumeNvlMh;
+
+        /// <summary>
+        /// lblExpedienteOriginalResume control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblExpedienteOriginalResume;
 
         /// <summary>
         /// lblExpedienteResume control.
@@ -364,5 +391,14 @@ namespace SMUEE.App.Mod_MonitoreoSEPS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText lblDENvlMh;
+
+        /// <summary>
+        /// lblExpedienteOriginal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText lblExpedienteOriginal;
     }
 }

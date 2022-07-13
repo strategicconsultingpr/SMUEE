@@ -360,7 +360,7 @@ function GetEpisode(iup) {
                     $.each(lista, function (index, value) {
                         var fe = new Date(parseInt(value.FE_Episodio.substr(6)));
                         var fe_s = fe.format("dd/MM/yyyy");
-                        $('#gvEpisodeListBody').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona},${value.FK_NivelCuidadoSustancias},${value.FK_NivelCuidadoMental},'${value.DE_AbusoSustancias}','${value.DE_SaludMental}');" type="button">Elegir</a></td></tr>`);
+                        $('#gvEpisodeListBody').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona},${value.FK_NivelCuidadoSustancias},${value.FK_NivelCuidadoMental},'${value.DE_AbusoSustancias}','${value.DE_SaludMental}',${value.NR_Expediente});" type="button">Elegir</a></td></tr>`);
                     });
 
 
@@ -403,7 +403,7 @@ function GetExpedienteOriginal(iup, programa, programa2) {
             if (obj != null) {
                 var p = obj.d;
                 if (p != null) {
-                    $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(3);"  name="expediente" id="rdExpediente3" value="${p.NR_Expediente}"><label> ${p.NR_Expediente} - Copiar Expediente de ${$("#MainContent_lblNbPrograma").val()}</label><br>`);
+                    $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(3);"  name="expediente" id="rdExpediente3" value="${p.NR_Expediente}"><label for="rdExpediente3"> ${p.NR_Expediente} - Copiar Expediente de ${$("#MainContent_lblNbPrograma").val()}</label><br>`);
                 }
             }
         },
@@ -437,7 +437,7 @@ function GetExpediente(iup, programa) {
                 if (p != null) {
                     //Tiene expediente
                     if (p.NR_Expediente != "") {
-                        $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(1);" disabled checked name="expediente" id="rdExpediente1" value="${p.NR_Expediente}"><label>${p.NR_Expediente} - ${lblNameInfo1} (IUP: ${lblIUPInfo1})</label><br>`);
+                        $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(1);" disabled checked name="expediente" id="rdExpediente1" value="${p.NR_Expediente}"><label for="rdExpediente1">${p.NR_Expediente} - ${lblNameInfo1} (IUP: ${lblIUPInfo1})</label><br>`);
                         $("#MainContent_lblExpedienteMsg").text(`(IUP: ${lblIUPInfo1}) ${lblNameInfo1} cuenta con un expediente en ${$("#MainContent_ddlPrograma option:selected").text()}`);
                         $("#MainContent_lblExpedienteMsg").show();
                         $("#btnNextStep3").show();
@@ -448,7 +448,7 @@ function GetExpediente(iup, programa) {
                     $("#MainContent_lblExpedienteMsg").text(`(IUP: ${lblIUPInfo1}) ${lblNameInfo1} no cuenta con un expediente en ${$("#MainContent_ddlPrograma option:selected").text()}`);
                     $("#MainContent_lblExpedienteMsg").show();
                     GetExpedienteOriginal(iup, $("#MainContent_lblPrograma").val(), programa);
-                    $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(2);"  name="expediente" id="rdExpediente2" value=""><label>Crear Expediente</label><br>`);
+                    $('#rdExpedienteList').append(`<input type="radio" onChange="rdExpedienteChange(2);"  name="expediente" id="rdExpediente2" value=""><label for="rdExpediente2">Crear Expediente</label><br>`);
                 }
 
 
@@ -504,7 +504,7 @@ function TransferEpisode(episodio, iup, expedienteOption, numberExpediente) {
     });
 }
 
-function wizard1to2(episode, programa, nb_programa, persona, FK_NivelCuidadoSustancias, FK_NivelCuidadoMental, DE_NivelCuidadoSustancias, DE_NivelCuidadoMental) {
+function wizard1to2(episode, programa, nb_programa, persona, FK_NivelCuidadoSustancias, FK_NivelCuidadoMental, DE_NivelCuidadoSustancias, DE_NivelCuidadoMental,NR_Expeddiente) {
     if (episode != null && "" != episode && "" != persona) {
         $("#MainContent_lblEpisode").val(episode);
         $("#MainContent_lblPrograma").val(programa);
@@ -514,6 +514,17 @@ function wizard1to2(episode, programa, nb_programa, persona, FK_NivelCuidadoSust
         $("#MainContent_lblNvlMh").val(FK_NivelCuidadoMental);
         $("#MainContent_lblDENvlAs").val(DE_NivelCuidadoSustancias);
         $("#MainContent_lblDENvlMh").val(DE_NivelCuidadoMental);
+        $("#nvlASCuiadoOriginal").text(DE_NivelCuidadoSustancias);
+        $("#nvlMHCuiadoOriginal").text(DE_NivelCuidadoMental);
+
+        $("#MainContent_lblResumeOriginalNvlAs").text(DE_NivelCuidadoSustancias);
+        $("#MainContent_lblResumeOriginalNvlMh").text(DE_NivelCuidadoMental);
+
+        
+        $("#MainContent_lblExpedienteOriginal").val(NR_Expeddiente);
+        $("#MainContent_lblExpedienteOriginalResume").text(NR_Expeddiente);
+
+
 
         document.getElementById("MainContent_wizard2Tab").click();
     }

@@ -28,11 +28,11 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
         }
 
         [WebMethod]
-        public List<VW_EPISODIO> GetEpisodes(int iup)
+        public List<VW_EPISODIOS_EXPEDIENTE> GetEpisodes(int iup)
         {
             using (var seps = new SEPSEntities())
             {
-                return seps.VW_EPISODIO.Where(x => x.FK_Persona == iup).ToList();
+                return seps.VW_EPISODIOS_EXPEDIENTE.Where(x => x.FK_Persona == iup).ToList();
             }
         }
 

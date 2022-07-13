@@ -12,8 +12,9 @@ namespace SMUEE
     using System;
     using System.Collections.Generic;
     
-    public partial class VW_EPISODIO
+    public partial class VW_EPISODIOS_EXPEDIENTE
     {
+        public string NR_Expediente { get; set; }
         public int PK_Episodio { get; set; }
         public int FK_Persona { get; set; }
         public short FK_Programa { get; set; }

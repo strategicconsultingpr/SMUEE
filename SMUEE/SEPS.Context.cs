@@ -31,7 +31,6 @@ namespace SMUEE
         public virtual DbSet<VW_PERSONA> VW_PERSONA { get; set; }
         public virtual DbSet<VW_PERSONAS> VW_PERSONAS { get; set; }
         public virtual DbSet<VW_PROGRAMAS> VW_PROGRAMAS { get; set; }
-        public virtual DbSet<VW_EPISODIO> VW_EPISODIO { get; set; }
         public virtual DbSet<SA_EPISODIO> SA_EPISODIO { get; set; }
         public virtual DbSet<SA_PERFIL> SA_PERFIL { get; set; }
         public virtual DbSet<SA_PERSONA> SA_PERSONA { get; set; }
@@ -40,6 +39,7 @@ namespace SMUEE
         public virtual DbSet<SA_PROGRAMA> SA_PROGRAMA { get; set; }
         public virtual DbSet<VW_REF_ABUSO_SUSTANCIA> VW_REF_ABUSO_SUSTANCIA { get; set; }
         public virtual DbSet<VW_REF_SALUD_MENTAL> VW_REF_SALUD_MENTAL { get; set; }
+        public virtual DbSet<VW_EPISODIOS_EXPEDIENTE> VW_EPISODIOS_EXPEDIENTE { get; set; }
     
         public virtual ObjectResult<SPC_SESION_Result> SPC_SESION(string nB_Login, string pASSWORD, ObjectParameter pK_Sesion)
         {

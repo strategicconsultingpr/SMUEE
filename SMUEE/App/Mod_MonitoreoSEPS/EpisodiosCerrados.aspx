@@ -1,5 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="EpisodiosCerrados.aspx.cs" Inherits="SMUEE.App.Mod_MonitoreoSEPS.EpisodiosCerrados" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+        <style>
+        a.noclick       {
+  pointer-events: none;
+}
+    </style>
+
         <main>
         <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
             <div class="container-fluid px-4">
@@ -27,7 +34,7 @@
                 <div class="card-header border-bottom">
                     <ul class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
                         <li class="nav-item" role="presentation" id="wizard1TabCard">
-                            <a class="nav-link active" id="wizard1Tab" runat="server"  href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
+                            <a class="nav-link active noclick" id="wizard1Tab" runat="server"  href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
                                 <div class="wizard-step-icon">1</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Seleccionar Episodio</div>
@@ -36,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard2TabCard">
-                            <a class="nav-link" id="wizard2Tab" data-toggle="tab" runat="server"  href="#wizard2" role="tab" aria-controls="wizard2" aria-selected="false">
+                            <a class="nav-link noclick" id="wizard2Tab" data-toggle="tab" runat="server"  href="#wizard2" role="tab" aria-controls="wizard2" aria-selected="false">
                                 <div class="wizard-step-icon">2</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Resumen</div>
@@ -45,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" id="wizard3TabCard">
-                            <a class="nav-link" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3" role="tab" aria-controls="wizard3" aria-selected="false">
+                            <a class="nav-link noclick" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3" role="tab" aria-controls="wizard3" aria-selected="false">
                                 <div class="wizard-step-icon">3</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Confirmación</div>
@@ -71,7 +78,7 @@
 
 
                                         <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" runat="server" maxlength="9" id="txtIUP" placeholder="IUP" aria-label="Search" aria-describedby="basic-addon2">
+                                            <input type="number" class="form-control bg-light border-0 small" runat="server" maxlength="9" id="txtIUP" placeholder="IUP" aria-label="Search" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary" id="btnSearchIUP" type="button">
                                                     <i class="fas fa-search fa-sm"></i>
@@ -229,6 +236,6 @@
     <input type="text" runat="server" id="lblNbPrograma" hidden disabled />
     
 
-    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/EpisodiosCerrados.js")%>"></script>
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/EpisodiosCerrados.js?ver=1")%>"></script>
 
 </asp:Content>

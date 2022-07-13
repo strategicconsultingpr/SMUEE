@@ -43,6 +43,8 @@ namespace SMUEE
         public Nullable<bool> REP_URS_MH { get; set; }
         public Nullable<int> FK_CATEGORIA_PROGRAMA { get; set; }
         public Nullable<bool> CERRAR_EPISODIO_ADMISION { get; set; }
+        public Nullable<bool> PRACTICAS_BASADA_EN_EVIDENCIA { get; set; }
+        public Nullable<bool> TIENE_TAKE_HOME { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SA_EPISODIO> SA_EPISODIO { get; set; }

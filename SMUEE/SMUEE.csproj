@@ -2523,7 +2523,7 @@
     <Compile Include="VW_CATEGORIA_REPORTE.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
-    <Compile Include="VW_EPISODIO.cs">
+    <Compile Include="VW_EPISODIOS_EXPEDIENTE.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_EXPEDIENTE_PROGRAMA.cs">
