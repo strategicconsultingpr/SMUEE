@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <style>
-        a.noclick       {
-  pointer-events: none;
-}
+        a.noclick {
+            pointer-events: none;
+        }
     </style>
 
     <main>
@@ -16,9 +16,7 @@
                         <div class="col-auto mb-3">
                             <h3 class="page-header-title">
                                 <div class="page-header-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    Transferencia de Episodio a Participante (Bajo un Mismo Programa)
+                                   <i class="fa fa-wrench" aria-hidden="true"></i>Transferencia de Episodio a Participante (Bajo un Mismo Programa)
                                 </div>
 
                             </h3>
@@ -34,7 +32,7 @@
             <div class="card">
                 <div class="card-header border-bottom">
                     <ul class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
-                        <li class="nav-item" role="presentation" id="wizard1TabCard" >
+                        <li class="nav-item" role="presentation" id="wizard1TabCard">
                             <a class="nav-link active noclick" id="wizard1Tab" runat="server" href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
                                 <div class="wizard-step-icon">1</div>
                                 <div class="wizard-step-text">
@@ -75,6 +73,16 @@
                                 <div class="wizard-step-icon">5</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Confirmación</div>
+                                    <div class="wizard-step-text-details"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item " role="presentation">
+                            <a class="nav-link btn-info btn" href="#" data-toggle="modal" data-target="#modalModule">
+                                <div class="wizard-step-icon"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></div>
+                                <div class="wizard-step-text">
+                                    <div class="wizard-step-text-name">Información</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
@@ -403,8 +411,28 @@
     <input type="number" runat="server" id="lblPersona" hidden disabled />
     <input type="number" runat="server" id="lblIUPPersonToTransfer" hidden disabled />
     <input type="text" runat="server" id="lblNbPrograma" hidden disabled />
-        <input type="text" runat="server" id="lblExpedienteOriginal" hidden disabled />
+    <input type="text" runat="server" id="lblExpedienteOriginal" hidden disabled />
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalModule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Transferencia de Episodio a Participante (Bajo un Mismo Programa)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Este módulo se usa para transferir episodios de un participante a otro participante bajo el mismo programa, el cual está registrado. Uno de los casos más comunes para el uso de este módulo es que se registró un episodio al participante incorrecto y se desea transferir ese episodio al participante correcto.</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/TransferEpisodioPersona.js?ver=1")%>"></script>
 

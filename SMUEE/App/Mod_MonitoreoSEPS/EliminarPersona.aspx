@@ -15,8 +15,7 @@
                         <div class="col-auto mb-3">
                             <h3 class="page-header-title">
                                 <div class="page-header-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <i class="fa fa-eraser" aria-hidden="true"></i>
                                     Eliminar Participante (Sin episodios registrados)
                                 </div>
 
@@ -69,6 +68,18 @@
                                 </div>
                             </a>
                         </li>
+
+                         <li class="nav-item " role="presentation">
+                            <a class="nav-link btn-info btn" href="#" data-toggle="modal" data-target="#modalModule">
+                                <div class="wizard-step-icon"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></div>
+                                <div class="wizard-step-text">
+                                    <div class="wizard-step-text-name">Información</div>
+                                    <div class="wizard-step-text-details"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                   
 
                     </ul>
                 </div>
@@ -249,6 +260,37 @@
     </main>
 
     <input type="number" runat="server" id="lblPersona" hidden disabled />
+
+
+    
+<!-- Modal -->
+<div class="modal fade" id="modalModule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Participante (Sin episodios registrados)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Este módulo se utiliza para eliminar participantes que no contengan episodios registrados en el sistema de SEPS. Si se elimina un participante, también se eliminarán los expedientes en los programas los cuales este tenga registrado. </p>
+        <p><b>*Si el participante contiene episodios en cualquier programa, el sistema no dejará eliminarlo.*</b></p>
+        <p></p>
+        <p>Posibles uso para este módulo:</p>
+            <ol>
+                <li><p>Registro un participante por error.</p></li>
+                <li><p>Paciente duplicado en el sistema.</p></li>
+
+            </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>  
+
     
 
     <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/EliminarPersona.js?ver=1")%>"></script>

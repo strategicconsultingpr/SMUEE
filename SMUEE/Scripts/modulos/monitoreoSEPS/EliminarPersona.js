@@ -18,6 +18,7 @@ $(document).ready(function () {
     $("#btnNextStep3").hide();
     $("#btnNextStep4").hide();
 
+    $("#modalModule").modal();
 });
 
 

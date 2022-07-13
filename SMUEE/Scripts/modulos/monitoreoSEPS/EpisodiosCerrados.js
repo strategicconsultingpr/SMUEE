@@ -16,6 +16,8 @@ $(document).ready(function () {
     $("#btnNextStep1").hide();
     $("#btnNextStep2").hide();
     $("#btnNextStep3").hide();
+    $("#modalModule").modal();
+
 
 });
 

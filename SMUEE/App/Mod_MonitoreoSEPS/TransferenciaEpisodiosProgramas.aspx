@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="TransferenciaEpisodiosProgramas.aspx.cs" Inherits="SMUEE.App.Mod_MonitoreoSEPS.TransferenciaDeEpisodiosProgramas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-      <style>
-        a.noclick       {
-  pointer-events: none;
-}
+    <style>
+        a.noclick {
+            pointer-events: none;
+        }
     </style>
     <main>
         <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -14,9 +14,7 @@
                         <div class="col-auto mb-3">
                             <h3 class="page-header-title">
                                 <div class="page-header-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    Transferencia de Episodios a Otro Programa
+                                   <i class="fa fa-wrench" aria-hidden="true"></i>Transferencia de Episodios a Otro Programa
                                 </div>
 
                             </h3>
@@ -84,6 +82,16 @@
                                 <div class="wizard-step-icon">6</div>
                                 <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Confirmación</div>
+                                    <div class="wizard-step-text-details"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item " role="presentation">
+                            <a class="nav-link btn-info btn" href="#" data-toggle="modal" data-target="#modalModule">
+                                <div class="wizard-step-icon"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></div>
+                                <div class="wizard-step-text">
+                                    <div class="wizard-step-text-name">Información</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
@@ -434,6 +442,28 @@
     <input type="text" runat="server" id="lblDENvlAs" hidden disabled />
     <input type="text" runat="server" id="lblDENvlMh" hidden disabled />
     <input type="text" runat="server" id="lblExpedienteOriginal" hidden disabled />
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalModule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Transferencia de Episodios a Otro Programa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Este módulo se utiliza para transferir un episodio de una persona a otro programa. Cuando se dice transferir entiéndase es con respecto al sistema de SEPS por ejemplo transferir un episodio que se registró de forma errónea en Metadona Caguas a Metadona San Juan.</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/TransferEpisodioPrograma.js?ver=1")%>"></script>
 

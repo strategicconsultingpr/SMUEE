@@ -11,6 +11,9 @@
     $("#btnNextStep3").hide();
     $("#btnNextStep4").hide();
     $("#btnNextStep5").hide();
+
+    $("#modalModule").modal();
+
 });
 
 
