@@ -192,7 +192,7 @@ $('#chkConfirmation').change(function () {
     }
 });
 
-function OpenEpisode(episode)
+function AltaAdministrativa(episode)
 {
     $.ajax({
         type: "POST", //POST
@@ -278,7 +278,7 @@ function wizard2to3() {
 
      if ($("#MainContent_lblEpisode").val() != null) {
 
-         OpenEpisode($("#MainContent_lblEpisode").val());
+         AltaAdministrativa($("#MainContent_lblEpisode").val());
         document.getElementById("MainContent_wizard3Tab").click();
 
     }

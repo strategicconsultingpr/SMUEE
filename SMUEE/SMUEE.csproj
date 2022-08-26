@@ -202,16 +202,19 @@
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="App\EmailsHTML\confirmacionCuenta.html" />
     <Content Include="App\EmailsHTML\EmailPassword.html" />
+    <Content Include="App\Mod_MonitoreoSEPS\ajax\AltasAdministrativas.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\EliminarPersona.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\EpisodiosCerrados.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\MonitoreoHelpers.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodePerson.asmx" />
     <Content Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodioPrograma.asmx" />
+    <Content Include="App\Mod_MonitoreoSEPS\AltaAdministrativa.aspx" />
     <Content Include="App\Mod_MonitoreoSEPS\EliminarPersona.aspx" />
     <Content Include="App\Mod_MonitoreoSEPS\EpisodiosCerrados.aspx" />
     <Content Include="App\Mod_MonitoreoSEPS\ReportesMonitoreoSEPS.aspx" />
     <Content Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodiosProgramas.aspx" />
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
+    <Content Include="App\Mod_TEDS\ajax\Extracciones.asmx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ReportesTEDS.aspx" />
     <Content Include="App\Notificaciones\ManejarNotificaciones.aspx" />
@@ -246,6 +249,7 @@
     <Content Include="Global.asax" />
     <Content Include="Account\Web.config" />
     <Content Include="Images\loading.gif" />
+    <Content Include="Images\samhsalogo.png" />
     <Content Include="ModelSMUEE.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelSMUEE.edmx</DependentUpon>
@@ -426,6 +430,8 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modulos\TEDS\ExtraccionesTEDS.js" />
+    <Content Include="Scripts\modulos\monitoreoSEPS\AltaAdministrativa.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\EliminarPersona.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\EpisodiosCerrados.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPersona.js" />
@@ -2283,6 +2289,10 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\ajax\AltasAdministrativas.asmx.cs">
+      <DependentUpon>AltasAdministrativas.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\ajax\EliminarPersona.asmx.cs">
       <DependentUpon>EliminarPersona.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -2302,6 +2312,13 @@
     <Compile Include="App\Mod_MonitoreoSEPS\ajax\TransferEpisodioPrograma.asmx.cs">
       <DependentUpon>TransferEpisodioPrograma.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\AltaAdministrativa.aspx.cs">
+      <DependentUpon>AltaAdministrativa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Mod_MonitoreoSEPS\AltaAdministrativa.aspx.designer.cs">
+      <DependentUpon>AltaAdministrativa.aspx</DependentUpon>
     </Compile>
     <Compile Include="App\Mod_MonitoreoSEPS\EliminarPersona.aspx.cs">
       <DependentUpon>EliminarPersona.aspx</DependentUpon>
@@ -2337,6 +2354,10 @@
     </Compile>
     <Compile Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx.designer.cs">
       <DependentUpon>ReportesInformativos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\Mod_TEDS\ajax\Extracciones.asmx.cs">
+      <DependentUpon>Extracciones.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="App\Mod_TEDS\ExtraccionesTEDS.aspx.cs">
       <DependentUpon>ExtraccionesTEDS.aspx</DependentUpon>
@@ -2436,8 +2457,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelSMUEE.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomReportCredentials.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logs.cs" />
+    <Compile Include="Models\ReportViewerForSSRS.cs" />
     <Compile Include="NoLogin.Master.cs">
       <DependentUpon>NoLogin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2508,6 +2531,9 @@
     <Compile Include="SPC_SESION_Result.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
+    <Compile Include="SPR_PERFIL_Result.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS_Result.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
@@ -2555,6 +2581,9 @@
     </Compile>
     <Compile Include="VW_REPORTES.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_SAEP.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_UsersList.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>

@@ -156,6 +156,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Procesos:</h6>
                             <%--                            <a class="collapse-item text-wrap" href="#">Envio de Notificaciones</a>--%>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/AltaAdministrativa")%>">Altas Administrativas</a>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EliminarPersona")%>">Eliminar Participante</a>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EpisodiosCerrados")%>">Reabrir Episodios</a>
 
@@ -519,6 +520,11 @@
         $(document).ready(function () {
             $('.usersListTable').DataTable();
         });
+
+        $(document).ready(function () {
+            $('.altasAdDataTable').DataTable();
+        });
+
         $(document).ready(function () {
             $('.reportsListTable').DataTable();
         });

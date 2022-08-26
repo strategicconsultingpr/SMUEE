@@ -799,6 +799,31 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
           <Property Name="DE_SaludMental" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CO_TEDS_MH" Type="char" MaxLength="2" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_SAEP">
+          <Key>
+            <PropertyRef Name="Nombre Participante" />
+            <PropertyRef Name="IUP" />
+            <PropertyRef Name="Expediente" />
+            <PropertyRef Name="Número de Episodio" />
+            <PropertyRef Name="Fecha Admsión" />
+            <PropertyRef Name="Tipo de Último Perfil" />
+            <PropertyRef Name="FK_Programa" />
+            <PropertyRef Name="PK_NR_Perfil" />
+          </Key>
+          <Property Name="Nombre Programa" Type="varchar" MaxLength="100" />
+          <Property Name="Nombre Participante" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="IUP" Type="int" Nullable="false" />
+          <Property Name="Expediente" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="Número de Episodio" Type="int" Nullable="false" />
+          <Property Name="Fecha Admsión" Type="datetime" Nullable="false" />
+          <Property Name="ÚltimoPerfil" Type="datetime" />
+          <Property Name="Tipo de Último Perfil" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Meses sin Perfiles de Evaluación de Progreso" Type="int" />
+          <Property Name="FK_Programa" Type="smallint" Nullable="false" />
+          <Property Name="PK_NR_Perfil" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_SA_EPISODIO_SA_PERSONA">
           <End Role="SA_PERSONA" Type="Self.SA_PERSONA" Multiplicity="1" />
           <End Role="SA_EPISODIO" Type="Self.SA_EPISODIO" Multiplicity="*" />
@@ -878,6 +903,81 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
           </ReferentialConstraint>
         </Association>
         <Function Name="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SPC_PERFIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_Episodio" Type="int" Mode="In" />
+          <Parameter Name="NR_Expediente" Type="int" Mode="In" />
+          <Parameter Name="FE_Perfil" Type="datetime" Mode="In" />
+          <Parameter Name="FE_Contacto" Type="datetime" Mode="In" />
+          <Parameter Name="IN_TI_Perfil" Type="char" Mode="In" />
+          <Parameter Name="FK_EstadoMarital" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_CondicionLaboral" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_ActividadNoLaboral" Type="tinyint" Mode="In" />
+          <Parameter Name="NR_Hijos" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_Escolaridad" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_EducEspecial" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_DesertorEscolar" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_Familia" Type="tinyint" Mode="In" />
+          <Parameter Name="NR_Familiar" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_Residencia" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_ParticReunGrupos" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_FreqAutoAyuda" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_Arrestado30dias" Type="tinyint" Mode="In" />
+          <Parameter Name="NR_Arrestos30dias" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_DSMV_TrastornosClinicos1" Type="smallint" Mode="In" />
+          <Parameter Name="FK_DSMV_TrastornosClinicos2" Type="smallint" Mode="In" />
+          <Parameter Name="FK_DSMV_TrastornosClinicos3" Type="smallint" Mode="In" />
+          <Parameter Name="FK_DSMV_TrastornosPersonalidadRM1" Type="smallint" Mode="In" />
+          <Parameter Name="FK_DSMV_TrastornosPersonalidadRM2" Type="smallint" Mode="In" />
+          <Parameter Name="FK_DSMV_TrastornosPersonalidadRM3" Type="smallint" Mode="In" />
+          <Parameter Name="FK_DSMV_ProblemasPsicosocialesAmbientales1" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_DSMV_ProblemasPsicosocialesAmbientales2" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_DSMV_ProblemasPsicosocialesAmbientales3" Type="tinyint" Mode="In" />
+          <Parameter Name="NR_DSMV_FuncionamientoGlobal" Type="varchar" Mode="In" />
+          <Parameter Name="DE_DSMV_OtrasObservaciones" Type="varchar" Mode="In" />
+          <Parameter Name="DE_DSMV_Comentarios" Type="varchar" Mode="In" />
+          <Parameter Name="IN_DSMV_DiagnosticoDual" Type="smallint" Mode="In" />
+          <Parameter Name="FK_DisposicionFinalReferido" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_DrogaPrimario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_ViaPrimario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_FrecuenciaPrimario" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_EdadInicioPrimario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_DrogaSecundario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_ViaSecundario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_FrecuenciaSecundario" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_EdadInicioSecundario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_DrogaTerciario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_ViaTerciario" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_FrecuenciaTerciario" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_EdadInicioTerciario" Type="tinyint" Mode="In" />
+          <Parameter Name="NR_PromedioVisitas" Type="decimal" Mode="In" />
+          <Parameter Name="FK_Alta" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_CentroTraslado" Type="smallint" Mode="In" />
+          <Parameter Name="DE_Comentario" Type="varchar" Mode="In" />
+          <Parameter Name="FK_Sesion" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="FK_SituacionEscolar" Type="int" Mode="In" />
+          <Parameter Name="FK_TipoAdmision" Type="int" Mode="In" />
+          <Parameter Name="FK_CategoriaCentroPrivado" Type="int" Mode="In" />
+          <Parameter Name="NR_CelularPrimario" Type="varchar" Mode="In" />
+          <Parameter Name="NR_CelularContacto" Type="varchar" Mode="In" />
+          <Parameter Name="DE_EmailPrimario" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DE_EmailSecundario" Type="varchar(max)" Mode="In" />
+          <Parameter Name="FK_CatRecuperacionRes" Type="tinyint" Mode="In" />
+          <Parameter Name="HogarRecuperacionRes" Type="varchar(max)" Mode="In" />
+          <Parameter Name="FK_DSMV_Sustancias1" Type="int" Mode="In" />
+          <Parameter Name="FK_DSMV_Sustancias2" Type="int" Mode="In" />
+          <Parameter Name="FK_DSMV_Sustancias3" Type="int" Mode="In" />
+          <Parameter Name="IN_Fumado" Type="tinyint" Mode="In" />
+          <Parameter Name="DE_FrecuenciaFumado" Type="varchar(max)" Mode="In" />
+          <Parameter Name="NR_CigarrosXDias" Type="int" Mode="In" />
+          <Parameter Name="DE_DrogaNueva1" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DE_DrogaNueva2" Type="varchar(max)" Mode="In" />
+          <Parameter Name="DE_DrogaNueva3" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IN_Toxicologia1" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_Toxicologia2" Type="tinyint" Mode="In" />
+          <Parameter Name="IN_Toxicologia3" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_IDENTIDAD_GENERO" Type="int" Mode="In" />
+          <Parameter Name="PK_Perfil" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="SPC_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NB_Login" Type="varchar" Mode="In" />
           <Parameter Name="PASSWORD" Type="varchar" Mode="In" />
@@ -1304,6 +1404,21 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
     [VW_REF_SALUD_MENTAL].[CO_TEDS_MH] AS [CO_TEDS_MH]
     FROM [dbo].[VW_REF_SALUD_MENTAL] AS [VW_REF_SALUD_MENTAL]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VW_SAEP" EntityType="Self.VW_SAEP" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_SAEP].[Nombre Programa] AS [Nombre Programa], 
+    [VW_SAEP].[Nombre Participante] AS [Nombre Participante], 
+    [VW_SAEP].[IUP] AS [IUP], 
+    [VW_SAEP].[Expediente] AS [Expediente], 
+    [VW_SAEP].[Número de Episodio] AS [Número de Episodio], 
+    [VW_SAEP].[Fecha Admsión] AS [Fecha Admsión], 
+    [VW_SAEP].[ÚltimoPerfil] AS [ÚltimoPerfil], 
+    [VW_SAEP].[Tipo de Último Perfil] AS [Tipo de Último Perfil], 
+    [VW_SAEP].[Meses sin Perfiles de Evaluación de Progreso] AS [Meses sin Perfiles de Evaluación de Progreso], 
+    [VW_SAEP].[FK_Programa] AS [FK_Programa], 
+    [VW_SAEP].[PK_NR_Perfil] AS [PK_NR_Perfil]
+    FROM [dbo].[VW_SAEP] AS [VW_SAEP]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_SA_EPISODIO_SA_PERSONA" Association="Self.FK_SA_EPISODIO_SA_PERSONA">
             <End Role="SA_PERSONA" EntitySet="SA_PERSONA" />
             <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
@@ -1689,6 +1804,85 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
           <Parameter Name="PK_Sesion" Mode="In" Type="Guid" />
           </FunctionImport>
           <EntitySet Name="VW_EPISODIOS_EXPEDIENTE" EntityType="SEPSModel.VW_EPISODIOS_EXPEDIENTE" />
+          <EntitySet Name="VW_SAEP" EntityType="SEPSModel.VW_SAEP" />
+          <FunctionImport Name="SPR_PERFIL" ReturnType="Collection(SEPSModel.SPR_PERFIL_Result)">
+          <Parameter Name="PK_Perfil" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SPC_PERFIL">
+            <Parameter Name="FK_Episodio" Mode="In" Type="Int32" />
+            <Parameter Name="NR_Expediente" Mode="In" Type="Int32" />
+            <Parameter Name="FE_Perfil" Mode="In" Type="DateTime" />
+            <Parameter Name="FE_Contacto" Mode="In" Type="DateTime" />
+            <Parameter Name="IN_TI_Perfil" Mode="In" Type="String" />
+            <Parameter Name="FK_EstadoMarital" Mode="In" Type="Byte" />
+            <Parameter Name="FK_CondicionLaboral" Mode="In" Type="Byte" />
+            <Parameter Name="FK_ActividadNoLaboral" Mode="In" Type="Byte" />
+            <Parameter Name="NR_Hijos" Mode="In" Type="Byte" />
+            <Parameter Name="FK_Escolaridad" Mode="In" Type="Byte" />
+            <Parameter Name="IN_EducEspecial" Mode="In" Type="Byte" />
+            <Parameter Name="IN_DesertorEscolar" Mode="In" Type="Byte" />
+            <Parameter Name="FK_Familia" Mode="In" Type="Byte" />
+            <Parameter Name="NR_Familiar" Mode="In" Type="Byte" />
+            <Parameter Name="FK_Residencia" Mode="In" Type="Byte" />
+            <Parameter Name="IN_ParticReunGrupos" Mode="In" Type="Byte" />
+            <Parameter Name="FK_FreqAutoAyuda" Mode="In" Type="Byte" />
+            <Parameter Name="IN_Arrestado30dias" Mode="In" Type="Byte" />
+            <Parameter Name="NR_Arrestos30dias" Mode="In" Type="Byte" />
+            <Parameter Name="FK_DSMV_TrastornosClinicos1" Mode="In" Type="Int16" />
+            <Parameter Name="FK_DSMV_TrastornosClinicos2" Mode="In" Type="Int16" />
+            <Parameter Name="FK_DSMV_TrastornosClinicos3" Mode="In" Type="Int16" />
+            <Parameter Name="FK_DSMV_TrastornosPersonalidadRM1" Mode="In" Type="Int16" />
+            <Parameter Name="FK_DSMV_TrastornosPersonalidadRM2" Mode="In" Type="Int16" />
+            <Parameter Name="FK_DSMV_TrastornosPersonalidadRM3" Mode="In" Type="Int16" />
+            <Parameter Name="FK_DSMV_ProblemasPsicosocialesAmbientales1" Mode="In" Type="Byte" />
+            <Parameter Name="FK_DSMV_ProblemasPsicosocialesAmbientales2" Mode="In" Type="Byte" />
+            <Parameter Name="FK_DSMV_ProblemasPsicosocialesAmbientales3" Mode="In" Type="Byte" />
+            <Parameter Name="NR_DSMV_FuncionamientoGlobal" Mode="In" Type="String" />
+            <Parameter Name="DE_DSMV_OtrasObservaciones" Mode="In" Type="String" />
+            <Parameter Name="DE_DSMV_Comentarios" Mode="In" Type="String" />
+            <Parameter Name="IN_DSMV_DiagnosticoDual" Mode="In" Type="Int16" />
+            <Parameter Name="FK_DisposicionFinalReferido" Mode="In" Type="Byte" />
+            <Parameter Name="FK_DrogaPrimario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_ViaPrimario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_FrecuenciaPrimario" Mode="In" Type="Byte" />
+            <Parameter Name="IN_EdadInicioPrimario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_DrogaSecundario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_ViaSecundario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_FrecuenciaSecundario" Mode="In" Type="Byte" />
+            <Parameter Name="IN_EdadInicioSecundario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_DrogaTerciario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_ViaTerciario" Mode="In" Type="Byte" />
+            <Parameter Name="FK_FrecuenciaTerciario" Mode="In" Type="Byte" />
+            <Parameter Name="IN_EdadInicioTerciario" Mode="In" Type="Byte" />
+            <Parameter Name="NR_PromedioVisitas" Mode="In" Type="Decimal" />
+            <Parameter Name="FK_Alta" Mode="In" Type="Byte" />
+            <Parameter Name="FK_CentroTraslado" Mode="In" Type="Int16" />
+            <Parameter Name="DE_Comentario" Mode="In" Type="String" />
+            <Parameter Name="FK_Sesion" Mode="In" Type="Guid" />
+            <Parameter Name="FK_SituacionEscolar" Mode="In" Type="Int32" />
+            <Parameter Name="FK_TipoAdmision" Mode="In" Type="Int32" />
+            <Parameter Name="FK_CategoriaCentroPrivado" Mode="In" Type="Int32" />
+            <Parameter Name="NR_CelularPrimario" Mode="In" Type="String" />
+            <Parameter Name="NR_CelularContacto" Mode="In" Type="String" />
+            <Parameter Name="DE_EmailPrimario" Mode="In" Type="String" />
+            <Parameter Name="DE_EmailSecundario" Mode="In" Type="String" />
+            <Parameter Name="FK_CatRecuperacionRes" Mode="In" Type="Byte" />
+            <Parameter Name="HogarRecuperacionRes" Mode="In" Type="String" />
+            <Parameter Name="FK_DSMV_Sustancias1" Mode="In" Type="Int32" />
+            <Parameter Name="FK_DSMV_Sustancias2" Mode="In" Type="Int32" />
+            <Parameter Name="FK_DSMV_Sustancias3" Mode="In" Type="Int32" />
+            <Parameter Name="IN_Fumado" Mode="In" Type="Byte" />
+            <Parameter Name="DE_FrecuenciaFumado" Mode="In" Type="String" />
+            <Parameter Name="NR_CigarrosXDias" Mode="In" Type="Int32" />
+            <Parameter Name="DE_DrogaNueva1" Mode="In" Type="String" />
+            <Parameter Name="DE_DrogaNueva2" Mode="In" Type="String" />
+            <Parameter Name="DE_DrogaNueva3" Mode="In" Type="String" />
+            <Parameter Name="IN_Toxicologia1" Mode="In" Type="Byte" />
+            <Parameter Name="IN_Toxicologia2" Mode="In" Type="Byte" />
+            <Parameter Name="IN_Toxicologia3" Mode="In" Type="Byte" />
+            <Parameter Name="FK_IDENTIDAD_GENERO" Mode="In" Type="Int32" />
+            <Parameter Name="PK_Perfil" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="SA_EPISODIO">
           <Key>
@@ -2370,6 +2564,221 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
           <Property Name="IN_Suicida" Type="Byte" Nullable="false" />
           <Property Name="FE_Alta" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="VW_SAEP">
+          <Key>
+            <PropertyRef Name="Nombre_Participante" />
+            <PropertyRef Name="IUP" />
+            <PropertyRef Name="Expediente" />
+            <PropertyRef Name="Número_de_Episodio" />
+            <PropertyRef Name="Fecha_Admsión" />
+            <PropertyRef Name="Tipo_de_Último_Perfil" />
+            <PropertyRef Name="FK_Programa" />
+            <PropertyRef Name="PK_NR_Perfil" />
+          </Key>
+          <Property Name="Nombre_Programa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_Participante" Type="String" Nullable="false" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="IUP" Type="Int32" Nullable="false" />
+          <Property Name="Expediente" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Número_de_Episodio" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Admsión" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ÚltimoPerfil" Type="DateTime" Precision="3" />
+          <Property Name="Tipo_de_Último_Perfil" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Meses_sin_Perfiles_de_Evaluación_de_Progreso" Type="Int32" />
+          <Property Name="FK_Programa" Type="Int16" Nullable="false" />
+          <Property Name="PK_NR_Perfil" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="SPR_PERFIL_Result">
+          <Property Type="Int32" Name="PK_NR_Perfil" Nullable="false" />
+          <Property Type="Int32" Name="FK_Episodio" Nullable="false" />
+          <Property Type="DateTime" Name="FE_Perfil" Nullable="false" Precision="23" />
+          <Property Type="String" Name="IN_TI_Perfil" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="DE_DSMV_TrastornosClinicos1" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DE_DSMV_TrastornosClinicos2" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DE_DSMV_TrastornosClinicos3" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CODE_DSMV_TrastornosClinicos1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CODE_DSMV_TrastornosClinicos2" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CODE_DSMV_TrastornosClinicos3" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="FK_DSMV_TrastornosClinicos1" Nullable="true" />
+          <Property Type="Int32" Name="FK_DSMV_TrastornosClinicos2" Nullable="true" />
+          <Property Type="Int32" Name="FK_DSMV_TrastornosClinicos3" Nullable="true" />
+          <Property Type="String" Name="DE_DSMV_TrastornosPersonalidadRM1" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DE_DSMV_TrastornosPersonalidadRM2" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DE_DSMV_TrastornosPersonalidadRM3" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CODE_DSMV_TrastornosPersonalidadRM1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CODE_DSMV_TrastornosPersonalidadRM2" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CODE_DSMV_TrastornosPersonalidadRM3" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="FK_DSMV_TrastornosPersonalidadRM1" Nullable="true" />
+          <Property Type="Int32" Name="FK_DSMV_TrastornosPersonalidadRM2" Nullable="true" />
+          <Property Type="Int32" Name="FK_DSMV_TrastornosPersonalidadRM3" Nullable="true" />
+          <Property Type="String" Name="DE_DSMV_ProblemasPsicosocialesAmbientales1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DE_DSMV_ProblemasPsicosocialesAmbientales2" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DE_DSMV_ProblemasPsicosocialesAmbientales3" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FK_DSMV_ProblemasPsicosocialesAmbientales1" Nullable="true" />
+          <Property Type="Int32" Name="FK_DSMV_ProblemasPsicosocialesAmbientales2" Nullable="true" />
+          <Property Type="Int32" Name="FK_DSMV_ProblemasPsicosocialesAmbientales3" Nullable="true" />
+          <Property Type="Int32" Name="IN_DSMV_DiagnosticoDual" Nullable="true" />
+          <Property Type="String" Name="NR_DSMV_FuncionamientoGlobal" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="DE_DSMV_Comentarios" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="DE_DSMV_OtrasObservaciones" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="DE_DSMV_DiagnosticoDual" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="DE_TI_Perfil" Nullable="true" MaxLength="10" />
+          <Property Type="Byte" Name="IN_Emancipado" Nullable="true" />
+          <Property Type="String" Name="DE_Emancipado" Nullable="true" MaxLength="10" />
+          <Property Type="Byte" Name="FK_EstadoMarital" Nullable="false" />
+          <Property Type="String" Name="DE_EstadoMarital" Nullable="true" MaxLength="30" />
+          <Property Type="Byte" Name="FK_CondicionLaboral" Nullable="false" />
+          <Property Type="String" Name="DE_CondLaboral" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_ActividadNoLaboral" Nullable="false" />
+          <Property Type="String" Name="DE_NoFuerzaLaboral" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_EmbarazosTratamiento" Nullable="true" />
+          <Property Type="String" Name="DE_EmbarazosTratamiento" Nullable="true" MaxLength="10" />
+          <Property Type="Byte" Name="NR_Hijos" Nullable="false" />
+          <Property Type="Byte" Name="FK_Escolaridad" Nullable="false" />
+          <Property Type="String" Name="DE_Grado" Nullable="true" MaxLength="40" />
+          <Property Type="DateTime" Name="FE_UltimoInformeEscolar" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="NR_PromedioAcademico" Nullable="true" Precision="3" Scale="2" />
+          <Property Type="Int16" Name="NR_AusenciasAcad" Nullable="true" />
+          <Property Type="Byte" Name="IN_EducEspecial" Nullable="true" />
+          <Property Type="String" Name="DE_EducEspecial" Nullable="true" MaxLength="9" />
+          <Property Type="Byte" Name="IN_DesertorEscolar" Nullable="true" />
+          <Property Type="String" Name="DE_DesertorEscolar" Nullable="true" MaxLength="9" />
+          <Property Type="Byte" Name="FK_Familia" Nullable="false" />
+          <Property Type="String" Name="DE_Familiar" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="NR_Familiar" Nullable="false" />
+          <Property Type="Byte" Name="FK_Residencia" Nullable="false" />
+          <Property Type="String" Name="DE_Residencia" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_ParticReunGrupos" Nullable="true" />
+          <Property Type="String" Name="DE_ParticReunGrupos" Nullable="true" MaxLength="11" />
+          <Property Type="Byte" Name="FK_FreqAutoAyuda" Nullable="true" />
+          <Property Type="String" Name="DE_FreqAutoAyuda" Nullable="true" MaxLength="70" />
+          <Property Type="Byte" Name="IN_Arrestado30dias" Nullable="true" />
+          <Property Type="String" Name="DE_Arrestado30dias" Nullable="true" MaxLength="2" />
+          <Property Type="Byte" Name="NR_Arrestos30dias" Nullable="true" />
+          <Property Type="Byte" Name="IN_Arrestado365dias" Nullable="true" />
+          <Property Type="String" Name="DE_Arrestado365dias" Nullable="true" MaxLength="2" />
+          <Property Type="Byte" Name="FK_CondicionPrimaria" Nullable="true" />
+          <Property Type="String" Name="DE_DiagnosticoPrimario" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_CondicionSecundaria" Nullable="true" />
+          <Property Type="String" Name="DE_DiagnosticoSecundario" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_CondicionTerciaria" Nullable="true" />
+          <Property Type="String" Name="DE_DiagnosticoTerciaria" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="FK_TrastornosClinicosPrimario" Nullable="true" />
+          <Property Type="String" Name="DE_TipoAdmision" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="FK_TipoAdmision" Nullable="true" />
+          <Property Type="String" Name="DE_CategoriaCentroPrivado" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="FK_CategoriaCentroPrivado" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_TCP" Nullable="true" MaxLength="200" />
+          <Property Type="Int16" Name="FK_TrastornosClinicosSecundario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_TCS" Nullable="true" MaxLength="200" />
+          <Property Type="Int16" Name="FK_TrastornosClinicosTerciario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_TCT" Nullable="true" MaxLength="200" />
+          <Property Type="Int16" Name="FK_TrastornosPersonalidadPrimario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_TPP" Nullable="true" MaxLength="200" />
+          <Property Type="Int16" Name="FK_TrastornosPersonalidadSecundario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_TPS" Nullable="true" MaxLength="200" />
+          <Property Type="Int16" Name="FK_TrastornosPersonalidadTerciario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_TPT" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CO_CondicionesMedicasPrimario" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CO_CondicionesMedicasSecundario" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CO_CondicionesMedicasTerciario" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_ProblemasPsicosocialesPrimario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_IV_P" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_ProblemasPsicosocialesSecundario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_IV_S" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_ProblemasPsicosocialesTerciario" Nullable="true" />
+          <Property Type="String" Name="DE_DSMIV_IV_T" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NR_EscalaGAF" Nullable="true" />
+          <Property Type="Byte" Name="FK_ReferidosGeneradosTX" Nullable="true" />
+          <Property Type="String" Name="DE_ReferidosTX" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_DisposicionFinalReferido" Nullable="true" />
+          <Property Type="String" Name="DE_DisposicionFinal" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_DrogaPrimario" Nullable="false" />
+          <Property Type="String" Name="DE_Droga_P" Nullable="true" MaxLength="60" />
+          <Property Type="Byte" Name="FK_DrogaSecundario" Nullable="false" />
+          <Property Type="String" Name="DE_Droga_S" Nullable="true" MaxLength="60" />
+          <Property Type="Byte" Name="FK_DrogaTerciario" Nullable="false" />
+          <Property Type="String" Name="DE_Droga_T" Nullable="true" MaxLength="60" />
+          <Property Type="Byte" Name="FK_ViaPrimario" Nullable="false" />
+          <Property Type="String" Name="DE_Via_P" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_ViaSecundario" Nullable="false" />
+          <Property Type="String" Name="DE_Via_S" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_ViaTerciario" Nullable="false" />
+          <Property Type="String" Name="DE_Via_T" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_FrecuenciaPrimario" Nullable="false" />
+          <Property Type="String" Name="DE_Frecuencia_P" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_FrecuenciaSecundario" Nullable="false" />
+          <Property Type="String" Name="DE_Frecuencia_S" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_FrecuenciaTerciario" Nullable="false" />
+          <Property Type="String" Name="DE_Frecuencia_T" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="IN_EdadInicioPrimario" Nullable="true" />
+          <Property Type="Byte" Name="IN_EdadInicioSecundario" Nullable="true" />
+          <Property Type="Byte" Name="IN_EdadInicioTerciario" Nullable="true" />
+          <Property Type="Byte" Name="NR_CantidadPrimario" Nullable="true" />
+          <Property Type="Byte" Name="NR_CantidadSecundario" Nullable="true" />
+          <Property Type="Byte" Name="NR_CantidadTerciario" Nullable="true" />
+          <Property Type="Byte" Name="FK_MedidaPrimario" Nullable="true" />
+          <Property Type="String" Name="DE_Medida_P" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FK_SituacionEscolar" Nullable="true" />
+          <Property Type="String" Name="DE_SituacionEscolar" Nullable="true" MaxLength="80" />
+          <Property Type="Byte" Name="FK_MedidaSecundario" Nullable="true" />
+          <Property Type="String" Name="DE_Medida_S" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="FK_MedidaTerciario" Nullable="true" />
+          <Property Type="String" Name="DE_Medida_T" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="NR_GastoPrimario" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="NR_GastoSecundario" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="NR_GastoTerciario" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="NR_PromedioVisitas" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Byte" Name="FK_Alta" Nullable="true" />
+          <Property Type="String" Name="DE_Alta" Nullable="true" MaxLength="35" />
+          <Property Type="Int16" Name="FK_CentroTraslado" Nullable="true" />
+          <Property Type="String" Name="NB_Programa" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DE_Comentario" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="TI_Transaccion" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="DE_Transaccion" Nullable="true" MaxLength="9" />
+          <Property Type="Guid" Name="FK_Sesion" Nullable="false" />
+          <Property Type="String" Name="TI_Edicion" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="DE_Edicion" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="FE_Edicion" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="ES_Perfil" Nullable="true" />
+          <Property Type="String" Name="DE_SaludMental" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DE_AbusoSustancias" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="NB_ProgramaActual" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NB_AdministracionActual" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="IN_EstLeg" Nullable="true" />
+          <Property Type="String" Name="DE_EstLeg" Nullable="true" MaxLength="14" />
+          <Property Type="DateTime" Name="FE_Contacto" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="FK_Persona" Nullable="false" />
+          <Property Type="String" Name="NR_CelularPrimario" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NR_CelularContacto" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DE_EmailPrimario" Nullable="true" />
+          <Property Type="String" Name="DE_EmailSecundario" Nullable="true" />
+          <Property Type="Byte" Name="FK_CatRecuperacionRes" Nullable="true" />
+          <Property Type="String" Name="DE_CarRecuperacionRes" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="HogarRecuperacionRes" Nullable="true" />
+          <Property Type="Int16" Name="FK_DSMV_Sustancias1" Nullable="true" />
+          <Property Type="String" Name="DE_DSMV_Sustancias1" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="FK_DSMV_Sustancias2" Nullable="true" />
+          <Property Type="String" Name="DE_DSMV_Sustancias2" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="FK_DSMV_Sustancias3" Nullable="true" />
+          <Property Type="String" Name="DE_DSMV_Sustancias3" Nullable="true" MaxLength="300" />
+          <Property Type="Byte" Name="IN_Fumado" Nullable="true" />
+          <Property Type="String" Name="DE_FrecuenciaFumado" Nullable="true" />
+          <Property Type="Int32" Name="NR_CigarrosXDias" Nullable="true" />
+          <Property Type="String" Name="DE_DrogaNueva1" Nullable="true" />
+          <Property Type="String" Name="DE_DrogaNueva2" Nullable="true" />
+          <Property Type="String" Name="DE_DrogaNueva3" Nullable="true" />
+          <Property Type="Byte" Name="IN_Toxicologia1" Nullable="true" />
+          <Property Type="Byte" Name="IN_Toxicologia2" Nullable="true" />
+          <Property Type="Byte" Name="IN_Toxicologia3" Nullable="true" />
+          <Property Type="Int32" Name="FK_IDENTIDAD_GENERO" Nullable="true" />
+          <Property Type="String" Name="DE_IDENTIDAD_GENERO" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CAT_DSMV_TrastornosClinicos1" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="CAT_DSMV_TrastornosClinicos2" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="CAT_DSMV_TrastornosClinicos3" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="CAT_DSMV_Sustancias1" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="CAT_DSMV_Sustancias2" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="CAT_DSMV_Sustancias3" Nullable="true" MaxLength="5" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3187,6 +3596,24 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_REF_SALUD_MENTAL' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="VW_SAEP">
+            <EntityTypeMapping TypeName="SEPSModel.VW_SAEP">
+              <MappingFragment StoreEntitySet="VW_SAEP">
+                <ScalarProperty Name="PK_NR_Perfil" ColumnName="PK_NR_Perfil" />
+                <ScalarProperty Name="FK_Programa" ColumnName="FK_Programa" />
+                <ScalarProperty Name="Meses_sin_Perfiles_de_Evaluación_de_Progreso" ColumnName="Meses sin Perfiles de Evaluación de Progreso" />
+                <ScalarProperty Name="Tipo_de_Último_Perfil" ColumnName="Tipo de Último Perfil" />
+                <ScalarProperty Name="ÚltimoPerfil" ColumnName="ÚltimoPerfil" />
+                <ScalarProperty Name="Fecha_Admsión" ColumnName="Fecha Admsión" />
+                <ScalarProperty Name="Número_de_Episodio" ColumnName="Número de Episodio" />
+                <ScalarProperty Name="Expediente" ColumnName="Expediente" />
+                <ScalarProperty Name="IUP" ColumnName="IUP" />
+                <ScalarProperty Name="Nombre_Participante" ColumnName="Nombre Participante" />
+                <ScalarProperty Name="Nombre_Programa" ColumnName="Nombre Programa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SPC_PERFIL" FunctionName="SEPSModel.Store.SPC_PERFIL" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

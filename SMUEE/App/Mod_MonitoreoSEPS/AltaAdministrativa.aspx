@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ExtraccionesTEDS.aspx.cs" Inherits="SMUEE.App.Mod_TEDS.ExtraccionesTEDS" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="AltaAdministrativa.aspx.cs" Inherits="SMUEE.App.Mod_MonitoreoSEPS.AltaAdministrativa" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
@@ -17,19 +17,7 @@
             padding: 5px;
             text-align: center;
         }
-
-        .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
     </style>
-
-
-
-
-
 
     <main>
         <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -39,8 +27,8 @@
                         <div class="col-auto mb-3">
                             <h3 class="page-header-title">
                                 <div class="page-header-icon">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    Generación de Extracciones TEDS
+                                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                                    Altas Administrativas
                                 </div>
 
                             </h3>
@@ -60,7 +48,7 @@
                             <a class="nav-link active noclick" id="wizard1Tab" runat="server" href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
                                 <div class="wizard-step-icon">1</div>
                                 <div class="wizard-step-text">
-                                    <div class="wizard-step-text-name">Rango de Fecha</div>
+                                    <div class="wizard-step-text-name">Seleccionar Episodio</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
@@ -78,7 +66,7 @@
                             <a class="nav-link noclick" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3" role="tab" aria-controls="wizard3" aria-selected="false">
                                 <div class="wizard-step-icon">3</div>
                                 <div class="wizard-step-text">
-                                    <div class="wizard-step-text-name">Descarga</div>
+                                    <div class="wizard-step-text-name">Confirmación</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
@@ -103,40 +91,49 @@
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 1</h3>
-                                    <h5 class="card-title mb-4">Seleccionar un rango de fecha para la generación de archivos TEDS</h5>
+                                    <h5 class="card-title mb-4">Seleccionar episodio el cual desea crear un alta administrativa</h5>
 
                                     <div>
 
                                         <div>
-                                            <label>Elige un rango de fecha:</label>
-
-                                            <div class="row form-group">
-                                                <div class="col-sm-5 d-flex justify-content-center align-items-center">
-                                                    <div class="input-group date" style="width: 16.5rem;">
-                                                        <asp:TextBox ID="startDate" runat="server" CssClass="form-control"></asp:TextBox>
-                                                        <span class="input-group-append">
-                                                            <span class="input-group-text bg-white">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2 text-center">
-                                                    <asp:Label Text="al" runat="server" />
-                                                </div>
-                                                <div class="col-sm-5 d-flex justify-content-center align-items-center">
-                                                    <div class="input-group date" style="width: 16.5rem;">
-                                                        <asp:TextBox ID="endDate" runat="server" CssClass="form-control"></asp:TextBox>
-                                                        <span class="input-group-append">
-                                                            <span class="input-group-text bg-white">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                            <label>Elige el programa:</label>
+                                            <div class="input-group">
+                                                <asp:DropDownList CssClass="form-control bg-light border-0 small" runat="server" ID="ddlPrograma" DataTextField="NB_Programa" DataValueField="PK_Programa" placeholder="Elige" aria-label="Search" aria-describedby="basic-addon2" />
                                             </div>
 
                                         </div>
+
+
+                                        <div>
+                                            <div runat="server" id="lblNotEpisode" class="alert alert-warning" role="alert">
+                                                Este programas no contiene episodios para altas administrativas
+                                            </div>
+                                            <div runat="server" id="divEpisodes">
+
+                                                <label runat="server">Episodios</label>
+                                                <div class="table-responsive">
+
+                                                    <table class="table table-bordered altasAdDataTable display" style="width: 100%" id="gvEpisodeList">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Seleccionar</td>
+                                                                <td># Episodio</td>
+                                                                <td>Nombre participante</td>
+                                                                <td>Fecha Admision</td>
+                                                                <td>Tipo de Último Perfil</td>
+                                                                <td>Meses Sin Perfiles de Evaluación de Progreso</td>
+                                                            </tr>
+                                                        </thead>
+
+
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
 
 
                                         <hr class="my-4">
@@ -155,8 +152,12 @@
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 2</h3>
                                     <h5 class="card-title mb-4">Resumen de la transacción que desea realizar</h5>
-                                    <label id="lblResumen"></label>
+                                    <label>Se creará un alta administrativa para los siguientes episodios:</label>
 
+
+                                    <div id="divResume" style="height: 300px; overflow-y: scroll;">
+                                      
+                                    </div>
 
                                     <br />
                                     <input type="checkbox" id="chkConfirmation" /><span><label for="chkConfirmation">Para finalizar debe confirmar la transacción marcando el encasillado.</label></span>
@@ -164,7 +165,7 @@
                                     <hr class="my-4">
                                     <div class="d-flex justify-content-between">
                                         <a class="btn btn-light" data-toggle="tab" href="#wizard1" role="tab" id="btnBackStep2" aria-controls="wizard1" onclick="wizard2to1();" type="button">Anterior</a>
-                                        <a class="btn btn-primary" data-toggle="tab" href="#wizard3" id="btnNextStep2" role="tab" aria-controls="wizard3" type="button">Siguiente</a>
+                                        <a class="btn btn-primary" data-toggle="tab" href="#wizard3" id="btnNextStep2" role="tab" aria-controls="wizard3" onclick="wizard2to3();" type="button">Siguiente</a>
                                     </div>
 
 
@@ -177,52 +178,14 @@
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 3</h3>
-                                    <h5 class="card-title mb-4">Descargue sus documentos</h5>
+                                    <h5 class="card-title mb-4">Confirmación de transacción</h5>
 
-
-                                    <table class="table table-bordered">
-
-                                        <tr>
-                                            <td colspan="2">Admisión</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <a onclick="GenerateFile('MHAD')" id="btnMHAD" href="#">Salud Mental</a>
-                                            </td>
-                                            <td>
-                                                <a  onclick="GenerateFile('SAAD')" id="btnSAAD" href="#">Abuso de Sustancias</a>
-
-                                            </td>
-                                        </tr>
-
-
-                                    </table>
-                                    <br />
-                                    <table class="table table-bordered">
-
-                                        <tr>
-                                            <td colspan="2">Altas</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>
-                                                <a type="button" onclick="GenerateFile('MHDIS')" id="btnMHDIS" href="#">Salud Mental</a>
-
-                                            </td>
-                                            <td>
-                                                <a type="button" onclick="GenerateFile('SADIS')" id="btnSADIS" href="#">Abuso de Sustancias</a>
-
-                                            </td>
-                                        </tr>
-
-                                    </table>
+                                    <p id="lblConfirmacion"></p>
 
                                     <hr class="my-4">
                                     <div class="d-flex justify-content-between">
                                         <a class="btn btn-light" id="btnBackStep3" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard3to2();" type="button">Anterior</a>
-                                        <a class="btn btn-primary" id="btnNextStep3" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ExtraccionesTEDS.aspx")%>">Terminar</a>
+                                        <a class="btn btn-primary" id="btnNextStep3" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/AltaAdministrativa")%>">Terminar</a>
                                     </div>
 
                                 </div>
@@ -235,34 +198,27 @@
         </div>
     </main>
 
+    <input type="number" runat="server" id="lblPersona" hidden disabled />
+    <input type="number" runat="server" id="lblEpisode" hidden disabled />
+    <input type="number" runat="server" id="lblPrograma" hidden disabled />
+    <input type="text" runat="server" id="lblNbPrograma" hidden disabled />
+
+
     <!-- Modal -->
     <div class="modal fade" id="modalModule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Generación de Extracciones TEDS
+                    <h5 class="modal-title" id="exampleModalLongTitle">Altas Administrativas
                     </h5>
-
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <div>
-                    <img src="../../Images/samhsalogo.png" height="200" class="center"/>
-                        </div>
-                    <p>
-                        Luego de seleccionar el rango de fecha el sistema generará los cuatro archivos en Excel en formato TEDS que pueden ser al Sistema DSS de SAMHSA y luego validados.
-                       <br />
-                        <br />
-                        Deberá ver los siguientes archivos de transacciones de clientes: un archvo de admisión de salud mental (MHAD) ,
-                        un archivo de admisiones de sustancias (SAAD), un archivo de altas/updates de salud mental (MHDIS) y un archivo de altas/updates sustancias (SADIS)
-                    </p>
-
-                    <br />
-                    <br />
-
+                    <p></p>
+                    <p><b></b></p>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
                     </div>
@@ -270,9 +226,6 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/TEDS/ExtraccionesTEDS.js?ver=1")%>"></script>
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/AltaAdministrativa.js?ver=1")%>"></script>
 
 </asp:Content>
-
-

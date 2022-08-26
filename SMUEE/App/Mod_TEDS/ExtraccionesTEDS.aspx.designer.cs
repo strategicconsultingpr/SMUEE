@@ -15,22 +15,31 @@ namespace SMUEE.App.Mod_TEDS
     {
 
         /// <summary>
-        /// bannerASSMCA control.
+        /// wizard1Tab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image bannerASSMCA;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor wizard1Tab;
 
         /// <summary>
-        /// logoSAMHSA control.
+        /// wizard2Tab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image logoSAMHSA;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor wizard2Tab;
+
+        /// <summary>
+        /// wizard3Tab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor wizard3Tab;
 
         /// <summary>
         /// startDate control.
@@ -49,59 +58,5 @@ namespace SMUEE.App.Mod_TEDS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox endDate;
-
-        /// <summary>
-        /// divDescargar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder divDescargar;
-
-        /// <summary>
-        /// fechaLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label fechaLabel;
-
-        /// <summary>
-        /// MHAD control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button MHAD;
-
-        /// <summary>
-        /// SAAD control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SAAD;
-
-        /// <summary>
-        /// MHDIS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button MHDIS;
-
-        /// <summary>
-        /// SADIS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SADIS;
     }
 }

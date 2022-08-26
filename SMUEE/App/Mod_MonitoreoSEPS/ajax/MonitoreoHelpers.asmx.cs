@@ -37,6 +37,8 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
         }
 
 
+
+
         [WebMethod]
         public VW_PERSONAS GetExpediente(int iup, int programa)
         {
@@ -137,6 +139,27 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
             using (var seps = new SEPSEntities())
             {
                 return seps.VW_REF_SALUD_MENTAL.Where(x => x.PK_Programa == programa).OrderBy(x => x.DE_SaludMental).ToList();
+            }
+        }
+
+
+        [WebMethod]
+        public List<VW_SAEP> GetEpisodesSAEP(int pk_programa)
+        {
+            using (var seps = new SEPSEntities())
+            {
+                return seps.VW_SAEP.Where(x => x.FK_Programa == pk_programa).OrderBy(x=>x.Fecha_Admsión).ToList();
+            }
+        }
+
+
+        [WebMethod]
+        public List<VW_SAEP> GetEpisodesSAEPByEpisode(int[] arr)
+        {
+            using (var seps = new SEPSEntities())
+            {
+                return seps.VW_SAEP.Where(x => arr.Contains(x.Número_de_Episodio)).ToList();
+
             }
         }
 

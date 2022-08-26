@@ -1,4 +1,5 @@
 ﻿using Microsoft.Reporting.WebForms;
+using SMUEE.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,19 +32,10 @@ namespace SMUEE.App
         private void ShowSSRSReport(string nameReport)
         {
 
-
-            rvSiteMapping.Height = Unit.Pixel(800 - 58);
-            rvSiteMapping.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Remote;
-            IReportServerCredentials irsc = new CustomReportCredentials(ConfigurationManager.AppSettings["SSRS_Username"].ToString(), ConfigurationManager.AppSettings["SSRS_Password"].ToString(), "assmca.local"); // e.g.: ("demo-001", "123456789", "ifc")
-            rvSiteMapping.ServerReport.ReportServerCredentials = irsc;
-            rvSiteMapping.ServerReport.ReportServerUrl = new Uri("http://192.168.100.24//ReportServer"); //Prod Server - Add the Reporting Server URL 
-
-
-
-            //rvSiteMapping.ServerReport.ReportServerUrl = new Uri("http://desktop-2e47ci0/ReportServer"); //Dev Server - Add the Reporting Server URL  
-            rvSiteMapping.ServerReport.ReportPath = $"/Informes de Portal Extracciones/{nameReport}"; //Passing the Report Path   
-            //rvSiteMapping.ServerReport.ReportPath = "/Informes SEPS Actualizados/URS Table 14A (MHBG Table 13A)"; //Passing the Report Path  
-            rvSiteMapping.ServerReport.Refresh();
+            ReportViewerForSSRS rv = new ReportViewerForSSRS(rvSiteMapping);
+            rv.RvSiteMapping.Height = Unit.Pixel(800 - 58);
+            rv.RvSiteMapping.ServerReport.ReportPath = $"/Informes de Portal Extracciones/{nameReport}"; //Passing the Report Path   
+            rv.RvSiteMapping.ServerReport.Refresh();
 
 
 
@@ -52,42 +44,4 @@ namespace SMUEE.App
         }
     }
 
-    public class CustomReportCredentials : IReportServerCredentials
-    {
-        private string _UserName;
-        private string _PassWord;
-        private string _DomainName;
-
-        public CustomReportCredentials(string UserName, string PassWord, string DomainName)
-        {
-            _UserName = UserName;
-            _PassWord = PassWord;
-            _DomainName = DomainName;
-        }
-
-        public System.Security.Principal.WindowsIdentity ImpersonationUser
-        {
-            get { return null; }
-        }
-
-        public ICredentials NetworkCredentials
-        {
-            get { return new NetworkCredential(_UserName, _PassWord); }
-        }
-
-        //ICredentials IReportServerCredentials.NetworkCredentials => throw new NotImplementedException();
-
-        //ICredentials IReportServerCredentials.NetworkCredentials => throw new NotImplementedException();
-
-        public bool GetFormsCredentials(out Cookie authCookie, out string user,
-         out string password, out string authority)
-        {
-            authCookie = null;
-            user = password = authority = null;
-            return false;
-        }
-
-
-
-    }
 }
