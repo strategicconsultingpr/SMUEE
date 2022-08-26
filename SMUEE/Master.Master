@@ -138,10 +138,13 @@
                     <div id="extraccionesSEPS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Procesos:</h6>
-                            <a class="collapse-item text-wrap" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ExtraccionesTEDS")%>">Generar extracciones TEDS</a>
+                            <a class="collapse-item text-wrap" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ExtraccionesTEDS")%>">Generar Extracciones</a>
                             <div class="collapse-divider"></div>
                             <h6 class="collapse-header">Reportes:</h6>
-                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ReportesTEDS")%>">Reportes TEDS</a>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ReportesTEDS")%>">Reportes</a>
+                            <h6 class="collapse-header">Otros:</h6>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ExtraccionesHistorial")%>">Historial</a>
+                            
                         </div>
                     </div>
                 </li>
@@ -531,6 +534,10 @@
 
         $(document).ready(function () {
             $('.notificationsListTable').DataTable();
+        });
+
+        $(document).ready(function () {
+            $('.historyDataTAble').DataTable();
         });
 
         $(document).ready(function () {

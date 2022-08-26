@@ -215,6 +215,7 @@
     <Content Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodiosProgramas.aspx" />
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
     <Content Include="App\Mod_TEDS\ajax\Extracciones.asmx" />
+    <Content Include="App\Mod_TEDS\ExtraccionesHistorial.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ReportesTEDS.aspx" />
     <Content Include="App\Notificaciones\ManejarNotificaciones.aspx" />
@@ -2359,6 +2360,13 @@
       <DependentUpon>Extracciones.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="App\Mod_TEDS\ExtraccionesHistorial.aspx.cs">
+      <DependentUpon>ExtraccionesHistorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Mod_TEDS\ExtraccionesHistorial.aspx.designer.cs">
+      <DependentUpon>ExtraccionesHistorial.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App\Mod_TEDS\ExtraccionesTEDS.aspx.cs">
       <DependentUpon>ExtraccionesTEDS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2554,6 +2562,9 @@
     </Compile>
     <Compile Include="VW_EXPEDIENTE_PROGRAMA.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_HISTORIAL.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_NOTIFICACIONES.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>

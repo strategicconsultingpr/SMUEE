@@ -66,6 +66,21 @@ warning 6002: The table/view 'SMUEE.dbo.VW_CATEGORIA_REPORTE' does not have a pr
           <Property Name="MODULO_REPORTE" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUEE.dbo.VW_HISTORIAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_HISTORIAL">
+          <Key>
+            <PropertyRef Name="PK_Historial" />
+          </Key>
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="PK_Historial" Type="int" Nullable="false" />
+          <Property Name="FK_Sesion" Type="nvarchar" MaxLength="128" />
+          <Property Name="FECHA" Type="varchar" MaxLength="92" />
+          <Property Name="DE_Historial" Type="nvarchar" MaxLength="300" />
+          <Property Name="TI_ACCION" Type="tinyint" />
+          <Property Name="FK_Modulo" Type="varchar" MaxLength="100" />
+          <Property Name="FE_Historial" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'SMUEE.dbo.VW_NOTIFICACIONES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VW_NOTIFICACIONES">
           <Key>
@@ -197,6 +212,18 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
     [VW_CATEGORIA_REPORTE].[MODULO_REPORTE] AS [MODULO_REPORTE]
     FROM [dbo].[VW_CATEGORIA_REPORTE] AS [VW_CATEGORIA_REPORTE]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VW_HISTORIAL" EntityType="Self.VW_HISTORIAL" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_HISTORIAL].[Nombre] AS [Nombre], 
+    [VW_HISTORIAL].[PK_Historial] AS [PK_Historial], 
+    [VW_HISTORIAL].[FK_Sesion] AS [FK_Sesion], 
+    [VW_HISTORIAL].[FECHA] AS [FECHA], 
+    [VW_HISTORIAL].[DE_Historial] AS [DE_Historial], 
+    [VW_HISTORIAL].[TI_ACCION] AS [TI_ACCION], 
+    [VW_HISTORIAL].[FK_Modulo] AS [FK_Modulo], 
+    [VW_HISTORIAL].[FE_Historial] AS [FE_Historial]
+    FROM [dbo].[VW_HISTORIAL] AS [VW_HISTORIAL]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VW_NOTIFICACIONES" EntityType="Self.VW_NOTIFICACIONES" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VW_NOTIFICACIONES].[PK_NOTIFICACIONES] AS [PK_NOTIFICACIONES], 
@@ -295,6 +322,7 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           </AssociationSet>
           <EntitySet Name="VW_NOTIFICACIONES_USUARIO" EntityType="SMUEEModel.VW_NOTIFICACIONES_USUARIO" />
           <EntitySet Name="VW_NOTIFICACIONES" EntityType="SMUEEModel.VW_NOTIFICACIONES" />
+          <EntitySet Name="VW_HISTORIAL" EntityType="SMUEEModel.VW_HISTORIAL" />
         </EntityContainer>
         <EntityType Name="VW_CATEGORIA_REPORTE">
           <Key>
@@ -463,6 +491,19 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Property Name="NB_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DE_ICONO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="VW_HISTORIAL">
+          <Key>
+            <PropertyRef Name="PK_Historial" />
+          </Key>
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PK_Historial" Type="Int32" Nullable="false" />
+          <Property Name="FK_Sesion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FECHA" Type="String" MaxLength="92" FixedLength="false" Unicode="false" />
+          <Property Name="DE_Historial" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TI_ACCION" Type="Byte" />
+          <Property Name="FK_Modulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FE_Historial" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -590,6 +631,20 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
                 <ScalarProperty Name="FE_ENVIADO" ColumnName="FE_ENVIADO" />
                 <ScalarProperty Name="DE_NOTIFICACIONES" ColumnName="DE_NOTIFICACIONES" />
                 <ScalarProperty Name="PK_NOTIFICACIONES" ColumnName="PK_NOTIFICACIONES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_HISTORIAL">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_HISTORIAL">
+              <MappingFragment StoreEntitySet="VW_HISTORIAL">
+                <ScalarProperty Name="FE_Historial" ColumnName="FE_Historial" />
+                <ScalarProperty Name="FK_Modulo" ColumnName="FK_Modulo" />
+                <ScalarProperty Name="TI_ACCION" ColumnName="TI_ACCION" />
+                <ScalarProperty Name="DE_Historial" ColumnName="DE_Historial" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="FK_Sesion" ColumnName="FK_Sesion" />
+                <ScalarProperty Name="PK_Historial" ColumnName="PK_Historial" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

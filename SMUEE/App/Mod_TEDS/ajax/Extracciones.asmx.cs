@@ -21,9 +21,11 @@ namespace SMUEE.App.Mod_TEDS.ajax
 
         string folder = "prueba";
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public byte[] GenerateExcel(string file,DateTime min,DateTime max)
         {
+            var sesionSMUEE = HttpContext.Current.Session["PK_Sesion"].ToString();
+
             try
             {
                 Warning[] warnings;
@@ -45,11 +47,21 @@ namespace SMUEE.App.Mod_TEDS.ajax
 
 
                 //Export the RDLC Report to Byte Array.
-                return rv.RvSiteMapping.ServerReport.Render("EXCEL", null, out contentType, out encoding, out extension, out streamIds, out warnings);
+                var rep =  rv.RvSiteMapping.ServerReport.Render("EXCEL", null, out contentType, out encoding, out extension, out streamIds, out warnings);
+
+                if (rep != null)
+                {
+
+                    var h = new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Realizo una extracción de {file} {min.ToString("yyyy-MM-dd")} al {max.ToString("yyyy-MM-dd")}", FE_Historial = DateTime.Now, FK_Sesion = sesionSMUEE, FK_Modulo = "TEDS" };
+                    Logs.Add(h);
+
+                }
+
+
+                return rep;
             }
             catch (Exception ee)
             {
-               var lol = ee.Message;
                 return null;
             }
         }

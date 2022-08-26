@@ -37,6 +37,7 @@ namespace SMUEE
         public virtual DbSet<SM_NOTIFICACIONES_USUARIO> SM_NOTIFICACIONES_USUARIO { get; set; }
         public virtual DbSet<VW_NOTIFICACIONES_USUARIO> VW_NOTIFICACIONES_USUARIO { get; set; }
         public virtual DbSet<VW_NOTIFICACIONES> VW_NOTIFICACIONES { get; set; }
+        public virtual DbSet<VW_HISTORIAL> VW_HISTORIAL { get; set; }
     
         public virtual int SPC_SESION(string fK_Usuario, ObjectParameter pK_Sesion)
         {

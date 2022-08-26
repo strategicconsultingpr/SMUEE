@@ -18,6 +18,7 @@
         <AssociationConnector Association="SMUEEModel.FK_NOTIFICACION2" />
         <EntityTypeShape EntityType="SMUEEModel.VW_NOTIFICACIONES_USUARIO" Width="1.5" PointX="2.75" PointY="7.75" />
         <EntityTypeShape EntityType="SMUEEModel.VW_NOTIFICACIONES" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="SMUEEModel.VW_HISTORIAL" Width="1.5" PointX="7.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
