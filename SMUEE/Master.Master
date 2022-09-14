@@ -11,10 +11,15 @@
     <meta name="author" content="">
 
     <title></title>
-
+   
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
+            <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+
+
+
 
     <!-- Sweet Alerts -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -23,7 +28,7 @@
     <link href="<%=ResolveClientUrl("~/Content/css/sb-admin-2.min.css")%>" type="text/css" rel="stylesheet" />
 
     <!-- Custom styles for this template-->
-    <link href="<%=ResolveClientUrl("~/vendor/datatables/dataTables.bootstrap4.min.css")%>" type="text/css" rel="stylesheet" />
+<%--    <link href="<%=ResolveClientUrl("~/vendor/datatables/dataTables.bootstrap4.min.css")%>" type="text/css" rel="stylesheet" />--%>
 
 
 
@@ -159,7 +164,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Procesos:</h6>
                             <%--                            <a class="collapse-item text-wrap" href="#">Envio de Notificaciones</a>--%>
-                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/AltaAdministrativa")%>">Altas Administrativas</a>
+                            <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/AltaAdministrativa")%>">Altas por Sistema</a>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EliminarPersona")%>">Eliminar Participante</a>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/EpisodiosCerrados")%>">Reabrir Episodios</a>
 
@@ -508,8 +513,15 @@
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/js/sb-admin-2.min.js") %>"></script>
 
     <!-- Core plugin JavaScript-->
-    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/jquery.dataTables.min.js") %>"></script>
-    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/dataTables.bootstrap4.min.js") %>"></script>
+<%--    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/jquery.dataTables.min.js") %>"></script>--%>
+
+            <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+        <script type="text/javascript" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+
+
+
+<%--    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/dataTables.bootstrap4.min.js") %>"></script>--%>
 
     <!-- Custom scripts for all pages-->
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/bootstrap-datepicker.min.js") %>"></script>
@@ -524,9 +536,9 @@
             $('.usersListTable').DataTable();
         });
 
-        $(document).ready(function () {
-            $('.altasAdDataTable').DataTable();
-        });
+    
+
+    
 
         $(document).ready(function () {
             $('.reportsListTable').DataTable();
@@ -631,23 +643,23 @@
 
         }
 
-        function updateNotificationCount() {
-            var count = 0;
-            count = parseInt($('.count').html()) || 0;
-            count++;
-            $('.count').html(count);
-        }
+        //function updateNotificationCount() {
+        //    var count = 0;
+        //    count = parseInt($('.count').html()) || 0;
+        //    count++;
+        //    $('.count').html(count);
+        //}
 
-        var notificationHub = $.connection.notificationHub;
-        $.connection.hub.start().done(function () {
-            console.log('Hub started');
-        });
+        //var notificationHub = $.connection.notificationHub;
+        //$.connection.hub.start().done(function () {
+        //    console.log('Hub started');
+        //});
 
-        notificationHub.client.notify = function (message) {
-            if (message && message.toLowerCase() == "added") {
-                updateNotificationCount();
-            }
-        }
+        //notificationHub.client.notify = function (message) {
+        //    if (message && message.toLowerCase() == "added") {
+        //        updateNotificationCount();
+        //    }
+        //}
     </script>
 
 

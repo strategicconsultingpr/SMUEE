@@ -42,6 +42,15 @@ namespace SMUEE.App.Mod_MonitoreoSEPS
         protected global::System.Web.UI.HtmlControls.HtmlAnchor wizard3Tab;
 
         /// <summary>
+        /// wizard4Tab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor wizard4Tab;
+
+        /// <summary>
         /// ddlPrograma control.
         /// </summary>
         /// <remarks>

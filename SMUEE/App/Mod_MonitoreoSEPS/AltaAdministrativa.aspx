@@ -17,6 +17,12 @@
             padding: 5px;
             text-align: center;
         }
+
+
+        div.overflow {
+            max-height: 300px;
+            overflow-y: auto
+        }
     </style>
 
     <main>
@@ -28,7 +34,7 @@
                             <h3 class="page-header-title">
                                 <div class="page-header-icon">
                                     <i class="fa fa-wrench" aria-hidden="true"></i>
-                                    Altas Administrativas
+                                    Altas por Sistema
                                 </div>
 
                             </h3>
@@ -57,20 +63,33 @@
                             <a class="nav-link noclick" id="wizard2Tab" data-toggle="tab" runat="server" href="#wizard2" role="tab" aria-controls="wizard2" aria-selected="false">
                                 <div class="wizard-step-icon">2</div>
                                 <div class="wizard-step-text">
+                                    <div class="wizard-step-text-name">Razón de Alta </div>
+                                    <div class="wizard-step-text-details"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" role="presentation" id="wizard3TabCard">
+                            <a class="nav-link noclick" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3" role="tab" aria-controls="wizard3" aria-selected="false">
+                                <div class="wizard-step-icon">3</div>
+                                <div class="wizard-step-text">
                                     <div class="wizard-step-text-name">Resumen</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation" id="wizard3TabCard">
-                            <a class="nav-link noclick" id="wizard3Tab" data-toggle="tab" runat="server" href="#wizard3" role="tab" aria-controls="wizard3" aria-selected="false">
-                                <div class="wizard-step-icon">3</div>
+
+                        <li class="nav-item" role="presentation" id="wizard4TabCard">
+                            <a class="nav-link noclick" id="wizard4Tab" data-toggle="tab" runat="server" href="#wizard4" role="tab" aria-controls="wizard4" aria-selected="false">
+                                <div class="wizard-step-icon">4</div>
                                 <div class="wizard-step-text">
-                                    <div class="wizard-step-text-name">Confirmación</div>
+                                    <div class="wizard-step-text-name">Resume</div>
                                     <div class="wizard-step-text-details"></div>
                                 </div>
                             </a>
                         </li>
+
+
 
                         <li class="nav-item " role="presentation">
                             <a class="nav-link btn-info btn" href="#" data-toggle="modal" data-target="#modalModule">
@@ -84,6 +103,8 @@
 
                     </ul>
                 </div>
+
+
                 <div class="card-body">
                     <div class="tab-content" id="cardTabContent">
                         <!-- Wizard tab pane item 1-->
@@ -92,31 +113,23 @@
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 1</h3>
                                     <h5 class="card-title mb-4">Seleccionar episodio el cual desea crear un alta administrativa</h5>
-
                                     <div>
-
                                         <div>
                                             <label>Elige el programa:</label>
                                             <div class="input-group">
                                                 <asp:DropDownList CssClass="form-control bg-light border-0 small" runat="server" ID="ddlPrograma" DataTextField="NB_Programa" DataValueField="PK_Programa" placeholder="Elige" aria-label="Search" aria-describedby="basic-addon2" />
                                             </div>
-
                                         </div>
-
-
                                         <div>
                                             <div runat="server" id="lblNotEpisode" class="alert alert-warning" role="alert">
-                                                Este programas no contiene episodios para altas administrativas
+                                                Este programas no contiene episodios para altas por sistema
                                             </div>
                                             <div runat="server" id="divEpisodes">
-
                                                 <label runat="server">Episodios</label>
                                                 <div class="table-responsive">
-
                                                     <table class="table table-bordered altasAdDataTable display" style="width: 100%" id="gvEpisodeList">
                                                         <thead>
                                                             <tr>
-                                                                <td>Seleccionar</td>
                                                                 <td># Episodio</td>
                                                                 <td>Nombre participante</td>
                                                                 <td>Fecha Admision</td>
@@ -127,19 +140,14 @@
 
 
                                                     </table>
-
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-
                                         <hr class="my-4">
-                                        <a class="btn btn-primary" data-toggle="tab" href="#wizard2" id="btnNextStep1" role="tab" aria-controls="wizard2" type="button">Siguiente</a>
-
                                         <div class="d-flex justify-content-between">
+
+                                            <a class="btn btn-primary" data-toggle="tab" href="#wizard2" id="btnNextStep1" role="tab" aria-controls="wizard2" type="button">Siguiente</a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -147,53 +155,89 @@
                         </div>
                         <!-- Wizard tab pane item 2-->
                         <div class="tab-pane py-5 py-xl-10 fade" id="wizard2" role="tabpanel" aria-labelledby="wizard2Tab">
-
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 2</h3>
-                                    <h5 class="card-title mb-4">Resumen de la transacción que desea realizar</h5>
-                                    <label>Se creará un alta administrativa para los siguientes episodios:</label>
-
-
-                                    <div id="divResume" style="height: 300px; overflow-y: scroll;">
-                                      
+                                    <h5 class="card-title mb-4">Razón de alta</h5>
+                                    <label>Favor de elegir una razón de alta. Si elige una razón de alta que no sea un alta por sistema, favor de indicar la fecha de alta, si no la conoce el perfil se registrará con la fecha en la que se realizó la transacción.</label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered altasDataTable display" style="width: 100%" id="gvSelectedEpisode">
+                                            <thead>
+                                                <tr>
+                                                    <td># Episodio</td>
+                                                    <td>Nombre participante</td>
+                                                    <td>Razón de alta</td>
+                                                    <td>Fecha Alta</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                     </div>
+                                    <br />
+
+                                    <input type="checkbox" id="chkConfirmation" /><span><label for="chkConfirmation">Si la información suministrada es la correcto favor de rellenar el siguiente encasillado.</label></span>
 
                                     <br />
-                                    <input type="checkbox" id="chkConfirmation" /><span><label for="chkConfirmation">Para finalizar debe confirmar la transacción marcando el encasillado.</label></span>
-
                                     <hr class="my-4">
+
                                     <div class="d-flex justify-content-between">
                                         <a class="btn btn-light" data-toggle="tab" href="#wizard1" role="tab" id="btnBackStep2" aria-controls="wizard1" onclick="wizard2to1();" type="button">Anterior</a>
                                         <a class="btn btn-primary" data-toggle="tab" href="#wizard3" id="btnNextStep2" role="tab" aria-controls="wizard3" onclick="wizard2to3();" type="button">Siguiente</a>
                                     </div>
-
-
                                 </div>
+
+
+
                             </div>
+
+
+
+
                         </div>
+
+
+
+
                         <!-- Wizard tab pane item 4-->
 
                         <div class="tab-pane py-5 py-xl-10 fade" id="wizard3" role="tabpanel" aria-labelledby="wizard3Tab">
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 3</h3>
-                                    <h5 class="card-title mb-4">Confirmación de transacción</h5>
+                                    <h5 class="card-title mb-4">Resume</h5>
 
-                                    <p id="lblConfirmacion"></p>
+                                    <div id="divResume" class="overflow"></div>
+
 
                                     <hr class="my-4">
                                     <div class="d-flex justify-content-between">
                                         <a class="btn btn-light" id="btnBackStep3" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard3to2();" type="button">Anterior</a>
-                                        <a class="btn btn-primary" id="btnNextStep3" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/AltaAdministrativa")%>">Terminar</a>
+                                        <a class="btn btn-primary" data-toggle="tab" href="#wizard4" id="btnNextStep3" role="tab" aria-controls="wizard4" onclick="wizard3to4();" type="button">Siguiente</a>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
 
+
+                        <div class="tab-pane py-5 py-xl-10 fade" id="wizard4" role="tabpanel" aria-labelledby="wizard4Tab">
+                            <div class="row justify-content-center">
+                                <div class="col-xxl-6 col-xl-8">
+                                    <h3 class="text-primary">Paso 4</h3>
+                                    <h5 class="card-title mb-4">Confirmación de transacción</h5>
+                                    <div id="divResume2" class="overflow"></div>
+                                    <hr class="my-4">
+                                    <div class="d-flex justify-content-between">
+                                        <a class="btn btn-primary" id="btnNextStep5" href="<%=ResolveClientUrl("~/App/Mod_MonitoreoSEPS/AltaAdministrativa")%>">Terminar</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
+
             </div>
         </div>
     </main>
@@ -209,7 +253,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Altas Administrativas
+                    <h5 class="modal-title" id="exampleModalLongTitle">Altas por Sistemas
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

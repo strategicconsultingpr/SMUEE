@@ -41,6 +41,7 @@ namespace SMUEE
         public virtual DbSet<VW_REF_SALUD_MENTAL> VW_REF_SALUD_MENTAL { get; set; }
         public virtual DbSet<VW_EPISODIOS_EXPEDIENTE> VW_EPISODIOS_EXPEDIENTE { get; set; }
         public virtual DbSet<VW_SAEP> VW_SAEP { get; set; }
+        public virtual DbSet<SA_LKP_ALTA> SA_LKP_ALTA { get; set; }
     
         public virtual ObjectResult<SPC_SESION_Result> SPC_SESION(string nB_Login, string pASSWORD, ObjectParameter pK_Sesion)
         {
@@ -369,6 +370,27 @@ namespace SMUEE
                 new ObjectParameter("FK_IDENTIDAD_GENERO", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_PERFIL", fK_EpisodioParameter, nR_ExpedienteParameter, fE_PerfilParameter, fE_ContactoParameter, iN_TI_PerfilParameter, fK_EstadoMaritalParameter, fK_CondicionLaboralParameter, fK_ActividadNoLaboralParameter, nR_HijosParameter, fK_EscolaridadParameter, iN_EducEspecialParameter, iN_DesertorEscolarParameter, fK_FamiliaParameter, nR_FamiliarParameter, fK_ResidenciaParameter, iN_ParticReunGruposParameter, fK_FreqAutoAyudaParameter, iN_Arrestado30diasParameter, nR_Arrestos30diasParameter, fK_DSMV_TrastornosClinicos1Parameter, fK_DSMV_TrastornosClinicos2Parameter, fK_DSMV_TrastornosClinicos3Parameter, fK_DSMV_TrastornosPersonalidadRM1Parameter, fK_DSMV_TrastornosPersonalidadRM2Parameter, fK_DSMV_TrastornosPersonalidadRM3Parameter, fK_DSMV_ProblemasPsicosocialesAmbientales1Parameter, fK_DSMV_ProblemasPsicosocialesAmbientales2Parameter, fK_DSMV_ProblemasPsicosocialesAmbientales3Parameter, nR_DSMV_FuncionamientoGlobalParameter, dE_DSMV_OtrasObservacionesParameter, dE_DSMV_ComentariosParameter, iN_DSMV_DiagnosticoDualParameter, fK_DisposicionFinalReferidoParameter, fK_DrogaPrimarioParameter, fK_ViaPrimarioParameter, fK_FrecuenciaPrimarioParameter, iN_EdadInicioPrimarioParameter, fK_DrogaSecundarioParameter, fK_ViaSecundarioParameter, fK_FrecuenciaSecundarioParameter, iN_EdadInicioSecundarioParameter, fK_DrogaTerciarioParameter, fK_ViaTerciarioParameter, fK_FrecuenciaTerciarioParameter, iN_EdadInicioTerciarioParameter, nR_PromedioVisitasParameter, fK_AltaParameter, fK_CentroTrasladoParameter, dE_ComentarioParameter, fK_SesionParameter, fK_SituacionEscolarParameter, fK_TipoAdmisionParameter, fK_CategoriaCentroPrivadoParameter, nR_CelularPrimarioParameter, nR_CelularContactoParameter, dE_EmailPrimarioParameter, dE_EmailSecundarioParameter, fK_CatRecuperacionResParameter, hogarRecuperacionResParameter, fK_DSMV_Sustancias1Parameter, fK_DSMV_Sustancias2Parameter, fK_DSMV_Sustancias3Parameter, iN_FumadoParameter, dE_FrecuenciaFumadoParameter, nR_CigarrosXDiasParameter, dE_DrogaNueva1Parameter, dE_DrogaNueva2Parameter, dE_DrogaNueva3Parameter, iN_Toxicologia1Parameter, iN_Toxicologia2Parameter, iN_Toxicologia3Parameter, fK_IDENTIDAD_GENEROParameter, pK_Perfil);
+        }
+    
+        public virtual int SPC_ALTA_ADMINISTRATIVA(Nullable<int> fK_Episodio, Nullable<System.DateTime> fE_Perfil, Nullable<int> fK_Alta, Nullable<System.Guid> fK_Sesion, ObjectParameter pK_Perfil)
+        {
+            var fK_EpisodioParameter = fK_Episodio.HasValue ?
+                new ObjectParameter("FK_Episodio", fK_Episodio) :
+                new ObjectParameter("FK_Episodio", typeof(int));
+    
+            var fE_PerfilParameter = fE_Perfil.HasValue ?
+                new ObjectParameter("FE_Perfil", fE_Perfil) :
+                new ObjectParameter("FE_Perfil", typeof(System.DateTime));
+    
+            var fK_AltaParameter = fK_Alta.HasValue ?
+                new ObjectParameter("FK_Alta", fK_Alta) :
+                new ObjectParameter("FK_Alta", typeof(int));
+    
+            var fK_SesionParameter = fK_Sesion.HasValue ?
+                new ObjectParameter("FK_Sesion", fK_Sesion) :
+                new ObjectParameter("FK_Sesion", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_ALTA_ADMINISTRATIVA", fK_EpisodioParameter, fE_PerfilParameter, fK_AltaParameter, fK_SesionParameter, pK_Perfil);
         }
     }
 }

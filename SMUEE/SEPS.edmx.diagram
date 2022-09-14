@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="74511b7109b3488689df29ddfb097d22" Name="Diagram1" ZoomLevel="59">
+      <Diagram DiagramId="74511b7109b3488689df29ddfb097d22" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="SEPSModel.VW_PERFIL" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SEPSModel.VW_PERSONA" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SEPSModel.VW_PERSONAS" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -25,6 +25,7 @@
         <EntityTypeShape EntityType="SEPSModel.VW_REF_SALUD_MENTAL" Width="1.5" PointX="7.375" PointY="4.75" />
         <EntityTypeShape EntityType="SEPSModel.VW_EPISODIOS_EXPEDIENTE" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="SEPSModel.VW_SAEP" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SEPSModel.SA_LKP_ALTA" Width="1.5" PointX="3.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

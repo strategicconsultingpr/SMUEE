@@ -164,6 +164,18 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
         }
 
 
+        [WebMethod]
+        public List<SA_LKP_ALTA> GetRazonAlta()
+        {
+            using (var seps = new SEPSEntities())
+            {
+                var list = seps.SA_LKP_ALTA.Where(x => x.Active == true || x.PK_Alta == 97).OrderByDescending(x=>x.PK_Alta).ToList();
+                list.RemoveAll(x => x.PK_Alta == 8);
+                return list;
+            }
+        }
+
+
 
 
 

@@ -2465,6 +2465,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelSMUEE.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AltasAdministrativas.cs" />
     <Compile Include="Models\CustomReportCredentials.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logs.cs" />
@@ -2478,6 +2479,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SA_EPISODIO.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SA_LKP_ALTA.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="SA_PERFIL.cs">

@@ -134,6 +134,8 @@ namespace SMUEE
         public Nullable<byte> IN_Toxicologia2 { get; set; }
         public Nullable<byte> IN_Toxicologia3 { get; set; }
         public Nullable<int> FK_IDENTIDAD_GENERO { get; set; }
+        public Nullable<bool> AGREGADO_POR_SMUEE { get; set; }
+        public Nullable<System.DateTime> FE_AGREGADO_POR_SMUEE { get; set; }
     
         public virtual SA_EPISODIO SA_EPISODIO { get; set; }
     }

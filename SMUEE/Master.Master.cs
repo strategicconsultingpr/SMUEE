@@ -24,7 +24,7 @@ namespace SMUEE
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Context.User.Identity.IsAuthenticated)
+            if (!Context.User.Identity.IsAuthenticated || String.IsNullOrEmpty((string)Session["PK_Sesion"]))
             {
                 Response.Redirect("~/Account/Login.aspx", false);
                 return;

@@ -67,6 +67,18 @@
           <Property Name="PK_Old" Type="int" />
           <Property Name="FE_FechaConvenio" Type="datetime" />
         </EntityType>
+        <EntityType Name="SA_LKP_ALTA">
+          <Key>
+            <PropertyRef Name="PK_Alta" />
+          </Key>
+          <Property Name="PK_Alta" Type="tinyint" Nullable="false" />
+          <Property Name="DE_Alta" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="CO_TEDS" Type="char" MaxLength="2" />
+          <Property Name="CO_TEDS_MH" Type="char" MaxLength="2" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Ordered" Type="int" />
+          <Property Name="CW_COMENTARIO" Type="varchar" MaxLength="300" />
+        </EntityType>
         <EntityType Name="SA_PERFIL">
           <Key>
             <PropertyRef Name="PK_NR_Perfil" />
@@ -191,6 +203,8 @@
           <Property Name="IN_Toxicologia2" Type="tinyint" />
           <Property Name="IN_Toxicologia3" Type="tinyint" />
           <Property Name="FK_IDENTIDAD_GENERO" Type="int" />
+          <Property Name="AGREGADO_POR_SMUEE" Type="bit" />
+          <Property Name="FE_AGREGADO_POR_SMUEE" Type="datetime" />
         </EntityType>
         <EntityType Name="SA_PERSONA">
           <Key>
@@ -253,6 +267,7 @@
           <Property Name="CERRAR_EPISODIO_ADMISION" Type="bit" />
           <Property Name="PRACTICAS_BASADA_EN_EVIDENCIA" Type="bit" />
           <Property Name="TIENE_TAKE_HOME" Type="bit" />
+          <Property Name="CW_COMENTARIO" Type="varchar" MaxLength="300" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SEPS_JR.dbo.VW_EPISODIOS_EXPEDIENTE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -903,6 +918,13 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           </ReferentialConstraint>
         </Association>
         <Function Name="SP_GET_EPISODIOS_CERRADOS_SIN_ALTAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SPC_ALTA_ADMINISTRATIVA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_Episodio" Type="int" Mode="In" />
+          <Parameter Name="FE_Perfil" Type="datetime" Mode="In" />
+          <Parameter Name="FK_Alta" Type="int" Mode="In" />
+          <Parameter Name="FK_Sesion" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PK_Perfil" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="SPC_PERFIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FK_Episodio" Type="int" Mode="In" />
           <Parameter Name="NR_Expediente" Type="int" Mode="In" />
@@ -988,6 +1010,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
         </Function>
         <EntityContainer Name="SEPSModelStoreContainer">
           <EntitySet Name="SA_EPISODIO" EntityType="Self.SA_EPISODIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SA_LKP_ALTA" EntityType="Self.SA_LKP_ALTA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERFIL" EntityType="Self.SA_PERFIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERSONA" EntityType="Self.SA_PERSONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERSONA_PROGRAMA" EntityType="Self.SA_PERSONA_PROGRAMA" Schema="dbo" store:Type="Tables" />
@@ -1883,6 +1906,14 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
             <Parameter Name="FK_IDENTIDAD_GENERO" Mode="In" Type="Int32" />
             <Parameter Name="PK_Perfil" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="SA_LKP_ALTA" EntityType="SEPSModel.SA_LKP_ALTA" />
+          <FunctionImport Name="SPC_ALTA_ADMINISTRATIVA">
+            <Parameter Name="FK_Episodio" Mode="In" Type="Int32" />
+            <Parameter Name="FE_Perfil" Mode="In" Type="DateTime" />
+            <Parameter Name="FK_Alta" Mode="In" Type="Int32" />
+            <Parameter Name="FK_Sesion" Mode="In" Type="Guid" />
+            <Parameter Name="PK_Perfil" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="SA_EPISODIO">
           <Key>
@@ -2074,6 +2105,8 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <Property Name="IN_Toxicologia3" Type="Byte" />
           <Property Name="FK_IDENTIDAD_GENERO" Type="Int32" />
           <NavigationProperty Name="SA_EPISODIO" Relationship="SEPSModel.FK_SA_PERFIL_SA_EPISODIO" FromRole="SA_PERFIL" ToRole="SA_EPISODIO" />
+          <Property Name="AGREGADO_POR_SMUEE" Type="Boolean" />
+          <Property Name="FE_AGREGADO_POR_SMUEE" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SA_PERSONA">
           <Key>
@@ -2360,6 +2393,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <NavigationProperty Name="SA_PROGRAMA2" Relationship="SEPSModel.FK_SA_PROGRAMA_SA_PROGRAMA" FromRole="SA_PROGRAMA1" ToRole="SA_PROGRAMA" />
           <Property Name="PRACTICAS_BASADA_EN_EVIDENCIA" Type="Boolean" />
           <Property Name="TIENE_TAKE_HOME" Type="Boolean" />
+          <Property Name="CW_COMENTARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_SA_EPISODIO_SA_PROGRAMA">
           <End Type="SEPSModel.SA_PROGRAMA" Role="SA_PROGRAMA" Multiplicity="1">
@@ -2779,6 +2813,18 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <Property Type="String" Name="CAT_DSMV_Sustancias2" Nullable="true" MaxLength="5" />
           <Property Type="String" Name="CAT_DSMV_Sustancias3" Nullable="true" MaxLength="5" />
         </ComplexType>
+        <EntityType Name="SA_LKP_ALTA">
+          <Key>
+            <PropertyRef Name="PK_Alta" />
+          </Key>
+          <Property Name="PK_Alta" Type="Byte" Nullable="false" />
+          <Property Name="DE_Alta" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="CO_TEDS" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="CO_TEDS_MH" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Ordered" Type="Int32" />
+          <Property Name="CW_COMENTARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3109,6 +3155,8 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <EntitySetMapping Name="SA_PERFIL">
             <EntityTypeMapping TypeName="SEPSModel.SA_PERFIL">
               <MappingFragment StoreEntitySet="SA_PERFIL">
+                <ScalarProperty Name="FE_AGREGADO_POR_SMUEE" ColumnName="FE_AGREGADO_POR_SMUEE" />
+                <ScalarProperty Name="AGREGADO_POR_SMUEE" ColumnName="AGREGADO_POR_SMUEE" />
                 <ScalarProperty Name="FK_IDENTIDAD_GENERO" ColumnName="FK_IDENTIDAD_GENERO" />
                 <ScalarProperty Name="IN_Toxicologia3" ColumnName="IN_Toxicologia3" />
                 <ScalarProperty Name="IN_Toxicologia2" ColumnName="IN_Toxicologia2" />
@@ -3441,6 +3489,7 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <EntitySetMapping Name="SA_PROGRAMA">
             <EntityTypeMapping TypeName="SEPSModel.SA_PROGRAMA">
               <MappingFragment StoreEntitySet="SA_PROGRAMA">
+                <ScalarProperty Name="CW_COMENTARIO" ColumnName="CW_COMENTARIO" />
                 <ScalarProperty Name="TIENE_TAKE_HOME" ColumnName="TIENE_TAKE_HOME" />
                 <ScalarProperty Name="PRACTICAS_BASADA_EN_EVIDENCIA" ColumnName="PRACTICAS_BASADA_EN_EVIDENCIA" />
                 <ScalarProperty Name="CERRAR_EPISODIO_ADMISION" ColumnName="CERRAR_EPISODIO_ADMISION" />
@@ -3614,6 +3663,20 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SPC_PERFIL" FunctionName="SEPSModel.Store.SPC_PERFIL" />
+          <EntitySetMapping Name="SA_LKP_ALTA">
+            <EntityTypeMapping TypeName="SEPSModel.SA_LKP_ALTA">
+              <MappingFragment StoreEntitySet="SA_LKP_ALTA">
+                <ScalarProperty Name="CW_COMENTARIO" ColumnName="CW_COMENTARIO" />
+                <ScalarProperty Name="Ordered" ColumnName="Ordered" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CO_TEDS_MH" ColumnName="CO_TEDS_MH" />
+                <ScalarProperty Name="CO_TEDS" ColumnName="CO_TEDS" />
+                <ScalarProperty Name="DE_Alta" ColumnName="DE_Alta" />
+                <ScalarProperty Name="PK_Alta" ColumnName="PK_Alta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SPC_ALTA_ADMINISTRATIVA" FunctionName="SEPSModel.Store.SPC_ALTA_ADMINISTRATIVA" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
