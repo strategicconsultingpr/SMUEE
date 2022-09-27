@@ -165,7 +165,7 @@
                                             <label runat="server">Seleccione un episodio</label>
                                             <div class="table-responsive">
 
-                                                <table class="table table-bordered" id="gvEpisodeList">
+                                                <table class="table table-bordered defaultTable display" style="width: 100%"  id="gvEpisodeList">
                                                     <thead>
                                                         <tr>
                                                             <td># Episodio</td>
@@ -177,8 +177,7 @@
                                                         </tr>
                                                     </thead>
 
-                                                    <tbody id="gvEpisodeListBody">
-                                                    </tbody>
+                                                    
                                                 </table>
                                                 <label runat="server" id="lblTotal"></label>
 
@@ -264,25 +263,19 @@
                                         </div>
                                         <div runat="server" id="divEpisodes2">
 
-                                            <label runat="server">Seleccione un episodio</label>
                                             <div class="table-responsive">
 
 
-                                                <table class="table table-bordered" id="gvEpisodeList2">
+                                                <table class="table table-bordered defaultTable2 display" style="width: 100%" id="gvEpisodeList2">
                                                     <thead>
                                                         <tr>
                                                             <td># Episodio</td>
                                                             <td>Programa</td>
                                                             <td>Fecha</td>
                                                             <td>Estatus</td>
-
                                                         </tr>
                                                     </thead>
-
-                                                    <tbody id="gvEpisodeListBody2">
-                                                    </tbody>
                                                 </table>
-                                                <label runat="server" id="lblTotal2"></label>
 
                                             </div>
                                         </div>

@@ -34,7 +34,7 @@ namespace SMUEE.Models
             RvSiteMapping.ServerReport.ReportServerCredentials = irsc;
 
             //rvSiteMapping.ServerReport.ReportServerUrl = new Uri("http://192.168.100.24//ReportServer"); //Prod Server - Add the Reporting Server URL 
-            RvSiteMapping.ServerReport.ReportServerUrl = new Uri("http://10.0.0.117//ReportServer"); //Prod Server - Add the Reporting Server URL 
+            RvSiteMapping.ServerReport.ReportServerUrl = new Uri("http://jose-ramos//ReportServer"); //Prod Server - Add the Reporting Server URL 
 
         }
     }

@@ -141,7 +141,7 @@ function GetEpisode(iup) {
 
             if (obj != null && obj.d != null) {
                 var lista = obj.d;
-                gvEpisodeListBody.innerHTML = "";
+                $('.defaultTable').DataTable().clear().draw();
 
 
                 if (lista.length == 0) {
@@ -154,7 +154,9 @@ function GetEpisode(iup) {
                     $.each(lista, function (index, value) {
                         var fe = new Date(parseInt(value.FE_Episodio.substr(6)));
                         var fe_s = fe.format("dd/MM/yyyy");
-                        $('#gvEpisodeListBody').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona});" type="button">Reabrir</a></td></tr>`);
+                        const tr = $(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona});" type="button">Reabrir</a></td></tr>`);
+                        $('.defaultTable').DataTable().row.add(tr[0]).draw();
+
                     });
                 }
 

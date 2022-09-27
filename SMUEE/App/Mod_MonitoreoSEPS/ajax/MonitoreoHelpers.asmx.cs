@@ -48,6 +48,9 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
             }
         }
 
+
+     
+
         [WebMethod]
         public VW_PERSONAS GetExpediente2(int iup, int programa,int programa2)
         {

@@ -19,11 +19,17 @@
         }
 
         .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+
+        div.overflow {
+            max-height: 250px;
+            overflow-y: auto
+        }
     </style>
 
 
@@ -103,9 +109,12 @@
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 1</h3>
-                                    <h5 class="card-title mb-4">Seleccionar un rango de fecha para la generación de archivos TEDS</h5>
-
-                                    <div>
+                                    <h5 class="card-title mb-4">Seleccionar programas:</h5>
+                                    <div id="ddlProgram"></div>
+                                    <br />
+                                    <br />
+                                    <div id="divDate">
+                                        <h5 class="card-title mb-4">Seleccionar un rango de fecha para la generación de archivos TEDS</h5>
 
                                         <div>
                                             <label>Elige un rango de fecha:</label>
@@ -155,6 +164,12 @@
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 2</h3>
                                     <h5 class="card-title mb-4">Resumen de la transacción que desea realizar</h5>
+
+                                    <br />
+                                    <p>Programas seleccionados: </p>
+                                    <hr class="my-4">
+                                    <div id="divResume" class="overflow"></div>
+                                    <br />
                                     <label id="lblResumen"></label>
 
 
@@ -191,7 +206,7 @@
                                                 <a onclick="GenerateFile('MHAD')" id="btnMHAD" href="#">Salud Mental</a>
                                             </td>
                                             <td>
-                                                <a  onclick="GenerateFile('SAAD')" id="btnSAAD" href="#">Abuso de Sustancias</a>
+                                                <a onclick="GenerateFile('SAAD')" id="btnSAAD" href="#">Abuso de Sustancias</a>
 
                                             </td>
                                         </tr>
@@ -250,8 +265,8 @@
 
                 <div class="modal-body">
                     <div>
-                    <img src="../../Images/samhsalogo.png" height="200" class="center"/>
-                        </div>
+                        <img src="../../Images/samhsalogo.png" height="200" class="center" />
+                    </div>
                     <p>
                         Luego de seleccionar el rango de fecha el sistema generará los cuatro archivos en Excel en formato TEDS que pueden ser al Sistema DSS de SAMHSA y luego validados.
                        <br />

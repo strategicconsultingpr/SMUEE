@@ -168,15 +168,6 @@ namespace SMUEE.App.Mod_MonitoreoSEPS
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEpisodes;
 
         /// <summary>
-        /// lblTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTotal;
-
-        /// <summary>
         /// lblPersonaResume control.
         /// </summary>
         /// <remarks>

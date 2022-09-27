@@ -147,7 +147,7 @@
                                             <label runat="server">Episodios</label>
                                             <div class="table-responsive">
 
-                                                <table class="table table-bordered" id="gvEpisodeList">
+                                                <table class="table table-bordered defaultTable" id="gvEpisodeList">
                                                     <thead>
                                                         <tr>
                                                             <td># Episodio</td>

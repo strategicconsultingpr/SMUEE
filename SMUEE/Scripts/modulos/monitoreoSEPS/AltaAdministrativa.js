@@ -105,7 +105,7 @@ function GetEpisode(pk) {
                     $.each(lista, function (index, value) {
                         var fe = new Date(parseInt(value.Fecha_Admsión.substr(6)));
                         var fe_s = fe.format("dd/MM/yyyy");
-                        const tr = $(`<tr id="row${value.Número_de_Episodio}"><td>${value.Número_de_Episodio}</td><td>${value.Nombre_Participante}</td><td>${fe_s}</td><td>${value.Tipo_de_Último_Perfil}</td> <td>${value.Meses_sin_Perfiles_de_Evaluación_de_Progreso}</td></tr>`);
+                        const tr = $(`<tr id="row${value.Número_de_Episodio}"><td>${value.Número_de_Episodio}</td><td>${value.IUP} - ${value.Nombre_Participante}</td><td>${fe_s}</td><td>${value.Tipo_de_Último_Perfil}</td> <td>${value.Meses_sin_Perfiles_de_Evaluación_de_Progreso}</td></tr>`);
 
                         tb1.row.add(tr[0]).draw();
 
@@ -243,12 +243,12 @@ $('#btnNextStep1').click(function () {
 
                         $.each(lista, function (index, value) {
 
-                            var fe = new Date(parseInt(value.Fecha_Admsión.substr(6)));
+                            var fe = new Date(parseInt(value.ÚltimoPerfil.substr(6)));
 
 
                             var tr = $(`<tr>
 <td>${value.Número_de_Episodio}</td>
-<td>${value.Nombre_Participante}</td>
+<td>${value.IUP} - ${value.Nombre_Participante}</td>
 <td> <select name="ddlAlta" onChange="RazonChange(${value.Número_de_Episodio})" id="ddlAlta${value.Número_de_Episodio}" class="form-control">
 `+ OptionRazonAlta + `
 </td>
@@ -257,6 +257,7 @@ $('#btnNextStep1').click(function () {
                             tb2.row.add(tr[0]).draw();
 
                             $(`#txtFechaAlta${value.Número_de_Episodio}`).datepicker('setStartDate', fe);
+
 
                         });
 
@@ -456,8 +457,6 @@ function AltaAdministrativa() {
 
                     });
                 }
-
-
 
             }
 

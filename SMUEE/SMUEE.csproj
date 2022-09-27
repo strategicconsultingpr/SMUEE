@@ -267,6 +267,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\ddlMultiSelect\tooltip.min.js" />
+    <Content Include="Scripts\ddlMultiSelect\virtual-select.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -566,8 +568,14 @@
     <Content Include="vendor\datatables\dataTables.bootstrap4.js" />
     <Content Include="vendor\datatables\dataTables.bootstrap4.min.css" />
     <Content Include="vendor\datatables\dataTables.bootstrap4.min.js" />
+    <Content Include="vendor\datatables\dataTables.selectv2.min.js" />
     <Content Include="vendor\datatables\jquery.dataTables.js" />
     <Content Include="vendor\datatables\jquery.dataTables.min.js" />
+    <Content Include="vendor\datatables\jquery.dataTablesv2.min.css" />
+    <Content Include="vendor\datatables\jquery.dataTablesv2.min.js" />
+    <Content Include="vendor\datatables\select.dataTablesv2.min.css" />
+    <Content Include="vendor\ddlMultiSelect\tooltip.min.css" />
+    <Content Include="vendor\ddlMultiSelect\virtual-select.min.css" />
     <Content Include="vendor\fontawesome-free\css\all.css" />
     <Content Include="vendor\fontawesome-free\css\all.min.css" />
     <Content Include="vendor\fontawesome-free\css\brands.css" />
@@ -2467,6 +2475,7 @@
     </Compile>
     <Compile Include="Models\AltasAdministrativas.cs" />
     <Compile Include="Models\CustomReportCredentials.cs" />
+    <Compile Include="Models\DdlProgramExtracciones.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\ReportViewerForSSRS.cs" />

@@ -22,7 +22,7 @@ namespace SMUEE.App.Mod_TEDS.ajax
         string folder = "prueba";
 
         [WebMethod(EnableSession = true)]
-        public byte[] GenerateExcel(string file,DateTime min,DateTime max)
+        public byte[] GenerateExcel(string file,DateTime min,DateTime max,int[] programs)
         {
             var sesionSMUEE = HttpContext.Current.Session["PK_Sesion"].ToString();
 
@@ -42,9 +42,17 @@ namespace SMUEE.App.Mod_TEDS.ajax
                 var startParameter = new ReportParameter("start", min.ToString("yyyy-MM-dd"));
                 var endParameter = new ReportParameter("end", max.ToString("yyyy-MM-dd"));
 
+                var str = "";
+                for(int i = 0; i < programs.Length; i++)
+                {
+                    str += programs[i].ToString()+",";                    
+                }
+
+                var programsParameter = new ReportParameter("program", str);
+
+                rv.RvSiteMapping.ServerReport.SetParameters(programsParameter);
                 rv.RvSiteMapping.ServerReport.SetParameters(startParameter);
                 rv.RvSiteMapping.ServerReport.SetParameters(endParameter);
-
 
                 //Export the RDLC Report to Byte Array.
                 var rep =  rv.RvSiteMapping.ServerReport.Render("EXCEL", null, out contentType, out encoding, out extension, out streamIds, out warnings);
@@ -65,5 +73,83 @@ namespace SMUEE.App.Mod_TEDS.ajax
                 return null;
             }
         }
+
+        [WebMethod]
+        public List<List<Models.DdlProgramExtracciones>> GetProgramasTEDS()
+        {
+            var lstMh = new List<Models.DdlProgramExtracciones>();
+            var lstSa = new List<Models.DdlProgramExtracciones>();
+            var lstBoth = new List<Models.DdlProgramExtracciones>();
+
+
+            using (var seps = new SEPSEntities())
+            {
+
+                List<List<Models.DdlProgramExtracciones>> lst = new List<List<Models.DdlProgramExtracciones>>();
+
+
+                var lista =   seps.SA_PROGRAMA.Where(x => x.REP_TEDS == true || x.REP_TEDS_MH == true).ToList();
+
+                var mh = lista.Where(x => x.REP_TEDS == false && x.REP_TEDS_MH == true).OrderBy(x => x.NB_Programa).ToList();
+                var sa = lista.Where(x => x.REP_TEDS == true && x.REP_TEDS_MH == false).OrderBy(x => x.NB_Programa).ToList();
+                var both = lista.Where(x => x.REP_TEDS == true && x.REP_TEDS_MH == true).OrderBy(x => x.NB_Programa).ToList();
+
+
+                if (mh.Count > 0)
+                {
+                   
+                    foreach (var programa in mh)
+                    {
+
+                        var label = $"{programa.CO_Programa} - {programa.NB_Programa} {((programa.IN_Inactivo == true)? "(Inactivo)":"")}";
+                        lstMh.Add(new Models.DdlProgramExtracciones() { label = label, alias = label, value = programa.PK_Programa.ToString()  });
+                    }
+
+                }
+
+                if (sa.Count > 0)
+                {
+
+                    foreach (var programa in sa)
+                    {
+
+                        var label = $"{programa.CO_Programa} - {programa.NB_Programa} {((programa.IN_Inactivo == true) ? "(Inactivo)" : "")}";
+                        lstSa.Add(new Models.DdlProgramExtracciones() { label = label, alias = label, value = programa.PK_Programa.ToString() });
+                    }
+
+                }
+
+
+                if (both.Count > 0)
+                {
+
+                    foreach (var programa in both)
+                    {
+
+                        var label = $"{programa.CO_Programa} - {programa.NB_Programa} {((programa.IN_Inactivo == true) ? "(Inactivo)" : "")}";
+                        lstBoth.Add(new Models.DdlProgramExtracciones() { label = label, alias = label, value = programa.PK_Programa.ToString() });
+                    }
+
+                }
+
+                lst.Add(lstMh);
+                lst.Add(lstSa);
+                lst.Add(lstBoth);
+
+
+                return lst;
+
+
+
+            }
+
+
+        }
+
+       
+
+
     }
+
+ 
 }

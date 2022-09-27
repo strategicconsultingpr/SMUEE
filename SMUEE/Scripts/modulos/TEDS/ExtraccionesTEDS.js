@@ -3,13 +3,82 @@
 }
 
 
-
-
-
-
-
 $(document).ready(function () {
-    // $('#divLoading').modal('show');
+
+
+
+    $.ajax({
+        type: "POST", //POST
+        url: "ajax/Extracciones.asmx/GetProgramasTEDS",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        beforeSend: sweetLoading2(),
+
+        success: function (obj) {
+
+
+            if (obj != null && obj.d != null) {
+                var lista = obj.d;
+
+                if (lista.length > 0) {
+            
+                    VirtualSelect.init({
+                        ele: '#ddlProgram',
+                        search: true,
+                        multiple: true,
+                        maxWidth: '100%',
+                        tooltipMaxWidth: '100%',
+                        hideClearButton: false,
+                        searchPlaceholderText: 'Buscar..',
+                        markSearchResults: true,
+                        selectAllText: 'Seleccionar todo',
+                        required : true,
+                        options: [
+                            {
+                                label: 'Salud Mental',
+                                options: lista[0]
+                            },
+
+                            {
+                                label: 'Abuso de Sustancia',
+                                options: lista[1]
+                            },
+
+
+                            {
+                                label: 'Salud Mental y Abuso de Sustancia',
+                                options: lista[2]
+                            },
+
+                        ]
+                    });
+                }
+            }
+
+        },
+        failure: function (response) {
+            console.log(response.d);
+
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+
+
+
+});
+
+
+$('#ddlProgram').change(function () {
+    var flag = document.querySelector('#ddlProgram').validate();
+
+    if (flag == true) {
+        $('#divDate').show();
+    }
+    else {
+        $('#divDate').hide();
+    }
 });
 
 function lodingOn() {
@@ -21,6 +90,9 @@ function lodingOff() {
 
 
 $(document).ready(function () {
+
+
+
     $('[id*=startDate]').datepicker({
         weekStart: 1,
         daysOfWeekHighlighted: "6,0",
@@ -44,6 +116,10 @@ $(document).ready(function () {
         ValDate();
 
     });
+
+
+    $('#divDate').hide();
+
 });
 
 
@@ -97,7 +173,6 @@ function sweetAlert(titulo, texto, icono) {
 
 $('#chkConfirmation').change(function () {
     $("#btnNextStep2").hide();
-
     if (this.checked) {
         $("#btnNextStep2").show();
 
@@ -110,6 +185,20 @@ $('#btnNextStep1').click(function () {
 
     var min = $('[id*=startDate]').datepicker('getDate');
     var max = $('[id*=endDate]').datepicker('getDate');
+
+    var lst = document.querySelector('#ddlProgram').getSelectedOptions();
+
+    var str = "";
+    if (lst.length > 0) {
+
+        $.each(lst, function (index, value) {
+
+            str += `<p>${value.label}</p>`;
+
+        });
+    }
+
+    $("#divResume").html(str);
 
     $("#lblResumen").text(`Se va a generar las transacciones TEDS desde ${min.toLocaleDateString("en-US")} hasta ${max.toLocaleDateString("en-US")} `);
 
@@ -130,35 +219,27 @@ $('#btnNextStep2').click(function () {
 function wizard2to1() {
 
     document.getElementById("MainContent_wizard1Tab").click();
+    $("#btnNextStep2").hide();
+    $('#chkConfirmation').prop('checked', false);
 }
 
 function wizard3to2() {
-
     document.getElementById("MainContent_wizard2Tab").click();
-
-
+    $("#btnNextStep2").hide();
+    $('#chkConfirmation').prop('checked', false);
 }
 
 
 $(document).ready(function () {
-
-
-
     $("#btnNextStep2").hide();
     $("#modalModule").modal();
-
-
-
-
 });
 
 
 $('#btnNextStep3').click(function () {
     document.getElementById("MainContent_wizard2Tab").click();
-
     var min = $('[id*=startDate]').datepicker('getDate');
     var max = $('[id*=endDate]').datepicker('getDate');
-
     $("#lblResumen").text(`Se va a generar las transacciones TEDS desde ${min.toLocaleDateString("en-US")} hasta ${max.toLocaleDateString("en-US")} `);
 
 
@@ -173,7 +254,7 @@ function GenerateFile(file) {
     $.ajax({
         type: "POST", //POST
         url: "ajax/Extracciones.asmx/GenerateExcel",
-        data: `{file:'${file}',min:'${min}',max:'${max}'}`,
+        data: `{file:'${file}',min:'${min}',max:'${max}',programs: [${document.querySelector('#ddlProgram').value}]}`,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         beforeSend: sweetLoading(),
@@ -198,9 +279,8 @@ function GenerateFile(file) {
                 $('#btn' + file).css('color', 'green');
                 sweetAlert('Descarga Completada', 'Su archivo se ha descargado como ' + filename, 'success');
             }
-            else
-            {
-                sweetAlert('Aviso', 'No se pudo descargar su archivo, inténtelo nuevamente','warning');
+            else {
+                sweetAlert('Aviso', 'No se pudo descargar su archivo, inténtelo nuevamente', 'warning');
 
             }
 
@@ -224,6 +304,18 @@ function sweetLoading() {
 
         buttons: false,
         icon: '/Images/loading.gif',
+
+    });
+}
+
+
+function sweetLoading2() {
+    swal({
+        title: 'Cargando',
+        buttons: false,
+        icon: '/Images/loading.gif',
+        timer: 1000
+
 
     });
 }

@@ -69,7 +69,7 @@ $("#btnSearchIUP").click(function () {
                     divEpisodes.style.visibility = "hidden";
                     divParticipantInfo1.style.visibility = "hidden";
                     lblNotEpisode.style.visibility = "hidden";
-                    gvEpisodeListBody.innerHTML = "";
+                    $('.defaultTable').DataTable().clear().draw();
                     sweetAlert('Participante no encontrado', `El participante con IUP ${iup} no ha sido encontrado`, 'warning');
                 }
             },
@@ -354,7 +354,7 @@ function GetEpisode(iup) {
         success: function (obj) {
             if (obj != null && obj.d != null) {
                 var lista = obj.d;
-                gvEpisodeListBody.innerHTML = "";
+                $('.defaultTable').DataTable().clear().draw();
                 if (lista.length == 0) {
                     lblNotEpisode.style.visibility = "visible";
                     divEpisodes.style.visibility = "hidden";
@@ -363,7 +363,9 @@ function GetEpisode(iup) {
                     $.each(lista, function (index, value) {
                         var fe = new Date(parseInt(value.FE_Episodio.substr(6)));
                         var fe_s = fe.format("dd/MM/yyyy");
-                        $('#gvEpisodeListBody').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona},${value.FK_NivelCuidadoSustancias},${value.FK_NivelCuidadoMental},'${value.DE_AbusoSustancias}','${value.DE_SaludMental}',${value.NR_Expediente});" type="button">Elegir</a></td></tr>`);
+                        const tr = $(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona},${value.FK_NivelCuidadoSustancias},${value.FK_NivelCuidadoMental},'${value.DE_AbusoSustancias}','${value.DE_SaludMental}',${value.NR_Expediente});" type="button">Elegir</a></td></tr>`);
+                        $('.defaultTable').DataTable().row.add(tr[0]).draw();
+
                     });
 
 

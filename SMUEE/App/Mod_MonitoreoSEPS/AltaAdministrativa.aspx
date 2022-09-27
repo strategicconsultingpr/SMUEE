@@ -112,7 +112,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-xxl-6 col-xl-8">
                                     <h3 class="text-primary">Paso 1</h3>
-                                    <h5 class="card-title mb-4">Seleccionar episodio el cual desea crear un alta administrativa</h5>
+                                    <h5 class="card-title mb-4">Seleccionar programa y episodios el cual desea crear un alta por sistema</h5>
                                     <div>
                                         <div>
                                             <label>Elige el programa:</label>
@@ -125,7 +125,11 @@
                                                 Este programas no contiene episodios para altas por sistema
                                             </div>
                                             <div runat="server" id="divEpisodes">
-                                                <label runat="server">Episodios</label>
+                                                <br />
+                                                <h5 runat="server">Episodios:</h5>
+                                                <br />
+                                               <p>Para seleccionar un episodio favor de pulsar en la fila de dicho episodio. Puede seleccionar más de uno.</p>
+
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered altasAdDataTable display" style="width: 100%" id="gvEpisodeList">
                                                         <thead>
@@ -261,8 +265,8 @@
                 </div>
 
                 <div class="modal-body">
-                    <p></p>
-                    <p><b></b></p>
+                    <p>Este módulo tiene como propósito generar altas a episodios en el sistema de SEPS y utiliza como referencia el SAEP para poder identificar episodios elegibles para crear un alta por sistema.</p>
+                      
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
                     </div>

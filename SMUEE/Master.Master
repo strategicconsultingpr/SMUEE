@@ -15,8 +15,11 @@
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <link href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
-            <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+        <link href="~/vendor/datatables/select.dataTablesv2.min.css" rel="stylesheet" type="text/css">
+            <link href="~/vendor/datatables/jquery.dataTablesv2.min.css" rel="stylesheet" type="text/css">
+            <link href="~/vendor/ddlMultiSelect/virtual-select.min.css" rel="stylesheet" type="text/css">
+                <link href="~/vendor/ddlMultiSelect/tooltip.min.css" rel="stylesheet" type="text/css">
+
 
 
 
@@ -515,13 +518,19 @@
     <!-- Core plugin JavaScript-->
 <%--    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/jquery.dataTables.min.js") %>"></script>--%>
 
-            <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <%--    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
-        <script type="text/javascript" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>--%>
+    <%--    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/dataTables.bootstrap4.min.js") %>"></script>--%>
 
 
 
-<%--    <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/dataTables.bootstrap4.min.js") %>"></script>--%>
+
+
+        <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/jquery.dataTablesv2.min.js") %>"></script>
+
+        <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/vendor/datatables/dataTables.selectv2.min.js") %>"></script>
+
 
     <!-- Custom scripts for all pages-->
     <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/bootstrap-datepicker.min.js") %>"></script>
@@ -536,9 +545,20 @@
             $('.usersListTable').DataTable();
         });
 
-    
 
-    
+        $(document).ready(function () {
+            $('.defaultTable').DataTable();
+        });
+
+        $(document).ready(function () {
+            $('.defaultTable2').DataTable();
+        });
+
+
+
+
+
+
 
         $(document).ready(function () {
             $('.reportsListTable').DataTable();
@@ -638,7 +658,7 @@
                     }
                 })
 
-    
+
             })
 
         }
@@ -662,6 +682,8 @@
         //}
     </script>
 
+        <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/ddlMultiSelect/virtual-select.min.js?ver=1")%>"></script>
+            <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/ddlMultiSelect/tooltip.min.js?ver=1")%>"></script>
 
 </body>
 </html>

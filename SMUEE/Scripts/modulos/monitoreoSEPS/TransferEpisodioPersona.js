@@ -213,7 +213,7 @@ $("#btnSearchIUP2").click(function () {
                         divEpisodes2.style.visibility = "hidden";
                         divParticipantInfo2.style.visibility = "hidden";
                         lblNotEpisode2.style.visibility = "hidden";
-                        gvEpisodeListBody2.innerHTML = "";
+                        $('.defaultTable2').DataTable().clear().draw();
                         sweetAlert('Participante no encontrado', `No existe participante con el IUP ${iup2} ingresado`, 'warning');
                         $("#btnNextStep2").hide();
                     }
@@ -235,7 +235,7 @@ $("#btnSearchIUP2").click(function () {
             divEpisodes2.style.visibility = "hidden";
             divParticipantInfo2.style.visibility = "hidden";
             lblNotEpisode2.style.visibility = "hidden";
-            gvEpisodeListBody2.innerHTML = "";
+            $('.defaultTable2').DataTable().clear().draw();
             sweetAlert('Verificar IUP', `No puede transferir un episodio a un mismo participante`, 'error');
             $("#btnNextStep2").hide();
         }
@@ -351,7 +351,7 @@ function GetEpisode(iup) {
 
             if (obj != null && obj.d != null) {
                 var lista = obj.d;
-                gvEpisodeListBody.innerHTML = "";
+                $('.defaultTable').DataTable().clear().draw();
 
 
                 if (lista.length == 0) {
@@ -364,7 +364,9 @@ function GetEpisode(iup) {
                     $.each(lista, function (index, value) {
                         var fe = new Date(parseInt(value.FE_Episodio.substr(6)));
                         var fe_s = fe.format("dd/MM/yyyy");
-                        $('#gvEpisodeListBody').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona},${value.NR_Expediente});" type="button">Elegir</a></td></tr>`);
+                        const tr = $(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td><td><a class="btn btn-primary" data-toggle="tab" href="#wizard2" role="tab" aria-controls="wizard2" onclick="wizard1to2(${value.PK_Episodio},${value.FK_Programa},'${value.NB_Programa}',${value.FK_Persona},${value.NR_Expediente});" type="button">Elegir</a></td></tr>`);
+                        $('.defaultTable').DataTable().row.add(tr[0]).draw();
+
                     });
                 }
 
@@ -391,7 +393,6 @@ function GetEpisode2(iup) {
     var lblNotEpisode2 = document.getElementById("MainContent_lblNotEpisode2");
     var divEpisodes2 = document.getElementById("MainContent_divEpisodes2");
 
-    var lblTotal2 = document.getElementById("MainContent_lblTotal2");
     var gvEpisodeListBody2 = document.getElementById("gvEpisodeListBody2");
 
 
@@ -410,7 +411,7 @@ function GetEpisode2(iup) {
 
             if (obj != null && obj.d != null) {
                 var lista = obj.d;
-                gvEpisodeListBody2.innerHTML = "";
+                $('.defaultTable2').DataTable().clear().draw();
 
 
                 if (lista.length == 0) {
@@ -423,11 +424,12 @@ function GetEpisode2(iup) {
                     $.each(lista, function (index, value) {
                         var fe = new Date(parseInt(value.FE_Episodio.substr(6)));
                         var fe_s = fe.format("dd/MM/yyyy");
-                        $('#gvEpisodeListBody2').append(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td></tr>`);
+                        const tr = $(`<tr><td>${value.PK_Episodio}</td><td>${value.NB_Programa}</td><td>${fe_s}</td><td>${value.DE_ES_Episodio}</td></tr>`);
+                        $('.defaultTable2').DataTable().row.add(tr[0]).draw();
+
                     });
                 }
 
-                lblTotal2.innerText = 'Total: ' + lista.length;
 
 
 

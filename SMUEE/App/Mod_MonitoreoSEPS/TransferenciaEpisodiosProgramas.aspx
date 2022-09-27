@@ -174,7 +174,7 @@
                                             <label runat="server">Seleccione un episodio</label>
                                             <div class="table-responsive">
 
-                                                <table class="table table-bordered" id="gvEpisodeList">
+                                                <table class="table table-bordered defaultTable display" style="width: 100%" id="gvEpisodeList">
                                                     <thead>
                                                         <tr>
                                                             <td># Episodio</td>
@@ -186,8 +186,6 @@
                                                         </tr>
                                                     </thead>
 
-                                                    <tbody id="gvEpisodeListBody">
-                                                    </tbody>
                                                 </table>
                                                 <label runat="server" id="lblTotal"></label>
 
