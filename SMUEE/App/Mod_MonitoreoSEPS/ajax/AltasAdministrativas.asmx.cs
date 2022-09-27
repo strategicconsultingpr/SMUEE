@@ -24,64 +24,74 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
 
         public List<CreatedDischargeBySystem> DichargeBySystem(List<Models.AltasAdministrativas> lst)
         {
-            var user = ConfigurationManager.AppSettings["SEPS_USER"].ToString();
-            var password = ConfigurationManager.AppSettings["SEPS_PASSWORD"].ToString();
-            var sesionSMUEE = HttpContext.Current.Session["PK_Sesion"].ToString();
-            var listLogs = new List<SM_HISTORIAL>();
-            var listAltasCreadas = new List<CreatedDischargeBySystem>();
 
-            using (var seps = new SEPSEntities())
+            try
             {
-                ObjectParameter sesion = new ObjectParameter("PK_Sesion", typeof(Guid));
+                var user = ConfigurationManager.AppSettings["SEPS_USER"].ToString();
+                var password = ConfigurationManager.AppSettings["SEPS_PASSWORD"].ToString();
+                var sesionSMUEE = HttpContext.Current.Session["PK_Sesion"].ToString();
+                var listLogs = new List<SM_HISTORIAL>();
+                var listAltasCreadas = new List<CreatedDischargeBySystem>();
 
-                var list = seps.SPC_SESION(user, password, sesion).ToList();
-
-
-
-                if (sesion.Value != null)
+                using (var seps = new SEPSEntities())
                 {
+                    ObjectParameter sesion = new ObjectParameter("PK_Sesion", typeof(Guid));
 
-                    if (lst.Count > 0)
+                    var list = seps.SPC_SESION(user, password, sesion).ToList();
+
+
+
+                    if (sesion.Value != null)
                     {
 
-
-                        foreach (var episodio in lst)
+                        if (lst.Count > 0)
                         {
-                            ObjectParameter pk = new ObjectParameter("PK_Perfil", typeof(int));
 
-                            seps.SPC_ALTA_ADMINISTRATIVA(episodio.Episodio, episodio.Fecha, episodio.Razon, Guid.Parse(sesion.Value.ToString()), pk);
 
-                            if (pk != null)
+                            foreach (var episodio in lst)
                             {
-                                listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Creo perfil de alta por sistema #Perfil {pk.Value.ToString()}" });
+                                ObjectParameter pk = new ObjectParameter("PK_Perfil", typeof(int));
+
+                                seps.SPC_ALTA_ADMINISTRATIVA(episodio.Episodio, episodio.Fecha, episodio.Razon, Guid.Parse(sesion.Value.ToString()), pk);
+
+                                if (pk != null)
+                                {
+                                    listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Creo perfil de alta por sistema #Perfil {pk.Value.ToString()}" });
+
+                                }
+
+                                int pk_parse;
+                                int.TryParse(pk.Value.ToString(), out pk_parse);
+                                listAltasCreadas.Add(new CreatedDischargeBySystem() { Episodio = episodio.Episodio, Perfil = pk_parse });
 
                             }
 
-                            int pk_parse;
-                            int.TryParse(pk.Value.ToString(), out pk_parse);
-                            listAltasCreadas.Add(new CreatedDischargeBySystem() { Episodio = episodio.Episodio, Perfil = pk_parse });
-
-                        }
-
-                        if (listLogs.Count > 0)
-                        {
-                            foreach (var historial in listLogs)
+                            if (listLogs.Count > 0)
                             {
-                                historial.FK_Sesion = sesionSMUEE;
-                                historial.FE_Historial = DateTime.Now;
-                                historial.FK_Modulo = "MonitoreoSEPS";
-                                Logs.Add(historial);
+                                foreach (var historial in listLogs)
+                                {
+                                    historial.FK_Sesion = sesionSMUEE;
+                                    historial.FE_Historial = DateTime.Now;
+                                    historial.FK_Modulo = "MonitoreoSEPS";
+                                    Logs.Add(historial);
+                                }
                             }
+
+
+
                         }
-
-
-
                     }
+
                 }
 
+                return listAltasCreadas;
+            }
+            catch (Exception ee)
+            {
+                var lol =  ee.Message;
             }
 
-            return listAltasCreadas;
+            return null;
 
         }
 
