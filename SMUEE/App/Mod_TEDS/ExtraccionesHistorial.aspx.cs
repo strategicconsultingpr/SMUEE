@@ -13,15 +13,7 @@ namespace SMUEE.App.Mod_TEDS
         {
             if(!IsPostBack)
             {
-                using (var smuee = new SMUEEEntities())
-                {
-                    gvHistory.DataSource = smuee.VW_HISTORIAL.Where(x => x.FK_Modulo == "TEDS").OrderByDescending(x=>x.FE_Historial).ToList();
-                    gvHistory.DataBind();
-
-                    gvHistory.UseAccessibleHeader = true;
-                    gvHistory.HeaderRow.TableSection = TableRowSection.TableHeader;
-                    gvHistory.FooterRow.TableSection = TableRowSection.TableFooter;
-                }
+       
             }
         }
     }

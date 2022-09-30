@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ExtraccionesHistorial.aspx.cs" Inherits="SMUEE.App.Mod_TEDS.ExtraccionesHistorial" %>
-    <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <main>
         <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
             <div class="container-fluid px-4">
@@ -32,20 +33,65 @@
                 <div class="card-body">
                     <div class="table-responsive">
 
-                        <asp:GridView runat="server" ID="gvHistory" CssClass="table table-bordered historyDataTAble Display" Width="100%" AutoGenerateColumns="false" DataKeyNames="NOMBRE">
-                        <Columns>
-                            <asp:BoundField DataField="NOMBRE" HeaderText="Nombre de Reporte" />
-                            <asp:BoundField DataField="FE_HISTORIAL" HeaderText="Fecha" />
-                            <asp:BoundField DataField="DE_HISTORIAL" HeaderText="Descripción" />
+                        <table id="gvHistory" class="table table-bordered historyDataTable" width="100%">
 
-                        </Columns>
-                        </asp:GridView>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                </tr>
+                            </thead>
+                        </table>
 
                     </div>
                 </div>
             </div>
         </div>
+        <script>
 
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "ajax/Extracciones.asmx/GetHistory",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (obj) {
+
+                        if (obj != null && obj.d != null) {
+                            var lista = obj.d;
+                            $('.historyDataTable').DataTable().clear().draw();
+
+                            if (lista.length > 0) {
+
+
+                                $.each(lista, function (index, value) {
+                                    var fe = new Date(parseInt(value.FE_Historial.substr(6)));
+                                    var fe_s = fe.format("dd/MM/yyyy hh:mm:ss tt");
+                                    const tr = $(`<tr><td>${value.Nombre}</td><td>${fe_s}</td><td>${value.DE_Historial}</td></tr>`);
+                                    $('.historyDataTable').DataTable().row.add(tr[0]).draw();
+                                });
+
+
+                            }
+
+
+                        }
+
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
+
+            
+        </script>
     </main>
 
 </asp:Content>

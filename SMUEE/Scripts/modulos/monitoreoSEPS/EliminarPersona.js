@@ -372,7 +372,7 @@ function sweetLoading() {
         title: 'Cargando',
 
         buttons: false,
-        icon: '/Images/loading.gif',
+        icon: 'warning',
         timer: 1000
 
     });

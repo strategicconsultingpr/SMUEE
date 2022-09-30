@@ -22,13 +22,34 @@ namespace SMUEE.App.Notificaciones
         [WebMethod(EnableSession = true)]
         public List<VW_NOTIFICACIONES_USUARIO> getListaNotificaciones()
         {
-            notificacionesComponents NC = new notificacionesComponents();
+            //notificacionesComponents NC = new notificacionesComponents();
             var Usuario = (ApplicationUser)Session["Usuario"];
 
-            return NC.GetNotifications(Usuario.Id);
+                using (SMUEEEntities dsSMUEE = new SMUEEEntities())
+                {
+                    return dsSMUEE.VW_NOTIFICACIONES_USUARIO.Where(b => b.FK_USUARIO == Usuario.Id && b.VISTO == false).Take(10).ToList();
+
+                }
+          
+
+            //return NC.GetNotifications(Usuario.Id);
 
 
         }
+
+        [WebMethod]
+        public List<VW_NOTIFICACIONES> getAllListaNotificaciones()
+        {
+
+            using (SMUEEEntities dsSMUEE = new SMUEEEntities())
+            {
+                return dsSMUEE.VW_NOTIFICACIONES.OrderByDescending(x => x.FE_ENVIADO).ToList();
+
+            }
+        }
+
+
+
 
 
         [WebMethod(EnableSession = true)]

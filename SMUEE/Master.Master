@@ -25,7 +25,8 @@
 
 
     <!-- Sweet Alerts -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/sweetAlert.js") %>"></script>
+
 
     <!-- Custom styles for this template-->
     <link href="<%=ResolveClientUrl("~/Content/css/sb-admin-2.min.css")%>" type="text/css" rel="stylesheet" />
@@ -33,13 +34,13 @@
     <!-- Custom styles for this template-->
 <%--    <link href="<%=ResolveClientUrl("~/vendor/datatables/dataTables.bootstrap4.min.css")%>" type="text/css" rel="stylesheet" />--%>
 
-
+    <script>
+        var loadingImage = "<%=ResolveClientUrl("~/Images/loading.gif")%>"
+    </script>
 
     <!-- Custom styles for this template-->
     <link href="<%=ResolveClientUrl("~/Content/bootstrap-datepicker.min.css")%>" type="text/css" rel="stylesheet" />
-
-
-    <style>
+<style>
         .img-account-profile {
             height: 10rem;
         }
@@ -554,12 +555,6 @@
             $('.defaultTable2').DataTable();
         });
 
-
-
-
-
-
-
         $(document).ready(function () {
             $('.reportsListTable').DataTable();
         });
@@ -569,7 +564,7 @@
         });
 
         $(document).ready(function () {
-            $('.historyDataTAble').DataTable();
+            $('.historyDataTable').DataTable();
         });
 
         $(document).ready(function () {
@@ -580,7 +575,7 @@
             $(function () {
                 $.ajax({
                     type: 'POST',
-                    url: '/App/Notificaciones/WSnotificaciones.asmx/getListaNotificaciones',
+                    url: '<%=ResolveClientUrl("~/App/Notificaciones/WSnotificaciones.asmx/getListaNotificaciones")%>',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
@@ -601,13 +596,7 @@
                                 $.each(lista, function (index, value) {
                                     var fe = new Date(parseInt(value.FE_ENVIADO.substr(6)));
                                     var fe_s = fe.format("MMMM dd, yyyy");
-
-
-
-
-
-
-                                    $('.dpAlertas').append($('<a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#modalNotification"  onClick="selectNotification(' + value.FK_NOTIFICACIONES + ',\'' + value.TITULO + '\',\'<p>' + value.DE_NOTIFICACIONES + '</p>\',\'' + fe_s + '\');"><div class="mr-3"><div class="icon-circle ' + value.COLOR_ICONO + '"><i class="' + value.NB_ICONO + '"></i></div></div><div><div class="small text-gray-500">' + fe_s + '</div><span class="font-weight-bold">' + value.TITULO + '</span></div> </a>'));
+                                    $('.dpAlertas').append($(`<a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#modalNotification"  onClick="selectNotification(${value.FK_NOTIFICACIONES},'${value.TITULO}','<p>${value.DE_NOTIFICACIONES}</p>','${fe_s}');"><div class="mr-3"><div class="icon-circle  ${value.COLOR_ICONO }"><i class="${value.NB_ICONO}"></i></div></div><div><div class="small text-gray-500"> ${fe_s}</div><span class="font-weight-bold">${value.TITULO}</span></div> </a>`));
                                 });
                             }
 
@@ -640,7 +629,7 @@
             $(function () {
                 $.ajax({
                     type: 'POST',
-                    url: '/App/Notificaciones/WSnotificaciones.asmx/CheckNotificaciones',
+                    url: '<%=ResolveClientUrl("~/App/Notificaciones/WSnotificaciones.asmx/CheckNotificaciones")%>',
                     data: `{id: ${id}}`,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -680,6 +669,7 @@
         //        updateNotificationCount();
         //    }
         //}
+
     </script>
 
         <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/ddlMultiSelect/virtual-select.min.js?ver=1")%>"></script>

@@ -662,9 +662,8 @@ function sweetAlert(titulo, texto, icono) {
 function sweetLoading() {
     swal({
         title: 'Cargando',
-
         buttons: false,
-        icon: '/Images/loading.gif',
+        icon: 'warning',
         timer: 1000
 
     });

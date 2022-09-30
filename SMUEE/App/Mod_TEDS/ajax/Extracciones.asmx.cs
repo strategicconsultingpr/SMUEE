@@ -2,6 +2,8 @@
 using SMUEE.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -18,8 +20,16 @@ namespace SMUEE.App.Mod_TEDS.ajax
      [System.Web.Script.Services.ScriptService]
     public class Extracciones : System.Web.Services.WebService
     {
+        [WebMethod]
+        public List<VW_HISTORIAL> GetHistory()
+        {
+            using (var smuee = new SMUEEEntities())
+            {
+                return smuee.VW_HISTORIAL.Where(x => x.FK_Modulo == "TEDS").OrderByDescending(x => x.FE_Historial).ToList();
 
-        string folder = "prueba";
+
+            }
+        }
 
         [WebMethod(EnableSession = true)]
         public byte[] GenerateExcel(string file,DateTime min,DateTime max,int[] programs)
@@ -33,12 +43,9 @@ namespace SMUEE.App.Mod_TEDS.ajax
                 string contentType;
                 string encoding;
                 string extension;
-
-
-
                 ReportViewerForSSRS rv = new ReportViewerForSSRS();
 
-                rv.RvSiteMapping.ServerReport.ReportPath = $"/{folder}/{file}_TEDS"; //Passing the Report Path
+                rv.RvSiteMapping.ServerReport.ReportPath = $"/Informes de Portal Extracciones/{file}_TEDS"; //Passing the Report Path
                 var startParameter = new ReportParameter("start", min.ToString("yyyy-MM-dd"));
                 var endParameter = new ReportParameter("end", max.ToString("yyyy-MM-dd"));
 
@@ -59,12 +66,9 @@ namespace SMUEE.App.Mod_TEDS.ajax
 
                 if (rep != null)
                 {
-
                     var h = new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Realizo una extracción de {file} {min.ToString("yyyy-MM-dd")} al {max.ToString("yyyy-MM-dd")}", FE_Historial = DateTime.Now, FK_Sesion = sesionSMUEE, FK_Modulo = "TEDS" };
                     Logs.Add(h);
-
                 }
-
 
                 return rep;
             }

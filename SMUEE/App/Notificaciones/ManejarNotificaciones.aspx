@@ -99,6 +99,7 @@
 
     <script type="text/javascript">
 
+    
 
         function sweetAlertRef(titulo, texto, icono, ref) {
             var baseUrl = "<%=ResolveClientUrl("~/")%>" + ref;
@@ -111,11 +112,13 @@
         }
 
         function sweetAlert(titulo, texto, icono) {
+            var baseUrl = "<%=ResolveClientUrl("~/")%>" + ref;
+
             swal({
                 title: titulo,
                 text: texto,
                 icon: icono
-            });
+            }).then((value) => { window.location.href = baseUrl; });
         }
     </script>
 

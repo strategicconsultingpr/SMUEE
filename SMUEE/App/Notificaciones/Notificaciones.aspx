@@ -38,26 +38,18 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <asp:GridView runat="server" ID="gvNotificationList" CssClass="table table-bordered notificationsListTable" Width="100%" AutoGenerateColumns="false"  DataKeyNames="TITULO">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Icono">
-                                    <ItemTemplate>
-                                        <div class='icon-circle <%#Eval("COLOR_ICONO")%>'><i class='<%#Eval("NB_ICONO")%>'></i></div>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:BoundField DataField="TITULO" HeaderText="Título" />
-                                <asp:BoundField DataField="DE_NOTIFICACIONES" HeaderText="Descripción" />
-                                <asp:BoundField DataField="FE_ENVIADO" HeaderText="Fecha" />
-                                <asp:TemplateField HeaderText="Acciones">
-                                    <ItemTemplate>
-                                        <a class="form-control btn btn-warning text-center" href='<%=ResolveClientUrl("~/App/Notificaciones/ManejarNotificaciones")%>?PkNotification=<%# Eval("PK_NOTIFICACIONES")%>'>Editar</a>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <EmptyDataTemplate>
-                                No existen notificaciones
-                            </EmptyDataTemplate>
-                        </asp:GridView>
+                        <table id="gvNotificationList" class="table table-bordered notificationsListTable" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <td>Icono</td>
+                                    <td>Título</td>
+                                    <td>Descripción</td>
+                                    <td>Fecha</td>
+                                    <td>Acciones</td>
+                                </tr>
+                            </thead>
+                        </table>
 
 
                     </div>
@@ -67,7 +59,56 @@
             </div>
 
         </div>
+        <script>
 
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: 'WSnotificaciones.asmx/getAllListaNotificaciones',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (obj) {
+
+                        if (obj != null && obj.d != null) {
+                            var lista = obj.d;
+                            $('.notificationsListTable').DataTable().clear().draw();
+                            if (lista.length > 0) {
+                                $.each(lista, function (index, value) {
+                                    var fe = new Date(parseInt(value.FE_ENVIADO.substr(6)));
+                                    var fe_s = fe.format("dd/MM/yyyy");
+                                    const tr = $(`<tr>
+<td><div class="icon-circle ${value.COLOR_ICONO}"><i class="${value.NB_ICONO}"></i></div></td>
+<td>${value.TITULO}</td>
+<td>${value.DE_NOTIFICACIONES}</td>
+<td>${fe_s}</td>
+<td><a class="form-control btn btn-warning text-center" href="<%=ResolveClientUrl("~/App/Notificaciones/ManejarNotificaciones")%>?PkNotification=${value.PK_NOTIFICACIONES}">Editar</a></td>
+</tr>`);
+
+                                    $('.notificationsListTable').DataTable().row.add(tr[0]).draw();
+                                });
+
+
+                            }
+
+
+                        }
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
+
+            
+        </script>
     </main>
+
+
+
 
 </asp:Content>

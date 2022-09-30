@@ -291,7 +291,7 @@
 
     
 
-    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/EliminarPersona.js?ver=1")%>"></script>
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/EliminarPersona.js?ver=2")%>"></script>
 
 
 </asp:Content>

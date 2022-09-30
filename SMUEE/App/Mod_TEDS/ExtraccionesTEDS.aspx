@@ -286,7 +286,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/TEDS/ExtraccionesTEDS.js?ver=1")%>"></script>
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/TEDS/ExtraccionesTEDS.js?ver=2")%>"></script>
 
 </asp:Content>
 

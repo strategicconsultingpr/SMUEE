@@ -427,7 +427,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/TransferEpisodioPersona.js?ver=1")%>"></script>
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/monitoreoSEPS/TransferEpisodioPersona.js?ver=2")%>"></script>
 
 
 </asp:Content>

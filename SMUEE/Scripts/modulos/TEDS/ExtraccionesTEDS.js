@@ -286,11 +286,11 @@ function GenerateFile(file) {
 
         },
         failure: function (response) {
-            alert(response.d);
+            console.log(response.d);
 
         },
         error: function (response) {
-            alert(response.d);
+            console.log(response.d);
         }
     });
 }
@@ -303,7 +303,7 @@ function sweetLoading() {
         title: 'Descargando',
 
         buttons: false,
-        icon: '/Images/loading.gif',
+        icon: 'warning',
 
     });
 }
@@ -313,7 +313,7 @@ function sweetLoading2() {
     swal({
         title: 'Cargando',
         buttons: false,
-        icon: '/Images/loading.gif',
+        icon: 'warning',
         timer: 1000
 
 

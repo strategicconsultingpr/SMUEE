@@ -20,7 +20,7 @@ namespace SMUEE
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            SqlDependency.Start(con);
+            //SqlDependency.Start(con);
         }
 
         void Session_Start(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace SMUEE
         }
         void Application_End()
         {
-            SqlDependency.Stop(con);
+            //SqlDependency.Stop(con);
         }
     }
 }

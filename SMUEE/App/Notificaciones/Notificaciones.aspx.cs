@@ -13,33 +13,9 @@ namespace SMUEE.App.Notificaciones
         {
             if(!IsPostBack)
             {
-                getNotificationList();
             }
         }
 
-        private void getNotificationList()
-        {
-            try
-            {
-                using (SMUEEEntities dsSMUEE = new SMUEEEntities())
-                {
-                    var listNotificaciones = dsSMUEE.VW_NOTIFICACIONES.OrderByDescending(x=>x.FE_ENVIADO).ToList();
-
-                    gvNotificationList.DataSource = listNotificaciones;
-
-                    gvNotificationList.DataBind();
-
- 
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
-        }
 
     }
 }
