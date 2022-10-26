@@ -264,7 +264,7 @@ function GenerateFile(file) {
 
             if (obj != null && obj.d != null) {
 
-                var filename = `${file} ${min} al ${max}.xls`;
+                var filename = `${file} ${min} al ${max}.xlsx`;
                 var arr = obj.d;;
                 var byteArray = new Uint8Array(arr);
                 var a = window.document.createElement('a');

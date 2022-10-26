@@ -152,6 +152,8 @@
                             <h6 class="collapse-header">Reportes:</h6>
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ReportesTEDS")%>">Reportes</a>
                             <h6 class="collapse-header">Otros:</h6>
+                                                        <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_TEDS/DocumentosTEDS")%>">Documentos</a>
+
                             <a class="collapse-item" href="<%=ResolveClientUrl("~/App/Mod_TEDS/ExtraccionesHistorial")%>">Historial</a>
                             
                         </div>

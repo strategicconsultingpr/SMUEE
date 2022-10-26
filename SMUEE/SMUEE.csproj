@@ -215,6 +215,7 @@
     <Content Include="App\Mod_MonitoreoSEPS\TransferenciaEpisodiosProgramas.aspx" />
     <Content Include="App\Mod_ReportesInformativos\ReportesInformativos.aspx" />
     <Content Include="App\Mod_TEDS\ajax\Extracciones.asmx" />
+    <Content Include="App\Mod_TEDS\DocumentosTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesHistorial.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ReportesTEDS.aspx" />
@@ -329,6 +330,8 @@
     <Content Include="DsReportes.xsc">
       <DependentUpon>DsReportes.xsd</DependentUpon>
     </Content>
+    <Content Include="Document\TEDS\guiaTEDSv5.pdf" />
+    <Content Include="Document\TEDS\SEPS-TEDS Logical Process.pdf" />
     <None Include="DsReportes.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -2369,6 +2372,13 @@
       <DependentUpon>Extracciones.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="App\Mod_TEDS\DocumentosTEDS.aspx.cs">
+      <DependentUpon>DocumentosTEDS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Mod_TEDS\DocumentosTEDS.aspx.designer.cs">
+      <DependentUpon>DocumentosTEDS.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App\Mod_TEDS\ExtraccionesHistorial.aspx.cs">
       <DependentUpon>ExtraccionesHistorial.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2569,6 +2579,9 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
     <Compile Include="VW_CATEGORIA_REPORTE.cs">
+      <DependentUpon>ModelSMUEE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VW_DOCUMENTOS.cs">
       <DependentUpon>ModelSMUEE.tt</DependentUpon>
     </Compile>
     <Compile Include="VW_EPISODIOS_EXPEDIENTE.cs">

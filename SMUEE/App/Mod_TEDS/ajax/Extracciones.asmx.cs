@@ -62,7 +62,8 @@ namespace SMUEE.App.Mod_TEDS.ajax
                 rv.RvSiteMapping.ServerReport.SetParameters(endParameter);
 
                 //Export the RDLC Report to Byte Array.
-                var rep =  rv.RvSiteMapping.ServerReport.Render("EXCEL", null, out contentType, out encoding, out extension, out streamIds, out warnings);
+                var rep =  rv.RvSiteMapping.ServerReport.Render("EXCELOPENXML", null, out contentType, out encoding, out extension, out streamIds, out warnings);
+
 
                 if (rep != null)
                 {

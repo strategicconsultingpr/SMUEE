@@ -66,6 +66,19 @@ warning 6002: The table/view 'SMUEE.dbo.VW_CATEGORIA_REPORTE' does not have a pr
           <Property Name="MODULO_REPORTE" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUEE.dbo.VW_DOCUMENTOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_DOCUMENTOS">
+          <Key>
+            <PropertyRef Name="PK_DOCUMENTO" />
+          </Key>
+          <Property Name="PK_DOCUMENTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NB_DOCUMENTO" Type="varchar" MaxLength="100" />
+          <Property Name="DE_DOCUMENTO" Type="varchar(max)" />
+          <Property Name="PATH_DOCUMENTO" Type="varchar" MaxLength="100" />
+          <Property Name="ACTIVO" Type="bit" />
+          <Property Name="FK_MODULO" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'SMUEE.dbo.VW_HISTORIAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VW_HISTORIAL">
           <Key>
@@ -212,6 +225,16 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
     [VW_CATEGORIA_REPORTE].[MODULO_REPORTE] AS [MODULO_REPORTE]
     FROM [dbo].[VW_CATEGORIA_REPORTE] AS [VW_CATEGORIA_REPORTE]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VW_DOCUMENTOS" EntityType="Self.VW_DOCUMENTOS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_DOCUMENTOS].[PK_DOCUMENTO] AS [PK_DOCUMENTO], 
+    [VW_DOCUMENTOS].[NB_DOCUMENTO] AS [NB_DOCUMENTO], 
+    [VW_DOCUMENTOS].[DE_DOCUMENTO] AS [DE_DOCUMENTO], 
+    [VW_DOCUMENTOS].[PATH_DOCUMENTO] AS [PATH_DOCUMENTO], 
+    [VW_DOCUMENTOS].[ACTIVO] AS [ACTIVO], 
+    [VW_DOCUMENTOS].[FK_MODULO] AS [FK_MODULO]
+    FROM [dbo].[VW_DOCUMENTOS] AS [VW_DOCUMENTOS]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VW_HISTORIAL" EntityType="Self.VW_HISTORIAL" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VW_HISTORIAL].[Nombre] AS [Nombre], 
@@ -323,6 +346,7 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <EntitySet Name="VW_NOTIFICACIONES_USUARIO" EntityType="SMUEEModel.VW_NOTIFICACIONES_USUARIO" />
           <EntitySet Name="VW_NOTIFICACIONES" EntityType="SMUEEModel.VW_NOTIFICACIONES" />
           <EntitySet Name="VW_HISTORIAL" EntityType="SMUEEModel.VW_HISTORIAL" />
+          <EntitySet Name="VW_DOCUMENTOS" EntityType="SMUEEModel.VW_DOCUMENTOS" />
         </EntityContainer>
         <EntityType Name="VW_CATEGORIA_REPORTE">
           <Key>
@@ -504,6 +528,17 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
           <Property Name="FK_Modulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FE_Historial" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="VW_DOCUMENTOS">
+          <Key>
+            <PropertyRef Name="PK_DOCUMENTO" />
+          </Key>
+          <Property Name="PK_DOCUMENTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NB_DOCUMENTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DE_DOCUMENTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PATH_DOCUMENTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVO" Type="Boolean" />
+          <Property Name="FK_MODULO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -645,6 +680,18 @@ warning 6002: The table/view 'SMUEE.dbo.VW_UsersList' does not have a primary ke
                 <ScalarProperty Name="FK_Sesion" ColumnName="FK_Sesion" />
                 <ScalarProperty Name="PK_Historial" ColumnName="PK_Historial" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_DOCUMENTOS">
+            <EntityTypeMapping TypeName="SMUEEModel.VW_DOCUMENTOS">
+              <MappingFragment StoreEntitySet="VW_DOCUMENTOS">
+                <ScalarProperty Name="FK_MODULO" ColumnName="FK_MODULO" />
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="PATH_DOCUMENTO" ColumnName="PATH_DOCUMENTO" />
+                <ScalarProperty Name="DE_DOCUMENTO" ColumnName="DE_DOCUMENTO" />
+                <ScalarProperty Name="NB_DOCUMENTO" ColumnName="NB_DOCUMENTO" />
+                <ScalarProperty Name="PK_DOCUMENTO" ColumnName="PK_DOCUMENTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
