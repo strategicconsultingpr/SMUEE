@@ -42,6 +42,10 @@ namespace SMUEE
         public virtual DbSet<VW_EPISODIOS_EXPEDIENTE> VW_EPISODIOS_EXPEDIENTE { get; set; }
         public virtual DbSet<VW_SAEP> VW_SAEP { get; set; }
         public virtual DbSet<SA_LKP_ALTA> SA_LKP_ALTA { get; set; }
+        public virtual DbSet<TMP_SC_VW_RPT_TEDS_MH_AD> TMP_SC_VW_RPT_TEDS_MH_AD { get; set; }
+        public virtual DbSet<TMP_SC_VW_RPT_TEDS_MH_DIS> TMP_SC_VW_RPT_TEDS_MH_DIS { get; set; }
+        public virtual DbSet<TMP_SC_VW_RPT_TEDS_SA_AD> TMP_SC_VW_RPT_TEDS_SA_AD { get; set; }
+        public virtual DbSet<TMP_SC_VW_RPT_TEDS_SA_DIS> TMP_SC_VW_RPT_TEDS_SA_DIS { get; set; }
     
         public virtual ObjectResult<SPC_SESION_Result> SPC_SESION(string nB_Login, string pASSWORD, ObjectParameter pK_Sesion)
         {
@@ -391,6 +395,74 @@ namespace SMUEE
                 new ObjectParameter("FK_Sesion", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_ALTA_ADMINISTRATIVA", fK_EpisodioParameter, fE_PerfilParameter, fK_AltaParameter, fK_SesionParameter, pK_Perfil);
+        }
+    
+        public virtual int SC_VW_RPT_TEDS_MH_AD_SMUEE(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string program)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var programParameter = program != null ?
+                new ObjectParameter("program", program) :
+                new ObjectParameter("program", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SC_VW_RPT_TEDS_MH_AD_SMUEE", startParameter, endParameter, programParameter);
+        }
+    
+        public virtual int SC_VW_RPT_TEDS_MH_DIS_SMUEE(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string program)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var programParameter = program != null ?
+                new ObjectParameter("program", program) :
+                new ObjectParameter("program", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SC_VW_RPT_TEDS_MH_DIS_SMUEE", startParameter, endParameter, programParameter);
+        }
+    
+        public virtual int SC_VW_RPT_TEDS_SA_AD_SMUEE(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string program)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var programParameter = program != null ?
+                new ObjectParameter("program", program) :
+                new ObjectParameter("program", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SC_VW_RPT_TEDS_SA_AD_SMUEE", startParameter, endParameter, programParameter);
+        }
+    
+        public virtual int SC_VW_RPT_TEDS_SA_DIS_SMUEE(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string program)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var programParameter = program != null ?
+                new ObjectParameter("program", program) :
+                new ObjectParameter("program", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SC_VW_RPT_TEDS_SA_DIS_SMUEE", startParameter, endParameter, programParameter);
         }
     }
 }
