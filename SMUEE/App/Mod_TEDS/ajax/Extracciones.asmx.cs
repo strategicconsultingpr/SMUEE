@@ -36,7 +36,7 @@ namespace SMUEE.App.Mod_TEDS.ajax
         {
             using (var smuee = new SMUEEEntities())
             {
-                return smuee.VW_HISTORIAL.Where(x => x.FK_Modulo == "TEDS").OrderByDescending(x => x.FE_Historial).ToList();
+                return smuee.VW_HISTORIAL.Where(x => x.FK_Modulo == "TEDS").OrderByDescending(x => x.FE_Historial).Take(50).ToList();
 
 
             }
