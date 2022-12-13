@@ -79,8 +79,8 @@ namespace SMUEE
         public Nullable<System.DateTime> FE_FechaConvenio { get; set; }
     
         public virtual SA_PERSONA SA_PERSONA { get; set; }
+        public virtual SA_PROGRAMA SA_PROGRAMA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SA_PERFIL> SA_PERFIL { get; set; }
-        public virtual SA_PROGRAMA SA_PROGRAMA { get; set; }
     }
 }

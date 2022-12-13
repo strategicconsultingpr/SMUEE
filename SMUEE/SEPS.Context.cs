@@ -32,7 +32,6 @@ namespace SMUEE
         public virtual DbSet<VW_PERSONAS> VW_PERSONAS { get; set; }
         public virtual DbSet<VW_PROGRAMAS> VW_PROGRAMAS { get; set; }
         public virtual DbSet<SA_EPISODIO> SA_EPISODIO { get; set; }
-        public virtual DbSet<SA_PERFIL> SA_PERFIL { get; set; }
         public virtual DbSet<SA_PERSONA> SA_PERSONA { get; set; }
         public virtual DbSet<SA_PERSONA_PROGRAMA> SA_PERSONA_PROGRAMA { get; set; }
         public virtual DbSet<VW_EXPEDIENTE_PROGRAMA> VW_EXPEDIENTE_PROGRAMA { get; set; }
@@ -46,6 +45,8 @@ namespace SMUEE
         public virtual DbSet<TMP_SC_VW_RPT_TEDS_MH_DIS> TMP_SC_VW_RPT_TEDS_MH_DIS { get; set; }
         public virtual DbSet<TMP_SC_VW_RPT_TEDS_SA_AD> TMP_SC_VW_RPT_TEDS_SA_AD { get; set; }
         public virtual DbSet<TMP_SC_VW_RPT_TEDS_SA_DIS> TMP_SC_VW_RPT_TEDS_SA_DIS { get; set; }
+        public virtual DbSet<SA_PERFIL> SA_PERFIL { get; set; }
+        public virtual DbSet<SA_PERFIL_ELIMINADO> SA_PERFIL_ELIMINADO { get; set; }
     
         public virtual ObjectResult<SPC_SESION_Result> SPC_SESION(string nB_Login, string pASSWORD, ObjectParameter pK_Sesion)
         {

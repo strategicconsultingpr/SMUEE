@@ -136,6 +136,9 @@ namespace SMUEE
         public Nullable<int> FK_IDENTIDAD_GENERO { get; set; }
         public Nullable<bool> AGREGADO_POR_SMUEE { get; set; }
         public Nullable<System.DateTime> FE_AGREGADO_POR_SMUEE { get; set; }
+        public Nullable<int> FK_ESTATUS_PERFIL_TEDS { get; set; }
+        public Nullable<System.DateTime> FE_SUBIDO_ACEPTADO_POR_TEDS { get; set; }
+        public string TEDS_ID { get; set; }
     
         public virtual SA_EPISODIO SA_EPISODIO { get; set; }
     }

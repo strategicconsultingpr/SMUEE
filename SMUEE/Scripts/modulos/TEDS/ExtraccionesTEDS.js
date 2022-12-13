@@ -309,6 +309,18 @@ function sweetLoading() {
 }
 
 
+
+function sweetLoadingProcesando() {
+    swal({
+        title: 'Procesando',
+
+        buttons: false,
+        icon: 'warning',
+
+    });
+}
+
+
 function sweetLoading2() {
     swal({
         title: 'Cargando',
@@ -319,3 +331,5 @@ function sweetLoading2() {
 
     });
 }
+
+

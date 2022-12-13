@@ -229,6 +229,7 @@
     <Content Include="App\Mod_TEDS\ExtraccionesHistorial.aspx" />
     <Content Include="App\Mod_TEDS\ExtraccionesTEDS.aspx" />
     <Content Include="App\Mod_TEDS\ReportesTEDS.aspx" />
+    <Content Include="App\Mod_TEDS\SubirArchivosTEDS.aspx" />
     <Content Include="App\Notificaciones\ManejarNotificaciones.aspx" />
     <Content Include="App\Notificaciones\Notificaciones.aspx" />
     <Content Include="App\Notificaciones\WSnotificaciones.asmx" />
@@ -453,6 +454,7 @@
     <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPersona.js" />
     <Content Include="Scripts\modulos\monitoreoSEPS\TransferEpisodioPrograma.js" />
     <Content Include="Scripts\modulos\notificaciones\notificaciones.js" />
+    <Content Include="Scripts\modulos\TEDS\SubirArchivosTEDS.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -2410,6 +2412,13 @@
     <Compile Include="App\Mod_TEDS\ReportesTEDS.aspx.designer.cs">
       <DependentUpon>ReportesTEDS.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\Mod_TEDS\SubirArchivosTEDS.aspx.cs">
+      <DependentUpon>SubirArchivosTEDS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Mod_TEDS\SubirArchivosTEDS.aspx.designer.cs">
+      <DependentUpon>SubirArchivosTEDS.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App\Notificaciones\ManejarNotificaciones.aspx.cs">
       <DependentUpon>ManejarNotificaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2497,6 +2506,7 @@
     <Compile Include="Models\AltasAdministrativas.cs" />
     <Compile Include="Models\CustomReportCredentials.cs" />
     <Compile Include="Models\DdlProgramExtracciones.cs" />
+    <Compile Include="Models\Helpers.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logs.cs" />
     <Compile Include="Models\ReportViewerForSSRS.cs" />
@@ -2515,6 +2525,9 @@
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="SA_PERFIL.cs">
+      <DependentUpon>SEPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SA_PERFIL_ELIMINADO.cs">
       <DependentUpon>SEPS.tt</DependentUpon>
     </Compile>
     <Compile Include="SA_PERSONA.cs">

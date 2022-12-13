@@ -205,6 +205,34 @@
           <Property Name="FK_IDENTIDAD_GENERO" Type="int" />
           <Property Name="AGREGADO_POR_SMUEE" Type="bit" />
           <Property Name="FE_AGREGADO_POR_SMUEE" Type="datetime" />
+          <Property Name="FK_ESTATUS_PERFIL_TEDS" Type="int" />
+          <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="datetime" />
+          <Property Name="TEDS_ID" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SEPS_JR.dbo.SA_PERFIL_ELIMINADO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SA_PERFIL_ELIMINADO">
+          <Key>
+            <PropertyRef Name="PK_PERFIL_ELIMINADO" />
+          </Key>
+          <Property Name="PK_PERFIL_ELIMINADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="STATE_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="STATE_PROVIDER" Type="varchar" MaxLength="15" />
+          <Property Name="CLIENT_IDENTIFIER" Type="varchar" MaxLength="15" />
+          <Property Name="CODEPENDENT_COLATERAL" Type="varchar" MaxLength="1" />
+          <Property Name="CLIENT_TRANSACTION_TYPE" Type="varchar" MaxLength="1" />
+          <Property Name="DATE_OF_ADMISION" Type="varchar" MaxLength="8" />
+          <Property Name="TYPE_OF_TREATMENT" Type="varchar" MaxLength="2" />
+          <Property Name="DATE_LAST_CONTACT" Type="varchar" MaxLength="8" />
+          <Property Name="DATE_OF_DISCHARGE" Type="varchar" MaxLength="8" />
+          <Property Name="FK_EPISODIO" Type="int" />
+          <Property Name="FK_PERFIL" Type="int" />
+          <Property Name="TIPO_PERFIL" Type="varchar" MaxLength="2" />
+          <Property Name="FK_ESTATUS_PERFIL_TEDS" Type="int" />
+          <Property Name="FE_ENVIADO_A_TEDS" Type="datetime" />
+          <Property Name="TEDS_ID" Type="varchar(max)" />
+          <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="datetime" />
+          <Property Name="FK_SESION" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="SA_PERSONA">
           <Key>
@@ -1323,6 +1351,28 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <EntitySet Name="SA_PERSONA" EntityType="Self.SA_PERSONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERSONA_PROGRAMA" EntityType="Self.SA_PERSONA_PROGRAMA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PROGRAMA" EntityType="Self.SA_PROGRAMA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SA_PERFIL_ELIMINADO" EntityType="Self.SA_PERFIL_ELIMINADO" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SA_PERFIL_ELIMINADO].[PK_PERFIL_ELIMINADO] AS [PK_PERFIL_ELIMINADO], 
+    [SA_PERFIL_ELIMINADO].[STATE_CODE] AS [STATE_CODE], 
+    [SA_PERFIL_ELIMINADO].[STATE_PROVIDER] AS [STATE_PROVIDER], 
+    [SA_PERFIL_ELIMINADO].[CLIENT_IDENTIFIER] AS [CLIENT_IDENTIFIER], 
+    [SA_PERFIL_ELIMINADO].[CODEPENDENT_COLATERAL] AS [CODEPENDENT_COLATERAL], 
+    [SA_PERFIL_ELIMINADO].[CLIENT_TRANSACTION_TYPE] AS [CLIENT_TRANSACTION_TYPE], 
+    [SA_PERFIL_ELIMINADO].[DATE_OF_ADMISION] AS [DATE_OF_ADMISION], 
+    [SA_PERFIL_ELIMINADO].[TYPE_OF_TREATMENT] AS [TYPE_OF_TREATMENT], 
+    [SA_PERFIL_ELIMINADO].[DATE_LAST_CONTACT] AS [DATE_LAST_CONTACT], 
+    [SA_PERFIL_ELIMINADO].[DATE_OF_DISCHARGE] AS [DATE_OF_DISCHARGE], 
+    [SA_PERFIL_ELIMINADO].[FK_EPISODIO] AS [FK_EPISODIO], 
+    [SA_PERFIL_ELIMINADO].[FK_PERFIL] AS [FK_PERFIL], 
+    [SA_PERFIL_ELIMINADO].[TIPO_PERFIL] AS [TIPO_PERFIL], 
+    [SA_PERFIL_ELIMINADO].[FK_ESTATUS_PERFIL_TEDS] AS [FK_ESTATUS_PERFIL_TEDS], 
+    [SA_PERFIL_ELIMINADO].[FE_ENVIADO_A_TEDS] AS [FE_ENVIADO_A_TEDS], 
+    [SA_PERFIL_ELIMINADO].[TEDS_ID] AS [TEDS_ID], 
+    [SA_PERFIL_ELIMINADO].[FE_SUBIDO_ACEPTADO_POR_TEDS] AS [FE_SUBIDO_ACEPTADO_POR_TEDS], 
+    [SA_PERFIL_ELIMINADO].[FK_SESION] AS [FK_SESION]
+    FROM [dbo].[SA_PERFIL_ELIMINADO] AS [SA_PERFIL_ELIMINADO]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="TMP_SC_VW_RPT_TEDS_MH_AD" EntityType="Self.TMP_SC_VW_RPT_TEDS_MH_AD" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [TMP_SC_VW_RPT_TEDS_MH_AD].[System Transaction Type] AS [System Transaction Type], 
@@ -2310,16 +2360,11 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <EntitySet Name="VW_PERSONAS" EntityType="Self.VW_PERSONAS" />
           <EntitySet Name="VW_PROGRAMAS" EntityType="Self.VW_PROGRAMAS" />
           <EntitySet Name="SA_EPISODIO" EntityType="SEPSModel.SA_EPISODIO" />
-          <EntitySet Name="SA_PERFIL" EntityType="SEPSModel.SA_PERFIL" />
           <EntitySet Name="SA_PERSONA" EntityType="SEPSModel.SA_PERSONA" />
           <EntitySet Name="SA_PERSONA_PROGRAMA" EntityType="SEPSModel.SA_PERSONA_PROGRAMA" />
           <AssociationSet Name="FK_SA_EPISODIO_SA_PERSONA" Association="SEPSModel.FK_SA_EPISODIO_SA_PERSONA">
             <End Role="SA_PERSONA" EntitySet="SA_PERSONA" />
             <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SA_PERFIL_SA_EPISODIO" Association="SEPSModel.FK_SA_PERFIL_SA_EPISODIO">
-            <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
-            <End Role="SA_PERFIL" EntitySet="SA_PERFIL" />
           </AssociationSet>
           <AssociationSet Name="FK_SA_PERSONA_CENTRO_SA_PERSONA" Association="SEPSModel.FK_SA_PERSONA_CENTRO_SA_PERSONA">
             <End Role="SA_PERSONA" EntitySet="SA_PERSONA" />
@@ -2462,6 +2507,12 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
             <Parameter Name="end" Mode="In" Type="DateTime" />
             <Parameter Name="program" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SA_PERFIL" EntityType="SEPSModel.SA_PERFIL" />
+          <AssociationSet Name="FK_SA_PERFIL_SA_EPISODIO" Association="SEPSModel.FK_SA_PERFIL_SA_EPISODIO">
+            <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
+            <End Role="SA_PERFIL" EntitySet="SA_PERFIL" />
+          </AssociationSet>
+          <EntitySet Name="SA_PERFIL_ELIMINADO" EntityType="SEPSModel.SA_PERFIL_ELIMINADO" />
         </EntityContainer>
         <EntityType Name="SA_EPISODIO">
           <Key>
@@ -2525,136 +2576,8 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <Property Name="PK_Old" Type="Int32" />
           <Property Name="FE_FechaConvenio" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SA_PERSONA" Relationship="SEPSModel.FK_SA_EPISODIO_SA_PERSONA" FromRole="SA_EPISODIO" ToRole="SA_PERSONA" />
-          <NavigationProperty Name="SA_PERFIL" Relationship="SEPSModel.FK_SA_PERFIL_SA_EPISODIO" FromRole="SA_EPISODIO" ToRole="SA_PERFIL" />
           <NavigationProperty Name="SA_PROGRAMA" Relationship="SEPSModel.FK_SA_EPISODIO_SA_PROGRAMA" FromRole="SA_EPISODIO" ToRole="SA_PROGRAMA" />
-        </EntityType>
-        <EntityType Name="SA_PERFIL">
-          <Key>
-            <PropertyRef Name="PK_NR_Perfil" />
-          </Key>
-          <Property Name="PK_NR_Perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_Episodio" Type="Int32" Nullable="false" />
-          <Property Name="FE_Perfil" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FE_Contacto" Type="DateTime" Precision="3" />
-          <Property Name="IN_TI_Perfil" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="IN_Emancipado" Type="Byte" />
-          <Property Name="FK_EstadoMarital" Type="Byte" Nullable="false" />
-          <Property Name="FK_CondicionLaboral" Type="Byte" Nullable="false" />
-          <Property Name="FK_ActividadNoLaboral" Type="Byte" Nullable="false" />
-          <Property Name="IN_EmbarazosTratamiento" Type="Byte" />
-          <Property Name="NR_Hijos" Type="Byte" Nullable="false" />
-          <Property Name="FK_Escolaridad" Type="Byte" Nullable="false" />
-          <Property Name="FE_UltimoInformeEscolar" Type="DateTime" Precision="3" />
-          <Property Name="NR_PromedioAcademico" Type="Decimal" Precision="3" Scale="2" />
-          <Property Name="NR_AusenciasAcad" Type="Int16" />
-          <Property Name="IN_EducEspecial" Type="Byte" />
-          <Property Name="IN_DesertorEscolar" Type="Byte" />
-          <Property Name="FK_Familia" Type="Byte" Nullable="false" />
-          <Property Name="NR_Familiar" Type="Byte" Nullable="false" />
-          <Property Name="FK_Residencia" Type="Byte" Nullable="false" />
-          <Property Name="IN_ParticReunGrupos" Type="Byte" />
-          <Property Name="FK_FreqAutoAyuda" Type="Byte" />
-          <Property Name="IN_Arrestado30dias" Type="Byte" />
-          <Property Name="NR_Arrestos30dias" Type="Byte" />
-          <Property Name="IN_Arrestado365dias" Type="Byte" />
-          <Property Name="IN_EstLeg" Type="Byte" />
-          <Property Name="FK_CondicionPrimaria" Type="Byte" />
-          <Property Name="FK_CondicionSecundaria" Type="Byte" />
-          <Property Name="FK_CondicionTerciaria" Type="Byte" />
-          <Property Name="FK_TrastornosClinicosPrimario" Type="Int16" />
-          <Property Name="FK_TrastornosClinicosSecundario" Type="Int16" />
-          <Property Name="FK_TrastornosClinicosTerciario" Type="Int16" />
-          <Property Name="FK_TrastornosPersonalidadPrimario" Type="Int16" />
-          <Property Name="FK_TrastornosPersonalidadSecundario" Type="Int16" />
-          <Property Name="FK_TrastornosPersonalidadTerciario" Type="Int16" />
-          <Property Name="CO_CondicionesMedicasPrimario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CO_CondicionesMedicasSecundario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CO_CondicionesMedicasTerciario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FK_ProblemasPsicosocialesPrimario" Type="Byte" />
-          <Property Name="FK_ProblemasPsicosocialesSecundario" Type="Byte" />
-          <Property Name="FK_ProblemasPsicosocialesTerciario" Type="Byte" />
-          <Property Name="NR_EscalaGAF" Type="Int32" />
-          <Property Name="FK_ReferidosGeneradosTX" Type="Byte" />
-          <Property Name="FK_DisposicionFinalReferido" Type="Byte" />
-          <Property Name="FK_DrogaPrimario" Type="Byte" Nullable="false" />
-          <Property Name="FK_ViaPrimario" Type="Byte" Nullable="false" />
-          <Property Name="FK_FrecuenciaPrimario" Type="Byte" Nullable="false" />
-          <Property Name="IN_EdadInicioPrimario" Type="Byte" />
-          <Property Name="NR_CantidadPrimario" Type="Byte" />
-          <Property Name="FK_MedidaPrimario" Type="Byte" />
-          <Property Name="NR_GastoPrimario" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="FK_DrogaSecundario" Type="Byte" Nullable="false" />
-          <Property Name="FK_ViaSecundario" Type="Byte" Nullable="false" />
-          <Property Name="FK_FrecuenciaSecundario" Type="Byte" Nullable="false" />
-          <Property Name="IN_EdadInicioSecundario" Type="Byte" />
-          <Property Name="NR_CantidadSecundario" Type="Byte" />
-          <Property Name="FK_MedidaSecundario" Type="Byte" />
-          <Property Name="NR_GastoSecundario" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="FK_DrogaTerciario" Type="Byte" Nullable="false" />
-          <Property Name="FK_ViaTerciario" Type="Byte" Nullable="false" />
-          <Property Name="FK_FrecuenciaTerciario" Type="Byte" Nullable="false" />
-          <Property Name="IN_EdadInicioTerciario" Type="Byte" />
-          <Property Name="NR_CantidadTerciario" Type="Byte" />
-          <Property Name="FK_MedidaTerciario" Type="Byte" />
-          <Property Name="NR_GastoTerciario" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="NR_PromedioVisitas" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="FK_Alta" Type="Byte" />
-          <Property Name="FK_CentroTraslado" Type="Int16" />
-          <Property Name="DE_Comentario" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <Property Name="TI_Transaccion" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="FK_Sesion" Type="Guid" Nullable="false" />
-          <Property Name="TI_Edicion" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="FE_Edicion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ES_Perfil" Type="Boolean" />
-          <Property Name="PK_PerfilID_Legacy" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="FK_Old" Type="Int32" />
-          <Property Name="CHK_ENVIADO" Type="Boolean" />
-          <Property Name="FE_ENVIADO" Type="DateTime" Precision="3" />
-          <Property Name="IN_NOENVIADO" Type="Boolean" />
-          <Property Name="CHK_ENVIADO_SM" Type="Boolean" />
-          <Property Name="FE_ENVIADO_SM" Type="DateTime" Precision="3" />
-          <Property Name="FK_CategoriaCentroPrivado" Type="Int32" />
-          <Property Name="FK_DSMV_TrastornosClinicos1" Type="Int32" />
-          <Property Name="FK_DSMV_TrastornosClinicos2" Type="Int32" />
-          <Property Name="FK_DSMV_TrastornosClinicos3" Type="Int32" />
-          <Property Name="FK_DSMV_TrastornosPersonalidadRM1" Type="Int32" />
-          <Property Name="FK_DSMV_TrastornosPersonalidadRM2" Type="Int32" />
-          <Property Name="FK_DSMV_TrastornosPersonalidadRM3" Type="Int32" />
-          <Property Name="FK_DSMV_ProblemasPsicosocialesAmbientales1" Type="Int32" />
-          <Property Name="FK_DSMV_ProblemasPsicosocialesAmbientales2" Type="Int32" />
-          <Property Name="FK_DSMV_ProblemasPsicosocialesAmbientales3" Type="Int32" />
-          <Property Name="NR_DSMV_FuncionamientoGlobal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="DE_DSMV_OtrasObservaciones" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <Property Name="DE_DSMV_Comentarios" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <Property Name="IN_DSMV_DiagnosticoDual" Type="Int32" />
-          <Property Name="FK_TipoAdmision" Type="Int32" />
-          <Property Name="FK_SituacionEscolar" Type="Int32" />
-          <Property Name="IN_ESCOGIDO" Type="Boolean" />
-          <Property Name="FileNameTEDS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProcessDate" Type="DateTime" Precision="3" />
-          <Property Name="FE_Registro" Type="DateTime" Precision="3" />
-          <Property Name="NR_CelularPrimario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NR_CelularContacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DE_EmailPrimario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DE_EmailSecundario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="FK_CatRecuperacionRes" Type="Byte" />
-          <Property Name="HogarRecuperacionRes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="FK_DSMV_Sustancias1" Type="Int32" />
-          <Property Name="FK_DSMV_Sustancias2" Type="Int32" />
-          <Property Name="FK_DSMV_Sustancias3" Type="Int32" />
-          <Property Name="IN_Fumado" Type="Byte" />
-          <Property Name="DE_FrecuenciaFumado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="NR_CigarrosXDias" Type="Int32" />
-          <Property Name="DE_DrogaNueva1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DE_DrogaNueva2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DE_DrogaNueva3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IN_Toxicologia1" Type="Byte" />
-          <Property Name="IN_Toxicologia2" Type="Byte" />
-          <Property Name="IN_Toxicologia3" Type="Byte" />
-          <Property Name="FK_IDENTIDAD_GENERO" Type="Int32" />
-          <NavigationProperty Name="SA_EPISODIO" Relationship="SEPSModel.FK_SA_PERFIL_SA_EPISODIO" FromRole="SA_PERFIL" ToRole="SA_EPISODIO" />
-          <Property Name="AGREGADO_POR_SMUEE" Type="Boolean" />
-          <Property Name="FE_AGREGADO_POR_SMUEE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SA_PERFIL" Relationship="SEPSModel.FK_SA_PERFIL_SA_EPISODIO" FromRole="SA_EPISODIO" ToRole="SA_PERFIL" />
         </EntityType>
         <EntityType Name="SA_PERSONA">
           <Key>
@@ -2702,20 +2625,6 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
             </Principal>
             <Dependent Role="SA_EPISODIO">
               <PropertyRef Name="FK_Persona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SA_PERFIL_SA_EPISODIO">
-          <End Type="SEPSModel.SA_EPISODIO" Role="SA_EPISODIO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SEPSModel.SA_PERFIL" Role="SA_PERFIL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SA_EPISODIO">
-              <PropertyRef Name="PK_Episodio" />
-            </Principal>
-            <Dependent Role="SA_PERFIL">
-              <PropertyRef Name="FK_Episodio" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3653,6 +3562,174 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <Property Name="Perfil" Type="Int32" Nullable="false" />
           <Property Name="Episode" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="SA_PERFIL">
+          <Key>
+            <PropertyRef Name="PK_NR_Perfil" />
+          </Key>
+          <Property Name="PK_NR_Perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Episodio" Type="Int32" Nullable="false" />
+          <Property Name="FE_Perfil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FE_Contacto" Type="DateTime" Precision="3" />
+          <Property Name="IN_TI_Perfil" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="IN_Emancipado" Type="Byte" />
+          <Property Name="FK_EstadoMarital" Type="Byte" Nullable="false" />
+          <Property Name="FK_CondicionLaboral" Type="Byte" Nullable="false" />
+          <Property Name="FK_ActividadNoLaboral" Type="Byte" Nullable="false" />
+          <Property Name="IN_EmbarazosTratamiento" Type="Byte" />
+          <Property Name="NR_Hijos" Type="Byte" Nullable="false" />
+          <Property Name="FK_Escolaridad" Type="Byte" Nullable="false" />
+          <Property Name="FE_UltimoInformeEscolar" Type="DateTime" Precision="3" />
+          <Property Name="NR_PromedioAcademico" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="NR_AusenciasAcad" Type="Int16" />
+          <Property Name="IN_EducEspecial" Type="Byte" />
+          <Property Name="IN_DesertorEscolar" Type="Byte" />
+          <Property Name="FK_Familia" Type="Byte" Nullable="false" />
+          <Property Name="NR_Familiar" Type="Byte" Nullable="false" />
+          <Property Name="FK_Residencia" Type="Byte" Nullable="false" />
+          <Property Name="IN_ParticReunGrupos" Type="Byte" />
+          <Property Name="FK_FreqAutoAyuda" Type="Byte" />
+          <Property Name="IN_Arrestado30dias" Type="Byte" />
+          <Property Name="NR_Arrestos30dias" Type="Byte" />
+          <Property Name="IN_Arrestado365dias" Type="Byte" />
+          <Property Name="IN_EstLeg" Type="Byte" />
+          <Property Name="FK_CondicionPrimaria" Type="Byte" />
+          <Property Name="FK_CondicionSecundaria" Type="Byte" />
+          <Property Name="FK_CondicionTerciaria" Type="Byte" />
+          <Property Name="FK_TrastornosClinicosPrimario" Type="Int16" />
+          <Property Name="FK_TrastornosClinicosSecundario" Type="Int16" />
+          <Property Name="FK_TrastornosClinicosTerciario" Type="Int16" />
+          <Property Name="FK_TrastornosPersonalidadPrimario" Type="Int16" />
+          <Property Name="FK_TrastornosPersonalidadSecundario" Type="Int16" />
+          <Property Name="FK_TrastornosPersonalidadTerciario" Type="Int16" />
+          <Property Name="CO_CondicionesMedicasPrimario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CO_CondicionesMedicasSecundario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CO_CondicionesMedicasTerciario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FK_ProblemasPsicosocialesPrimario" Type="Byte" />
+          <Property Name="FK_ProblemasPsicosocialesSecundario" Type="Byte" />
+          <Property Name="FK_ProblemasPsicosocialesTerciario" Type="Byte" />
+          <Property Name="NR_EscalaGAF" Type="Int32" />
+          <Property Name="FK_ReferidosGeneradosTX" Type="Byte" />
+          <Property Name="FK_DisposicionFinalReferido" Type="Byte" />
+          <Property Name="FK_DrogaPrimario" Type="Byte" Nullable="false" />
+          <Property Name="FK_ViaPrimario" Type="Byte" Nullable="false" />
+          <Property Name="FK_FrecuenciaPrimario" Type="Byte" Nullable="false" />
+          <Property Name="IN_EdadInicioPrimario" Type="Byte" />
+          <Property Name="NR_CantidadPrimario" Type="Byte" />
+          <Property Name="FK_MedidaPrimario" Type="Byte" />
+          <Property Name="NR_GastoPrimario" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FK_DrogaSecundario" Type="Byte" Nullable="false" />
+          <Property Name="FK_ViaSecundario" Type="Byte" Nullable="false" />
+          <Property Name="FK_FrecuenciaSecundario" Type="Byte" Nullable="false" />
+          <Property Name="IN_EdadInicioSecundario" Type="Byte" />
+          <Property Name="NR_CantidadSecundario" Type="Byte" />
+          <Property Name="FK_MedidaSecundario" Type="Byte" />
+          <Property Name="NR_GastoSecundario" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FK_DrogaTerciario" Type="Byte" Nullable="false" />
+          <Property Name="FK_ViaTerciario" Type="Byte" Nullable="false" />
+          <Property Name="FK_FrecuenciaTerciario" Type="Byte" Nullable="false" />
+          <Property Name="IN_EdadInicioTerciario" Type="Byte" />
+          <Property Name="NR_CantidadTerciario" Type="Byte" />
+          <Property Name="FK_MedidaTerciario" Type="Byte" />
+          <Property Name="NR_GastoTerciario" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NR_PromedioVisitas" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FK_Alta" Type="Byte" />
+          <Property Name="FK_CentroTraslado" Type="Int16" />
+          <Property Name="DE_Comentario" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="TI_Transaccion" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FK_Sesion" Type="Guid" Nullable="false" />
+          <Property Name="TI_Edicion" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FE_Edicion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ES_Perfil" Type="Boolean" />
+          <Property Name="PK_PerfilID_Legacy" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FK_Old" Type="Int32" />
+          <Property Name="CHK_ENVIADO" Type="Boolean" />
+          <Property Name="FE_ENVIADO" Type="DateTime" Precision="3" />
+          <Property Name="IN_NOENVIADO" Type="Boolean" />
+          <Property Name="CHK_ENVIADO_SM" Type="Boolean" />
+          <Property Name="FE_ENVIADO_SM" Type="DateTime" Precision="3" />
+          <Property Name="FK_CategoriaCentroPrivado" Type="Int32" />
+          <Property Name="FK_DSMV_TrastornosClinicos1" Type="Int32" />
+          <Property Name="FK_DSMV_TrastornosClinicos2" Type="Int32" />
+          <Property Name="FK_DSMV_TrastornosClinicos3" Type="Int32" />
+          <Property Name="FK_DSMV_TrastornosPersonalidadRM1" Type="Int32" />
+          <Property Name="FK_DSMV_TrastornosPersonalidadRM2" Type="Int32" />
+          <Property Name="FK_DSMV_TrastornosPersonalidadRM3" Type="Int32" />
+          <Property Name="FK_DSMV_ProblemasPsicosocialesAmbientales1" Type="Int32" />
+          <Property Name="FK_DSMV_ProblemasPsicosocialesAmbientales2" Type="Int32" />
+          <Property Name="FK_DSMV_ProblemasPsicosocialesAmbientales3" Type="Int32" />
+          <Property Name="NR_DSMV_FuncionamientoGlobal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DE_DSMV_OtrasObservaciones" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="DE_DSMV_Comentarios" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="IN_DSMV_DiagnosticoDual" Type="Int32" />
+          <Property Name="FK_TipoAdmision" Type="Int32" />
+          <Property Name="FK_SituacionEscolar" Type="Int32" />
+          <Property Name="IN_ESCOGIDO" Type="Boolean" />
+          <Property Name="FileNameTEDS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessDate" Type="DateTime" Precision="3" />
+          <Property Name="FE_Registro" Type="DateTime" Precision="3" />
+          <Property Name="NR_CelularPrimario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NR_CelularContacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DE_EmailPrimario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DE_EmailSecundario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FK_CatRecuperacionRes" Type="Byte" />
+          <Property Name="HogarRecuperacionRes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FK_DSMV_Sustancias1" Type="Int32" />
+          <Property Name="FK_DSMV_Sustancias2" Type="Int32" />
+          <Property Name="FK_DSMV_Sustancias3" Type="Int32" />
+          <Property Name="IN_Fumado" Type="Byte" />
+          <Property Name="DE_FrecuenciaFumado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NR_CigarrosXDias" Type="Int32" />
+          <Property Name="DE_DrogaNueva1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DE_DrogaNueva2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DE_DrogaNueva3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IN_Toxicologia1" Type="Byte" />
+          <Property Name="IN_Toxicologia2" Type="Byte" />
+          <Property Name="IN_Toxicologia3" Type="Byte" />
+          <Property Name="FK_IDENTIDAD_GENERO" Type="Int32" />
+          <Property Name="AGREGADO_POR_SMUEE" Type="Boolean" />
+          <Property Name="FE_AGREGADO_POR_SMUEE" Type="DateTime" Precision="3" />
+          <Property Name="FK_ESTATUS_PERFIL_TEDS" Type="Int32" />
+          <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="DateTime" Precision="3" />
+          <Property Name="TEDS_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SA_EPISODIO" Relationship="SEPSModel.FK_SA_PERFIL_SA_EPISODIO" FromRole="SA_PERFIL" ToRole="SA_EPISODIO" />
+        </EntityType>
+        <Association Name="FK_SA_PERFIL_SA_EPISODIO">
+          <End Type="SEPSModel.SA_EPISODIO" Role="SA_EPISODIO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SEPSModel.SA_PERFIL" Role="SA_PERFIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SA_EPISODIO">
+              <PropertyRef Name="PK_Episodio" />
+            </Principal>
+            <Dependent Role="SA_PERFIL">
+              <PropertyRef Name="FK_Episodio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SA_PERFIL_ELIMINADO">
+          <Key>
+            <PropertyRef Name="PK_PERFIL_ELIMINADO" />
+          </Key>
+          <Property Name="PK_PERFIL_ELIMINADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STATE_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="STATE_PROVIDER" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CLIENT_IDENTIFIER" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CODEPENDENT_COLATERAL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CLIENT_TRANSACTION_TYPE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_OF_ADMISION" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="TYPE_OF_TREATMENT" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_LAST_CONTACT" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_OF_DISCHARGE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="FK_EPISODIO" Type="Int32" />
+          <Property Name="FK_PERFIL" Type="Int32" />
+          <Property Name="TIPO_PERFIL" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="FK_ESTATUS_PERFIL_TEDS" Type="Int32" />
+          <Property Name="FE_ENVIADO_A_TEDS" Type="DateTime" Precision="3" />
+          <Property Name="TEDS_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="DateTime" Precision="3" />
+          <Property Name="FK_SESION" Type="Guid" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3977,134 +4054,6 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
                 <ScalarProperty Name="FK_Programa" ColumnName="FK_Programa" />
                 <ScalarProperty Name="FK_Persona" ColumnName="FK_Persona" />
                 <ScalarProperty Name="PK_Episodio" ColumnName="PK_Episodio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SA_PERFIL">
-            <EntityTypeMapping TypeName="SEPSModel.SA_PERFIL">
-              <MappingFragment StoreEntitySet="SA_PERFIL">
-                <ScalarProperty Name="FE_AGREGADO_POR_SMUEE" ColumnName="FE_AGREGADO_POR_SMUEE" />
-                <ScalarProperty Name="AGREGADO_POR_SMUEE" ColumnName="AGREGADO_POR_SMUEE" />
-                <ScalarProperty Name="FK_IDENTIDAD_GENERO" ColumnName="FK_IDENTIDAD_GENERO" />
-                <ScalarProperty Name="IN_Toxicologia3" ColumnName="IN_Toxicologia3" />
-                <ScalarProperty Name="IN_Toxicologia2" ColumnName="IN_Toxicologia2" />
-                <ScalarProperty Name="IN_Toxicologia1" ColumnName="IN_Toxicologia1" />
-                <ScalarProperty Name="DE_DrogaNueva3" ColumnName="DE_DrogaNueva3" />
-                <ScalarProperty Name="DE_DrogaNueva2" ColumnName="DE_DrogaNueva2" />
-                <ScalarProperty Name="DE_DrogaNueva1" ColumnName="DE_DrogaNueva1" />
-                <ScalarProperty Name="NR_CigarrosXDias" ColumnName="NR_CigarrosXDias" />
-                <ScalarProperty Name="DE_FrecuenciaFumado" ColumnName="DE_FrecuenciaFumado" />
-                <ScalarProperty Name="IN_Fumado" ColumnName="IN_Fumado" />
-                <ScalarProperty Name="FK_DSMV_Sustancias3" ColumnName="FK_DSMV_Sustancias3" />
-                <ScalarProperty Name="FK_DSMV_Sustancias2" ColumnName="FK_DSMV_Sustancias2" />
-                <ScalarProperty Name="FK_DSMV_Sustancias1" ColumnName="FK_DSMV_Sustancias1" />
-                <ScalarProperty Name="HogarRecuperacionRes" ColumnName="HogarRecuperacionRes" />
-                <ScalarProperty Name="FK_CatRecuperacionRes" ColumnName="FK_CatRecuperacionRes" />
-                <ScalarProperty Name="DE_EmailSecundario" ColumnName="DE_EmailSecundario" />
-                <ScalarProperty Name="DE_EmailPrimario" ColumnName="DE_EmailPrimario" />
-                <ScalarProperty Name="NR_CelularContacto" ColumnName="NR_CelularContacto" />
-                <ScalarProperty Name="NR_CelularPrimario" ColumnName="NR_CelularPrimario" />
-                <ScalarProperty Name="FE_Registro" ColumnName="FE_Registro" />
-                <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
-                <ScalarProperty Name="FileNameTEDS" ColumnName="FileNameTEDS" />
-                <ScalarProperty Name="IN_ESCOGIDO" ColumnName="IN_ESCOGIDO" />
-                <ScalarProperty Name="FK_SituacionEscolar" ColumnName="FK_SituacionEscolar" />
-                <ScalarProperty Name="FK_TipoAdmision" ColumnName="FK_TipoAdmision" />
-                <ScalarProperty Name="IN_DSMV_DiagnosticoDual" ColumnName="IN_DSMV_DiagnosticoDual" />
-                <ScalarProperty Name="DE_DSMV_Comentarios" ColumnName="DE_DSMV_Comentarios" />
-                <ScalarProperty Name="DE_DSMV_OtrasObservaciones" ColumnName="DE_DSMV_OtrasObservaciones" />
-                <ScalarProperty Name="NR_DSMV_FuncionamientoGlobal" ColumnName="NR_DSMV_FuncionamientoGlobal" />
-                <ScalarProperty Name="FK_DSMV_ProblemasPsicosocialesAmbientales3" ColumnName="FK_DSMV_ProblemasPsicosocialesAmbientales3" />
-                <ScalarProperty Name="FK_DSMV_ProblemasPsicosocialesAmbientales2" ColumnName="FK_DSMV_ProblemasPsicosocialesAmbientales2" />
-                <ScalarProperty Name="FK_DSMV_ProblemasPsicosocialesAmbientales1" ColumnName="FK_DSMV_ProblemasPsicosocialesAmbientales1" />
-                <ScalarProperty Name="FK_DSMV_TrastornosPersonalidadRM3" ColumnName="FK_DSMV_TrastornosPersonalidadRM3" />
-                <ScalarProperty Name="FK_DSMV_TrastornosPersonalidadRM2" ColumnName="FK_DSMV_TrastornosPersonalidadRM2" />
-                <ScalarProperty Name="FK_DSMV_TrastornosPersonalidadRM1" ColumnName="FK_DSMV_TrastornosPersonalidadRM1" />
-                <ScalarProperty Name="FK_DSMV_TrastornosClinicos3" ColumnName="FK_DSMV_TrastornosClinicos3" />
-                <ScalarProperty Name="FK_DSMV_TrastornosClinicos2" ColumnName="FK_DSMV_TrastornosClinicos2" />
-                <ScalarProperty Name="FK_DSMV_TrastornosClinicos1" ColumnName="FK_DSMV_TrastornosClinicos1" />
-                <ScalarProperty Name="FK_CategoriaCentroPrivado" ColumnName="FK_CategoriaCentroPrivado" />
-                <ScalarProperty Name="FE_ENVIADO_SM" ColumnName="FE_ENVIADO_SM" />
-                <ScalarProperty Name="CHK_ENVIADO_SM" ColumnName="CHK_ENVIADO_SM" />
-                <ScalarProperty Name="IN_NOENVIADO" ColumnName="IN_NOENVIADO" />
-                <ScalarProperty Name="FE_ENVIADO" ColumnName="FE_ENVIADO" />
-                <ScalarProperty Name="CHK_ENVIADO" ColumnName="CHK_ENVIADO" />
-                <ScalarProperty Name="FK_Old" ColumnName="FK_Old" />
-                <ScalarProperty Name="PK_PerfilID_Legacy" ColumnName="PK_PerfilID_Legacy" />
-                <ScalarProperty Name="ES_Perfil" ColumnName="ES_Perfil" />
-                <ScalarProperty Name="FE_Edicion" ColumnName="FE_Edicion" />
-                <ScalarProperty Name="TI_Edicion" ColumnName="TI_Edicion" />
-                <ScalarProperty Name="FK_Sesion" ColumnName="FK_Sesion" />
-                <ScalarProperty Name="TI_Transaccion" ColumnName="TI_Transaccion" />
-                <ScalarProperty Name="DE_Comentario" ColumnName="DE_Comentario" />
-                <ScalarProperty Name="FK_CentroTraslado" ColumnName="FK_CentroTraslado" />
-                <ScalarProperty Name="FK_Alta" ColumnName="FK_Alta" />
-                <ScalarProperty Name="NR_PromedioVisitas" ColumnName="NR_PromedioVisitas" />
-                <ScalarProperty Name="NR_GastoTerciario" ColumnName="NR_GastoTerciario" />
-                <ScalarProperty Name="FK_MedidaTerciario" ColumnName="FK_MedidaTerciario" />
-                <ScalarProperty Name="NR_CantidadTerciario" ColumnName="NR_CantidadTerciario" />
-                <ScalarProperty Name="IN_EdadInicioTerciario" ColumnName="IN_EdadInicioTerciario" />
-                <ScalarProperty Name="FK_FrecuenciaTerciario" ColumnName="FK_FrecuenciaTerciario" />
-                <ScalarProperty Name="FK_ViaTerciario" ColumnName="FK_ViaTerciario" />
-                <ScalarProperty Name="FK_DrogaTerciario" ColumnName="FK_DrogaTerciario" />
-                <ScalarProperty Name="NR_GastoSecundario" ColumnName="NR_GastoSecundario" />
-                <ScalarProperty Name="FK_MedidaSecundario" ColumnName="FK_MedidaSecundario" />
-                <ScalarProperty Name="NR_CantidadSecundario" ColumnName="NR_CantidadSecundario" />
-                <ScalarProperty Name="IN_EdadInicioSecundario" ColumnName="IN_EdadInicioSecundario" />
-                <ScalarProperty Name="FK_FrecuenciaSecundario" ColumnName="FK_FrecuenciaSecundario" />
-                <ScalarProperty Name="FK_ViaSecundario" ColumnName="FK_ViaSecundario" />
-                <ScalarProperty Name="FK_DrogaSecundario" ColumnName="FK_DrogaSecundario" />
-                <ScalarProperty Name="NR_GastoPrimario" ColumnName="NR_GastoPrimario" />
-                <ScalarProperty Name="FK_MedidaPrimario" ColumnName="FK_MedidaPrimario" />
-                <ScalarProperty Name="NR_CantidadPrimario" ColumnName="NR_CantidadPrimario" />
-                <ScalarProperty Name="IN_EdadInicioPrimario" ColumnName="IN_EdadInicioPrimario" />
-                <ScalarProperty Name="FK_FrecuenciaPrimario" ColumnName="FK_FrecuenciaPrimario" />
-                <ScalarProperty Name="FK_ViaPrimario" ColumnName="FK_ViaPrimario" />
-                <ScalarProperty Name="FK_DrogaPrimario" ColumnName="FK_DrogaPrimario" />
-                <ScalarProperty Name="FK_DisposicionFinalReferido" ColumnName="FK_DisposicionFinalReferido" />
-                <ScalarProperty Name="FK_ReferidosGeneradosTX" ColumnName="FK_ReferidosGeneradosTX" />
-                <ScalarProperty Name="NR_EscalaGAF" ColumnName="NR_EscalaGAF" />
-                <ScalarProperty Name="FK_ProblemasPsicosocialesTerciario" ColumnName="FK_ProblemasPsicosocialesTerciario" />
-                <ScalarProperty Name="FK_ProblemasPsicosocialesSecundario" ColumnName="FK_ProblemasPsicosocialesSecundario" />
-                <ScalarProperty Name="FK_ProblemasPsicosocialesPrimario" ColumnName="FK_ProblemasPsicosocialesPrimario" />
-                <ScalarProperty Name="CO_CondicionesMedicasTerciario" ColumnName="CO_CondicionesMedicasTerciario" />
-                <ScalarProperty Name="CO_CondicionesMedicasSecundario" ColumnName="CO_CondicionesMedicasSecundario" />
-                <ScalarProperty Name="CO_CondicionesMedicasPrimario" ColumnName="CO_CondicionesMedicasPrimario" />
-                <ScalarProperty Name="FK_TrastornosPersonalidadTerciario" ColumnName="FK_TrastornosPersonalidadTerciario" />
-                <ScalarProperty Name="FK_TrastornosPersonalidadSecundario" ColumnName="FK_TrastornosPersonalidadSecundario" />
-                <ScalarProperty Name="FK_TrastornosPersonalidadPrimario" ColumnName="FK_TrastornosPersonalidadPrimario" />
-                <ScalarProperty Name="FK_TrastornosClinicosTerciario" ColumnName="FK_TrastornosClinicosTerciario" />
-                <ScalarProperty Name="FK_TrastornosClinicosSecundario" ColumnName="FK_TrastornosClinicosSecundario" />
-                <ScalarProperty Name="FK_TrastornosClinicosPrimario" ColumnName="FK_TrastornosClinicosPrimario" />
-                <ScalarProperty Name="FK_CondicionTerciaria" ColumnName="FK_CondicionTerciaria" />
-                <ScalarProperty Name="FK_CondicionSecundaria" ColumnName="FK_CondicionSecundaria" />
-                <ScalarProperty Name="FK_CondicionPrimaria" ColumnName="FK_CondicionPrimaria" />
-                <ScalarProperty Name="IN_EstLeg" ColumnName="IN_EstLeg" />
-                <ScalarProperty Name="IN_Arrestado365dias" ColumnName="IN_Arrestado365dias" />
-                <ScalarProperty Name="NR_Arrestos30dias" ColumnName="NR_Arrestos30dias" />
-                <ScalarProperty Name="IN_Arrestado30dias" ColumnName="IN_Arrestado30dias" />
-                <ScalarProperty Name="FK_FreqAutoAyuda" ColumnName="FK_FreqAutoAyuda" />
-                <ScalarProperty Name="IN_ParticReunGrupos" ColumnName="IN_ParticReunGrupos" />
-                <ScalarProperty Name="FK_Residencia" ColumnName="FK_Residencia" />
-                <ScalarProperty Name="NR_Familiar" ColumnName="NR_Familiar" />
-                <ScalarProperty Name="FK_Familia" ColumnName="FK_Familia" />
-                <ScalarProperty Name="IN_DesertorEscolar" ColumnName="IN_DesertorEscolar" />
-                <ScalarProperty Name="IN_EducEspecial" ColumnName="IN_EducEspecial" />
-                <ScalarProperty Name="NR_AusenciasAcad" ColumnName="NR_AusenciasAcad" />
-                <ScalarProperty Name="NR_PromedioAcademico" ColumnName="NR_PromedioAcademico" />
-                <ScalarProperty Name="FE_UltimoInformeEscolar" ColumnName="FE_UltimoInformeEscolar" />
-                <ScalarProperty Name="FK_Escolaridad" ColumnName="FK_Escolaridad" />
-                <ScalarProperty Name="NR_Hijos" ColumnName="NR_Hijos" />
-                <ScalarProperty Name="IN_EmbarazosTratamiento" ColumnName="IN_EmbarazosTratamiento" />
-                <ScalarProperty Name="FK_ActividadNoLaboral" ColumnName="FK_ActividadNoLaboral" />
-                <ScalarProperty Name="FK_CondicionLaboral" ColumnName="FK_CondicionLaboral" />
-                <ScalarProperty Name="FK_EstadoMarital" ColumnName="FK_EstadoMarital" />
-                <ScalarProperty Name="IN_Emancipado" ColumnName="IN_Emancipado" />
-                <ScalarProperty Name="IN_TI_Perfil" ColumnName="IN_TI_Perfil" />
-                <ScalarProperty Name="FE_Contacto" ColumnName="FE_Contacto" />
-                <ScalarProperty Name="FE_Perfil" ColumnName="FE_Perfil" />
-                <ScalarProperty Name="FK_Episodio" ColumnName="FK_Episodio" />
-                <ScalarProperty Name="PK_NR_Perfil" ColumnName="PK_NR_Perfil" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4733,6 +4682,161 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_MH_DIS_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_MH_DIS_SMUEE" />
           <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_SA_AD_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_SA_AD_SMUEE" />
           <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_SA_DIS_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_SA_DIS_SMUEE" />
+          <EntitySetMapping Name="SA_PERFIL">
+            <EntityTypeMapping TypeName="SEPSModel.SA_PERFIL">
+              <MappingFragment StoreEntitySet="SA_PERFIL">
+                <ScalarProperty Name="TEDS_ID" ColumnName="TEDS_ID" />
+                <ScalarProperty Name="FE_SUBIDO_ACEPTADO_POR_TEDS" ColumnName="FE_SUBIDO_ACEPTADO_POR_TEDS" />
+                <ScalarProperty Name="FK_ESTATUS_PERFIL_TEDS" ColumnName="FK_ESTATUS_PERFIL_TEDS" />
+                <ScalarProperty Name="FE_AGREGADO_POR_SMUEE" ColumnName="FE_AGREGADO_POR_SMUEE" />
+                <ScalarProperty Name="AGREGADO_POR_SMUEE" ColumnName="AGREGADO_POR_SMUEE" />
+                <ScalarProperty Name="FK_IDENTIDAD_GENERO" ColumnName="FK_IDENTIDAD_GENERO" />
+                <ScalarProperty Name="IN_Toxicologia3" ColumnName="IN_Toxicologia3" />
+                <ScalarProperty Name="IN_Toxicologia2" ColumnName="IN_Toxicologia2" />
+                <ScalarProperty Name="IN_Toxicologia1" ColumnName="IN_Toxicologia1" />
+                <ScalarProperty Name="DE_DrogaNueva3" ColumnName="DE_DrogaNueva3" />
+                <ScalarProperty Name="DE_DrogaNueva2" ColumnName="DE_DrogaNueva2" />
+                <ScalarProperty Name="DE_DrogaNueva1" ColumnName="DE_DrogaNueva1" />
+                <ScalarProperty Name="NR_CigarrosXDias" ColumnName="NR_CigarrosXDias" />
+                <ScalarProperty Name="DE_FrecuenciaFumado" ColumnName="DE_FrecuenciaFumado" />
+                <ScalarProperty Name="IN_Fumado" ColumnName="IN_Fumado" />
+                <ScalarProperty Name="FK_DSMV_Sustancias3" ColumnName="FK_DSMV_Sustancias3" />
+                <ScalarProperty Name="FK_DSMV_Sustancias2" ColumnName="FK_DSMV_Sustancias2" />
+                <ScalarProperty Name="FK_DSMV_Sustancias1" ColumnName="FK_DSMV_Sustancias1" />
+                <ScalarProperty Name="HogarRecuperacionRes" ColumnName="HogarRecuperacionRes" />
+                <ScalarProperty Name="FK_CatRecuperacionRes" ColumnName="FK_CatRecuperacionRes" />
+                <ScalarProperty Name="DE_EmailSecundario" ColumnName="DE_EmailSecundario" />
+                <ScalarProperty Name="DE_EmailPrimario" ColumnName="DE_EmailPrimario" />
+                <ScalarProperty Name="NR_CelularContacto" ColumnName="NR_CelularContacto" />
+                <ScalarProperty Name="NR_CelularPrimario" ColumnName="NR_CelularPrimario" />
+                <ScalarProperty Name="FE_Registro" ColumnName="FE_Registro" />
+                <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
+                <ScalarProperty Name="FileNameTEDS" ColumnName="FileNameTEDS" />
+                <ScalarProperty Name="IN_ESCOGIDO" ColumnName="IN_ESCOGIDO" />
+                <ScalarProperty Name="FK_SituacionEscolar" ColumnName="FK_SituacionEscolar" />
+                <ScalarProperty Name="FK_TipoAdmision" ColumnName="FK_TipoAdmision" />
+                <ScalarProperty Name="IN_DSMV_DiagnosticoDual" ColumnName="IN_DSMV_DiagnosticoDual" />
+                <ScalarProperty Name="DE_DSMV_Comentarios" ColumnName="DE_DSMV_Comentarios" />
+                <ScalarProperty Name="DE_DSMV_OtrasObservaciones" ColumnName="DE_DSMV_OtrasObservaciones" />
+                <ScalarProperty Name="NR_DSMV_FuncionamientoGlobal" ColumnName="NR_DSMV_FuncionamientoGlobal" />
+                <ScalarProperty Name="FK_DSMV_ProblemasPsicosocialesAmbientales3" ColumnName="FK_DSMV_ProblemasPsicosocialesAmbientales3" />
+                <ScalarProperty Name="FK_DSMV_ProblemasPsicosocialesAmbientales2" ColumnName="FK_DSMV_ProblemasPsicosocialesAmbientales2" />
+                <ScalarProperty Name="FK_DSMV_ProblemasPsicosocialesAmbientales1" ColumnName="FK_DSMV_ProblemasPsicosocialesAmbientales1" />
+                <ScalarProperty Name="FK_DSMV_TrastornosPersonalidadRM3" ColumnName="FK_DSMV_TrastornosPersonalidadRM3" />
+                <ScalarProperty Name="FK_DSMV_TrastornosPersonalidadRM2" ColumnName="FK_DSMV_TrastornosPersonalidadRM2" />
+                <ScalarProperty Name="FK_DSMV_TrastornosPersonalidadRM1" ColumnName="FK_DSMV_TrastornosPersonalidadRM1" />
+                <ScalarProperty Name="FK_DSMV_TrastornosClinicos3" ColumnName="FK_DSMV_TrastornosClinicos3" />
+                <ScalarProperty Name="FK_DSMV_TrastornosClinicos2" ColumnName="FK_DSMV_TrastornosClinicos2" />
+                <ScalarProperty Name="FK_DSMV_TrastornosClinicos1" ColumnName="FK_DSMV_TrastornosClinicos1" />
+                <ScalarProperty Name="FK_CategoriaCentroPrivado" ColumnName="FK_CategoriaCentroPrivado" />
+                <ScalarProperty Name="FE_ENVIADO_SM" ColumnName="FE_ENVIADO_SM" />
+                <ScalarProperty Name="CHK_ENVIADO_SM" ColumnName="CHK_ENVIADO_SM" />
+                <ScalarProperty Name="IN_NOENVIADO" ColumnName="IN_NOENVIADO" />
+                <ScalarProperty Name="FE_ENVIADO" ColumnName="FE_ENVIADO" />
+                <ScalarProperty Name="CHK_ENVIADO" ColumnName="CHK_ENVIADO" />
+                <ScalarProperty Name="FK_Old" ColumnName="FK_Old" />
+                <ScalarProperty Name="PK_PerfilID_Legacy" ColumnName="PK_PerfilID_Legacy" />
+                <ScalarProperty Name="ES_Perfil" ColumnName="ES_Perfil" />
+                <ScalarProperty Name="FE_Edicion" ColumnName="FE_Edicion" />
+                <ScalarProperty Name="TI_Edicion" ColumnName="TI_Edicion" />
+                <ScalarProperty Name="FK_Sesion" ColumnName="FK_Sesion" />
+                <ScalarProperty Name="TI_Transaccion" ColumnName="TI_Transaccion" />
+                <ScalarProperty Name="DE_Comentario" ColumnName="DE_Comentario" />
+                <ScalarProperty Name="FK_CentroTraslado" ColumnName="FK_CentroTraslado" />
+                <ScalarProperty Name="FK_Alta" ColumnName="FK_Alta" />
+                <ScalarProperty Name="NR_PromedioVisitas" ColumnName="NR_PromedioVisitas" />
+                <ScalarProperty Name="NR_GastoTerciario" ColumnName="NR_GastoTerciario" />
+                <ScalarProperty Name="FK_MedidaTerciario" ColumnName="FK_MedidaTerciario" />
+                <ScalarProperty Name="NR_CantidadTerciario" ColumnName="NR_CantidadTerciario" />
+                <ScalarProperty Name="IN_EdadInicioTerciario" ColumnName="IN_EdadInicioTerciario" />
+                <ScalarProperty Name="FK_FrecuenciaTerciario" ColumnName="FK_FrecuenciaTerciario" />
+                <ScalarProperty Name="FK_ViaTerciario" ColumnName="FK_ViaTerciario" />
+                <ScalarProperty Name="FK_DrogaTerciario" ColumnName="FK_DrogaTerciario" />
+                <ScalarProperty Name="NR_GastoSecundario" ColumnName="NR_GastoSecundario" />
+                <ScalarProperty Name="FK_MedidaSecundario" ColumnName="FK_MedidaSecundario" />
+                <ScalarProperty Name="NR_CantidadSecundario" ColumnName="NR_CantidadSecundario" />
+                <ScalarProperty Name="IN_EdadInicioSecundario" ColumnName="IN_EdadInicioSecundario" />
+                <ScalarProperty Name="FK_FrecuenciaSecundario" ColumnName="FK_FrecuenciaSecundario" />
+                <ScalarProperty Name="FK_ViaSecundario" ColumnName="FK_ViaSecundario" />
+                <ScalarProperty Name="FK_DrogaSecundario" ColumnName="FK_DrogaSecundario" />
+                <ScalarProperty Name="NR_GastoPrimario" ColumnName="NR_GastoPrimario" />
+                <ScalarProperty Name="FK_MedidaPrimario" ColumnName="FK_MedidaPrimario" />
+                <ScalarProperty Name="NR_CantidadPrimario" ColumnName="NR_CantidadPrimario" />
+                <ScalarProperty Name="IN_EdadInicioPrimario" ColumnName="IN_EdadInicioPrimario" />
+                <ScalarProperty Name="FK_FrecuenciaPrimario" ColumnName="FK_FrecuenciaPrimario" />
+                <ScalarProperty Name="FK_ViaPrimario" ColumnName="FK_ViaPrimario" />
+                <ScalarProperty Name="FK_DrogaPrimario" ColumnName="FK_DrogaPrimario" />
+                <ScalarProperty Name="FK_DisposicionFinalReferido" ColumnName="FK_DisposicionFinalReferido" />
+                <ScalarProperty Name="FK_ReferidosGeneradosTX" ColumnName="FK_ReferidosGeneradosTX" />
+                <ScalarProperty Name="NR_EscalaGAF" ColumnName="NR_EscalaGAF" />
+                <ScalarProperty Name="FK_ProblemasPsicosocialesTerciario" ColumnName="FK_ProblemasPsicosocialesTerciario" />
+                <ScalarProperty Name="FK_ProblemasPsicosocialesSecundario" ColumnName="FK_ProblemasPsicosocialesSecundario" />
+                <ScalarProperty Name="FK_ProblemasPsicosocialesPrimario" ColumnName="FK_ProblemasPsicosocialesPrimario" />
+                <ScalarProperty Name="CO_CondicionesMedicasTerciario" ColumnName="CO_CondicionesMedicasTerciario" />
+                <ScalarProperty Name="CO_CondicionesMedicasSecundario" ColumnName="CO_CondicionesMedicasSecundario" />
+                <ScalarProperty Name="CO_CondicionesMedicasPrimario" ColumnName="CO_CondicionesMedicasPrimario" />
+                <ScalarProperty Name="FK_TrastornosPersonalidadTerciario" ColumnName="FK_TrastornosPersonalidadTerciario" />
+                <ScalarProperty Name="FK_TrastornosPersonalidadSecundario" ColumnName="FK_TrastornosPersonalidadSecundario" />
+                <ScalarProperty Name="FK_TrastornosPersonalidadPrimario" ColumnName="FK_TrastornosPersonalidadPrimario" />
+                <ScalarProperty Name="FK_TrastornosClinicosTerciario" ColumnName="FK_TrastornosClinicosTerciario" />
+                <ScalarProperty Name="FK_TrastornosClinicosSecundario" ColumnName="FK_TrastornosClinicosSecundario" />
+                <ScalarProperty Name="FK_TrastornosClinicosPrimario" ColumnName="FK_TrastornosClinicosPrimario" />
+                <ScalarProperty Name="FK_CondicionTerciaria" ColumnName="FK_CondicionTerciaria" />
+                <ScalarProperty Name="FK_CondicionSecundaria" ColumnName="FK_CondicionSecundaria" />
+                <ScalarProperty Name="FK_CondicionPrimaria" ColumnName="FK_CondicionPrimaria" />
+                <ScalarProperty Name="IN_EstLeg" ColumnName="IN_EstLeg" />
+                <ScalarProperty Name="IN_Arrestado365dias" ColumnName="IN_Arrestado365dias" />
+                <ScalarProperty Name="NR_Arrestos30dias" ColumnName="NR_Arrestos30dias" />
+                <ScalarProperty Name="IN_Arrestado30dias" ColumnName="IN_Arrestado30dias" />
+                <ScalarProperty Name="FK_FreqAutoAyuda" ColumnName="FK_FreqAutoAyuda" />
+                <ScalarProperty Name="IN_ParticReunGrupos" ColumnName="IN_ParticReunGrupos" />
+                <ScalarProperty Name="FK_Residencia" ColumnName="FK_Residencia" />
+                <ScalarProperty Name="NR_Familiar" ColumnName="NR_Familiar" />
+                <ScalarProperty Name="FK_Familia" ColumnName="FK_Familia" />
+                <ScalarProperty Name="IN_DesertorEscolar" ColumnName="IN_DesertorEscolar" />
+                <ScalarProperty Name="IN_EducEspecial" ColumnName="IN_EducEspecial" />
+                <ScalarProperty Name="NR_AusenciasAcad" ColumnName="NR_AusenciasAcad" />
+                <ScalarProperty Name="NR_PromedioAcademico" ColumnName="NR_PromedioAcademico" />
+                <ScalarProperty Name="FE_UltimoInformeEscolar" ColumnName="FE_UltimoInformeEscolar" />
+                <ScalarProperty Name="FK_Escolaridad" ColumnName="FK_Escolaridad" />
+                <ScalarProperty Name="NR_Hijos" ColumnName="NR_Hijos" />
+                <ScalarProperty Name="IN_EmbarazosTratamiento" ColumnName="IN_EmbarazosTratamiento" />
+                <ScalarProperty Name="FK_ActividadNoLaboral" ColumnName="FK_ActividadNoLaboral" />
+                <ScalarProperty Name="FK_CondicionLaboral" ColumnName="FK_CondicionLaboral" />
+                <ScalarProperty Name="FK_EstadoMarital" ColumnName="FK_EstadoMarital" />
+                <ScalarProperty Name="IN_Emancipado" ColumnName="IN_Emancipado" />
+                <ScalarProperty Name="IN_TI_Perfil" ColumnName="IN_TI_Perfil" />
+                <ScalarProperty Name="FE_Contacto" ColumnName="FE_Contacto" />
+                <ScalarProperty Name="FE_Perfil" ColumnName="FE_Perfil" />
+                <ScalarProperty Name="FK_Episodio" ColumnName="FK_Episodio" />
+                <ScalarProperty Name="PK_NR_Perfil" ColumnName="PK_NR_Perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SA_PERFIL_ELIMINADO">
+            <EntityTypeMapping TypeName="SEPSModel.SA_PERFIL_ELIMINADO">
+              <MappingFragment StoreEntitySet="SA_PERFIL_ELIMINADO">
+                <ScalarProperty Name="FK_SESION" ColumnName="FK_SESION" />
+                <ScalarProperty Name="FE_SUBIDO_ACEPTADO_POR_TEDS" ColumnName="FE_SUBIDO_ACEPTADO_POR_TEDS" />
+                <ScalarProperty Name="TEDS_ID" ColumnName="TEDS_ID" />
+                <ScalarProperty Name="FE_ENVIADO_A_TEDS" ColumnName="FE_ENVIADO_A_TEDS" />
+                <ScalarProperty Name="FK_ESTATUS_PERFIL_TEDS" ColumnName="FK_ESTATUS_PERFIL_TEDS" />
+                <ScalarProperty Name="TIPO_PERFIL" ColumnName="TIPO_PERFIL" />
+                <ScalarProperty Name="FK_PERFIL" ColumnName="FK_PERFIL" />
+                <ScalarProperty Name="FK_EPISODIO" ColumnName="FK_EPISODIO" />
+                <ScalarProperty Name="DATE_OF_DISCHARGE" ColumnName="DATE_OF_DISCHARGE" />
+                <ScalarProperty Name="DATE_LAST_CONTACT" ColumnName="DATE_LAST_CONTACT" />
+                <ScalarProperty Name="TYPE_OF_TREATMENT" ColumnName="TYPE_OF_TREATMENT" />
+                <ScalarProperty Name="DATE_OF_ADMISION" ColumnName="DATE_OF_ADMISION" />
+                <ScalarProperty Name="CLIENT_TRANSACTION_TYPE" ColumnName="CLIENT_TRANSACTION_TYPE" />
+                <ScalarProperty Name="CODEPENDENT_COLATERAL" ColumnName="CODEPENDENT_COLATERAL" />
+                <ScalarProperty Name="CLIENT_IDENTIFIER" ColumnName="CLIENT_IDENTIFIER" />
+                <ScalarProperty Name="STATE_PROVIDER" ColumnName="STATE_PROVIDER" />
+                <ScalarProperty Name="STATE_CODE" ColumnName="STATE_CODE" />
+                <ScalarProperty Name="PK_PERFIL_ELIMINADO" ColumnName="PK_PERFIL_ELIMINADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

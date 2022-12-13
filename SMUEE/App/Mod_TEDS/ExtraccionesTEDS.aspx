@@ -30,6 +30,51 @@
             max-height: 250px;
             overflow-y: auto
         }
+
+
+        .file-drop-area {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+            padding: 25px;
+            border: 1px dashed black;
+            border-radius: 3px;
+            transition: 0.2s;
+        }
+
+        .choose-file-button {
+            flex-shrink: 0;
+            border: 1px solid black;
+            border-radius: 3px;
+            padding: 8px 15px;
+            margin-right: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .file-message {
+            font-size: small;
+            font-weight: 300;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .mt-100 {
+            margin-top: 100px;
+        }
     </style>
 
 
@@ -99,6 +144,8 @@
                                 </div>
                             </a>
                         </li>
+
+               
 
                     </ul>
                 </div>
@@ -285,6 +332,9 @@
             </div>
         </div>
     </div>
+
+
+
 
     <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/TEDS/ExtraccionesTEDS.js?ver=4")%>"></script>
 
