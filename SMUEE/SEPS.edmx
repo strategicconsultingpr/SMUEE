@@ -209,8 +209,6 @@
           <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="datetime" />
           <Property Name="TEDS_ID" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SEPS_JR.dbo.SA_PERFIL_ELIMINADO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SA_PERFIL_ELIMINADO">
           <Key>
             <PropertyRef Name="PK_PERFIL_ELIMINADO" />
@@ -233,6 +231,8 @@ warning 6002: The table/view 'SEPS_JR.dbo.SA_PERFIL_ELIMINADO' does not have a p
           <Property Name="TEDS_ID" Type="varchar(max)" />
           <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="datetime" />
           <Property Name="FK_SESION" Type="uniqueidentifier" />
+          <Property Name="FE_PERFIL_ELIMINADO" Type="datetime" />
+          <Property Name="FK_PROGRAMA" Type="int" />
         </EntityType>
         <EntityType Name="SA_PERSONA">
           <Key>
@@ -1233,6 +1233,16 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SC_VW_RPT_TEDS_DELETE_AD_SMUEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="program" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SC_VW_RPT_TEDS_DELETE_DIS_SMUEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="program" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="SC_VW_RPT_TEDS_MH_AD_SMUEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
@@ -1348,31 +1358,10 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <EntitySet Name="SA_EPISODIO" EntityType="Self.SA_EPISODIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_LKP_ALTA" EntityType="Self.SA_LKP_ALTA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERFIL" EntityType="Self.SA_PERFIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SA_PERFIL_ELIMINADO" EntityType="Self.SA_PERFIL_ELIMINADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERSONA" EntityType="Self.SA_PERSONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PERSONA_PROGRAMA" EntityType="Self.SA_PERSONA_PROGRAMA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SA_PROGRAMA" EntityType="Self.SA_PROGRAMA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SA_PERFIL_ELIMINADO" EntityType="Self.SA_PERFIL_ELIMINADO" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [SA_PERFIL_ELIMINADO].[PK_PERFIL_ELIMINADO] AS [PK_PERFIL_ELIMINADO], 
-    [SA_PERFIL_ELIMINADO].[STATE_CODE] AS [STATE_CODE], 
-    [SA_PERFIL_ELIMINADO].[STATE_PROVIDER] AS [STATE_PROVIDER], 
-    [SA_PERFIL_ELIMINADO].[CLIENT_IDENTIFIER] AS [CLIENT_IDENTIFIER], 
-    [SA_PERFIL_ELIMINADO].[CODEPENDENT_COLATERAL] AS [CODEPENDENT_COLATERAL], 
-    [SA_PERFIL_ELIMINADO].[CLIENT_TRANSACTION_TYPE] AS [CLIENT_TRANSACTION_TYPE], 
-    [SA_PERFIL_ELIMINADO].[DATE_OF_ADMISION] AS [DATE_OF_ADMISION], 
-    [SA_PERFIL_ELIMINADO].[TYPE_OF_TREATMENT] AS [TYPE_OF_TREATMENT], 
-    [SA_PERFIL_ELIMINADO].[DATE_LAST_CONTACT] AS [DATE_LAST_CONTACT], 
-    [SA_PERFIL_ELIMINADO].[DATE_OF_DISCHARGE] AS [DATE_OF_DISCHARGE], 
-    [SA_PERFIL_ELIMINADO].[FK_EPISODIO] AS [FK_EPISODIO], 
-    [SA_PERFIL_ELIMINADO].[FK_PERFIL] AS [FK_PERFIL], 
-    [SA_PERFIL_ELIMINADO].[TIPO_PERFIL] AS [TIPO_PERFIL], 
-    [SA_PERFIL_ELIMINADO].[FK_ESTATUS_PERFIL_TEDS] AS [FK_ESTATUS_PERFIL_TEDS], 
-    [SA_PERFIL_ELIMINADO].[FE_ENVIADO_A_TEDS] AS [FE_ENVIADO_A_TEDS], 
-    [SA_PERFIL_ELIMINADO].[TEDS_ID] AS [TEDS_ID], 
-    [SA_PERFIL_ELIMINADO].[FE_SUBIDO_ACEPTADO_POR_TEDS] AS [FE_SUBIDO_ACEPTADO_POR_TEDS], 
-    [SA_PERFIL_ELIMINADO].[FK_SESION] AS [FK_SESION]
-    FROM [dbo].[SA_PERFIL_ELIMINADO] AS [SA_PERFIL_ELIMINADO]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="TMP_SC_VW_RPT_TEDS_MH_AD" EntityType="Self.TMP_SC_VW_RPT_TEDS_MH_AD" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [TMP_SC_VW_RPT_TEDS_MH_AD].[System Transaction Type] AS [System Transaction Type], 
@@ -2487,6 +2476,21 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <EntitySet Name="TMP_SC_VW_RPT_TEDS_MH_DIS" EntityType="SEPSModel.TMP_SC_VW_RPT_TEDS_MH_DIS" />
           <EntitySet Name="TMP_SC_VW_RPT_TEDS_SA_AD" EntityType="SEPSModel.TMP_SC_VW_RPT_TEDS_SA_AD" />
           <EntitySet Name="TMP_SC_VW_RPT_TEDS_SA_DIS" EntityType="SEPSModel.TMP_SC_VW_RPT_TEDS_SA_DIS" />
+          <EntitySet Name="SA_PERFIL" EntityType="SEPSModel.SA_PERFIL" />
+          <AssociationSet Name="FK_SA_PERFIL_SA_EPISODIO" Association="SEPSModel.FK_SA_PERFIL_SA_EPISODIO">
+            <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
+            <End Role="SA_PERFIL" EntitySet="SA_PERFIL" />
+          </AssociationSet>
+          <FunctionImport Name="SC_VW_RPT_TEDS_DELETE_AD_SMUEE">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="program" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SC_VW_RPT_TEDS_DELETE_DIS_SMUEE">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="program" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="SC_VW_RPT_TEDS_MH_AD_SMUEE">
             <Parameter Name="start" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
@@ -2507,11 +2511,6 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
             <Parameter Name="end" Mode="In" Type="DateTime" />
             <Parameter Name="program" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="SA_PERFIL" EntityType="SEPSModel.SA_PERFIL" />
-          <AssociationSet Name="FK_SA_PERFIL_SA_EPISODIO" Association="SEPSModel.FK_SA_PERFIL_SA_EPISODIO">
-            <End Role="SA_EPISODIO" EntitySet="SA_EPISODIO" />
-            <End Role="SA_PERFIL" EntitySet="SA_PERFIL" />
-          </AssociationSet>
           <EntitySet Name="SA_PERFIL_ELIMINADO" EntityType="SEPSModel.SA_PERFIL_ELIMINADO" />
         </EntityContainer>
         <EntityType Name="SA_EPISODIO">
@@ -3729,6 +3728,8 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <Property Name="TEDS_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="DateTime" Precision="3" />
           <Property Name="FK_SESION" Type="Guid" />
+          <Property Name="FE_PERFIL_ELIMINADO" Type="DateTime" Precision="3" />
+          <Property Name="FK_PROGRAMA" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4678,10 +4679,6 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_MH_AD_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_MH_AD_SMUEE" />
-          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_MH_DIS_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_MH_DIS_SMUEE" />
-          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_SA_AD_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_SA_AD_SMUEE" />
-          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_SA_DIS_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_SA_DIS_SMUEE" />
           <EntitySetMapping Name="SA_PERFIL">
             <EntityTypeMapping TypeName="SEPSModel.SA_PERFIL">
               <MappingFragment StoreEntitySet="SA_PERFIL">
@@ -4813,9 +4810,17 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_DELETE_AD_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_DELETE_AD_SMUEE" />
+          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_DELETE_DIS_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_DELETE_DIS_SMUEE" />
+          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_MH_AD_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_MH_AD_SMUEE" />
+          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_MH_DIS_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_MH_DIS_SMUEE" />
+          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_SA_AD_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_SA_AD_SMUEE" />
+          <FunctionImportMapping FunctionImportName="SC_VW_RPT_TEDS_SA_DIS_SMUEE" FunctionName="SEPSModel.Store.SC_VW_RPT_TEDS_SA_DIS_SMUEE" />
           <EntitySetMapping Name="SA_PERFIL_ELIMINADO">
             <EntityTypeMapping TypeName="SEPSModel.SA_PERFIL_ELIMINADO">
               <MappingFragment StoreEntitySet="SA_PERFIL_ELIMINADO">
+                <ScalarProperty Name="FK_PROGRAMA" ColumnName="FK_PROGRAMA" />
+                <ScalarProperty Name="FE_PERFIL_ELIMINADO" ColumnName="FE_PERFIL_ELIMINADO" />
                 <ScalarProperty Name="FK_SESION" ColumnName="FK_SESION" />
                 <ScalarProperty Name="FE_SUBIDO_ACEPTADO_POR_TEDS" ColumnName="FE_SUBIDO_ACEPTADO_POR_TEDS" />
                 <ScalarProperty Name="TEDS_ID" ColumnName="TEDS_ID" />

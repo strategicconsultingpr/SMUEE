@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using SMUEE.Models;
 using System;
@@ -10,6 +11,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
@@ -165,12 +167,10 @@ namespace SMUEE.App.Mod_TEDS
                                         var Services = row.Cell(7).Value.ToString().Trim();
                                         var DateLastContact = row.Cell(8).Value.ToString().Trim();
                                         var DateDischarge = row.Cell(9).Value.ToString().Trim();
-                                        var ClientTransTypeAD = row.Cell(14).Value.ToString().Trim();
                                         var DateAdmission = row.Cell(15).Value.ToString().Trim();
                                         var ClientTransType = row.Cell(32).Value.ToString().Trim();
 
-                                        var teds_id =  $"{StateCode}{ReportDate}{ProviderID}{ClientID}{CoDep}{Services}{DateLastContact}{DateDischarge}{ClientTransTypeAD}{DateAdmission}{ClientTransType}";
-                                        var transaction = await seps.SA_PERFIL.FirstOrDefaultAsync(x => x.TEDS_ID == teds_id);
+                                        var teds_id =  $"{StateCode}{ReportDate}{ProviderID}{ClientID}{CoDep}{Services}{DateLastContact}{DateDischarge}{DateAdmission}{ClientTransType}";
 
                                         var flag = await FindPerfil(seps, SysTranType, teds_id);
 
@@ -283,7 +283,7 @@ namespace SMUEE.App.Mod_TEDS
 
                 }
             }
-
+           
             return false;
         }
 
@@ -308,5 +308,7 @@ namespace SMUEE.App.Mod_TEDS
             }
 
         }
+
+  
     }
 }

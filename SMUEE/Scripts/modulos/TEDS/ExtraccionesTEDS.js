@@ -263,21 +263,28 @@ function GenerateFile(file) {
 
 
             if (obj != null && obj.d != null) {
+                var pass = obj.d;
+                if (pass.Type == '3') {
+                    var filename = pass.FileName;
+                    var arr = pass.File;
+                    var byteArray = new Uint8Array(arr);
+                    var a = window.document.createElement('a');
 
-                var filename = `${file} ${min} al ${max}.xlsx`;
-                var arr = obj.d;;
-                var byteArray = new Uint8Array(arr);
-                var a = window.document.createElement('a');
+                    a.href = window.URL.createObjectURL(new Blob([byteArray], { type: 'application/octet-stream' }));
+                    a.download = filename;
+                    // Append anchor to body.
+                    document.body.appendChild(a)
+                    a.click();
+                    // Remove anchor from body
+                    document.body.removeChild(a)
+                    $('#btn' + file).css('color', 'green');
+                    sweetAlert(pass.Title, pass.Message, pass.Icon);
+                }
+                else
+                {
+                    sweetAlert(pass.Title, pass.Message, pass.Icon);
 
-                a.href = window.URL.createObjectURL(new Blob([byteArray], { type: 'application/octet-stream' }));
-                a.download = filename;
-                // Append anchor to body.
-                document.body.appendChild(a)
-                a.click();
-                // Remove anchor from body
-                document.body.removeChild(a)
-                $('#btn' + file).css('color', 'green');
-                sweetAlert('Descarga Completada', 'Su archivo se ha descargado como ' + filename, 'success');
+                }
             }
             else {
                 sweetAlert('Aviso', 'No se pudo descargar su archivo, inténtelo nuevamente', 'warning');

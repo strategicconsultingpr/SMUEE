@@ -32,5 +32,7 @@ namespace SMUEE
         public string TEDS_ID { get; set; }
         public Nullable<System.DateTime> FE_SUBIDO_ACEPTADO_POR_TEDS { get; set; }
         public Nullable<System.Guid> FK_SESION { get; set; }
+        public Nullable<System.DateTime> FE_PERFIL_ELIMINADO { get; set; }
+        public Nullable<int> FK_PROGRAMA { get; set; }
     }
 }

@@ -398,6 +398,40 @@ namespace SMUEE
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_ALTA_ADMINISTRATIVA", fK_EpisodioParameter, fE_PerfilParameter, fK_AltaParameter, fK_SesionParameter, pK_Perfil);
         }
     
+        public virtual int SC_VW_RPT_TEDS_DELETE_AD_SMUEE(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string program)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var programParameter = program != null ?
+                new ObjectParameter("program", program) :
+                new ObjectParameter("program", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SC_VW_RPT_TEDS_DELETE_AD_SMUEE", startParameter, endParameter, programParameter);
+        }
+    
+        public virtual int SC_VW_RPT_TEDS_DELETE_DIS_SMUEE(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string program)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var programParameter = program != null ?
+                new ObjectParameter("program", program) :
+                new ObjectParameter("program", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SC_VW_RPT_TEDS_DELETE_DIS_SMUEE", startParameter, endParameter, programParameter);
+        }
+    
         public virtual int SC_VW_RPT_TEDS_MH_AD_SMUEE(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string program)
         {
             var startParameter = start.HasValue ?

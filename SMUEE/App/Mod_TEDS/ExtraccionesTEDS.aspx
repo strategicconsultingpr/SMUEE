@@ -245,17 +245,26 @@
                                     <table class="table table-bordered">
 
                                         <tr>
-                                            <td colspan="2">Admisión</td>
+                                            <%--<td colspan="2">Admisión</td>--%>
+                                            <td colspan="2">Transacciones Eliminadas</td>
                                         </tr>
 
                                         <tr>
-                                            <td>
+                                        <%--    <td>
                                                 <a onclick="GenerateFile('MHAD')" id="btnMHAD" href="#">Salud Mental</a>
                                             </td>
                                             <td>
                                                 <a onclick="GenerateFile('SAAD')" id="btnSAAD" href="#">Abuso de Sustancias</a>
 
+                                            </td>--%>
+                                               <td>
+                                                <a onclick="GenerateFile('DDIS')" id="btnDDIS" href="#">Paso 1 - Altas</a>
+
                                             </td>
+                                                <td>
+                                                <a onclick="GenerateFile('DAD')" id="btnDAD" href="#">Paso 2 - Admisiones</a>
+                                            </td>
+                                         
                                         </tr>
 
 
@@ -264,18 +273,27 @@
                                     <table class="table table-bordered">
 
                                         <tr>
-                                            <td colspan="2">Altas</td>
+                                  <%--          <td colspan="2">Altas</td>--%>
+                                                      <td colspan="2">Archivos TEDS</td>
                                         </tr>
 
 
                                         <tr>
-                                            <td>
+                                      <%--      <td>
                                                 <a type="button" onclick="GenerateFile('MHDIS')" id="btnMHDIS" href="#">Salud Mental</a>
 
                                             </td>
                                             <td>
                                                 <a type="button" onclick="GenerateFile('SADIS')" id="btnSADIS" href="#">Abuso de Sustancias</a>
 
+                                            </td>--%>
+
+                                                  <td>
+                                                <a type="button" onclick="GenerateFile('AD')" id="btnAD" href="#">Paso 3 - Admisiones</a>
+
+                                            </td>
+                                            <td>
+                                                <a type="button" onclick="GenerateFile('DIS')" id="btnDIS" href="#">Paso 4 - Altas</a>
                                             </td>
                                         </tr>
 
@@ -336,7 +354,7 @@
 
 
 
-    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/TEDS/ExtraccionesTEDS.js?ver=4")%>"></script>
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/Scripts/modulos/TEDS/ExtraccionesTEDS.js?ver=5")%>"></script>
 
 </asp:Content>
 
