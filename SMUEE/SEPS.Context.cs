@@ -499,5 +499,39 @@ namespace SMUEE
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SC_VW_RPT_TEDS_SA_DIS_SMUEE", startParameter, endParameter, programParameter);
         }
+    
+        public virtual int SPC_PERFILES_ELIMINADOS_POR_EPISODIO(Nullable<int> episodio, Nullable<System.Guid> pK_Sesion, Nullable<int> estatus_TEDS)
+        {
+            var episodioParameter = episodio.HasValue ?
+                new ObjectParameter("episodio", episodio) :
+                new ObjectParameter("episodio", typeof(int));
+    
+            var pK_SesionParameter = pK_Sesion.HasValue ?
+                new ObjectParameter("PK_Sesion", pK_Sesion) :
+                new ObjectParameter("PK_Sesion", typeof(System.Guid));
+    
+            var estatus_TEDSParameter = estatus_TEDS.HasValue ?
+                new ObjectParameter("Estatus_TEDS", estatus_TEDS) :
+                new ObjectParameter("Estatus_TEDS", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_PERFILES_ELIMINADOS_POR_EPISODIO", episodioParameter, pK_SesionParameter, estatus_TEDSParameter);
+        }
+    
+        public virtual int SPC_PERFILES_ELIMINADOS_POR_PERFIL(Nullable<int> perfil, Nullable<System.Guid> pK_Sesion, Nullable<int> estatus_TEDS)
+        {
+            var perfilParameter = perfil.HasValue ?
+                new ObjectParameter("perfil", perfil) :
+                new ObjectParameter("perfil", typeof(int));
+    
+            var pK_SesionParameter = pK_Sesion.HasValue ?
+                new ObjectParameter("PK_Sesion", pK_Sesion) :
+                new ObjectParameter("PK_Sesion", typeof(System.Guid));
+    
+            var estatus_TEDSParameter = estatus_TEDS.HasValue ?
+                new ObjectParameter("Estatus_TEDS", estatus_TEDS) :
+                new ObjectParameter("Estatus_TEDS", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPC_PERFILES_ELIMINADOS_POR_PERFIL", perfilParameter, pK_SesionParameter, estatus_TEDSParameter);
+        }
     }
 }

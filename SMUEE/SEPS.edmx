@@ -214,6 +214,7 @@
             <PropertyRef Name="PK_PERFIL_ELIMINADO" />
           </Key>
           <Property Name="PK_PERFIL_ELIMINADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FE_PERFIL_ELIMINADO" Type="datetime" />
           <Property Name="STATE_CODE" Type="varchar" MaxLength="2" />
           <Property Name="STATE_PROVIDER" Type="varchar" MaxLength="15" />
           <Property Name="CLIENT_IDENTIFIER" Type="varchar" MaxLength="15" />
@@ -230,9 +231,8 @@
           <Property Name="FE_ENVIADO_A_TEDS" Type="datetime" />
           <Property Name="TEDS_ID" Type="varchar(max)" />
           <Property Name="FE_SUBIDO_ACEPTADO_POR_TEDS" Type="datetime" />
-          <Property Name="FK_SESION" Type="uniqueidentifier" />
-          <Property Name="FE_PERFIL_ELIMINADO" Type="datetime" />
           <Property Name="FK_PROGRAMA" Type="int" />
+          <Property Name="FK_SESION" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="SA_PERSONA">
           <Key>
@@ -1345,6 +1345,16 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
           <Parameter Name="IN_Toxicologia3" Type="tinyint" Mode="In" />
           <Parameter Name="FK_IDENTIDAD_GENERO" Type="int" Mode="In" />
           <Parameter Name="PK_Perfil" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SPC_PERFILES_ELIMINADOS_POR_EPISODIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="episodio" Type="int" Mode="In" />
+          <Parameter Name="PK_Sesion" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Estatus_TEDS" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SPC_PERFILES_ELIMINADOS_POR_PERFIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="perfil" Type="int" Mode="In" />
+          <Parameter Name="PK_Sesion" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Estatus_TEDS" Type="int" Mode="In" />
         </Function>
         <Function Name="SPC_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NB_Login" Type="varchar" Mode="In" />
@@ -2512,6 +2522,16 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
             <Parameter Name="program" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="SA_PERFIL_ELIMINADO" EntityType="SEPSModel.SA_PERFIL_ELIMINADO" />
+          <FunctionImport Name="SPC_PERFILES_ELIMINADOS_POR_EPISODIO">
+            <Parameter Name="episodio" Mode="In" Type="Int32" />
+            <Parameter Name="PK_Sesion" Mode="In" Type="Guid" />
+            <Parameter Name="Estatus_TEDS" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SPC_PERFILES_ELIMINADOS_POR_PERFIL">
+            <Parameter Name="perfil" Mode="In" Type="Int32" />
+            <Parameter Name="PK_Sesion" Mode="In" Type="Guid" />
+            <Parameter Name="Estatus_TEDS" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="SA_EPISODIO">
           <Key>
@@ -4842,6 +4862,8 @@ warning 6002: The table/view 'SEPS_JR.dbo.VW_SAEP' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SPC_PERFILES_ELIMINADOS_POR_EPISODIO" FunctionName="SEPSModel.Store.SPC_PERFILES_ELIMINADOS_POR_EPISODIO" />
+          <FunctionImportMapping FunctionImportName="SPC_PERFILES_ELIMINADOS_POR_PERFIL" FunctionName="SEPSModel.Store.SPC_PERFILES_ELIMINADOS_POR_PERFIL" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

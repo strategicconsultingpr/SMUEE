@@ -92,7 +92,6 @@ namespace SMUEE.App.Mod_TEDS
 
                                         var teds_id = $"{StateCode}{ReportDate}{ProviderID}{ClientID}{CoDep}{ClientTransType}{DateAdmission}{Services}";
                                         var flag = await FindPerfil(seps, SysTranType, teds_id);
-
                                         if(flag)
                                             totalAceptados++;
                                         else

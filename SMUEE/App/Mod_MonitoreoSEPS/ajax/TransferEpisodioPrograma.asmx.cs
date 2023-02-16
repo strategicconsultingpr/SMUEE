@@ -41,94 +41,112 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
                     var e = seps.SA_EPISODIO.FirstOrDefault(x => x.PK_Episodio == episode);
 
                     if (e != null)
-                    {
-                        var oldProgram = e.FK_Programa;
-                        e.FK_Programa = (short)program;
-                        e.FK_NivelCuidadoMental = (byte?)nvlMh;
-                        e.FK_NivelCuidadoSustancias = (byte?)nvlAs;
-                        var expediente = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == e.FK_Persona && x.FK_Programa == e.FK_Programa);
-                        var expedienteOriginal = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == e.FK_Persona && x.FK_Programa == oldProgram);
-                        listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 1, DE_Historial = $"Transfirió episodio {e.PK_Episodio} en programa #{oldProgram} a programa #{e.FK_Programa}" });
+                    { 
+                        var perfiles = seps.SA_PERFIL.Where(x=>x.FK_Episodio ==  e.PK_Episodio).ToList();
 
-
-                        if (expedienteOption == "rdExpediente2")
-                        {
-
-                            if (expediente == null)
-                            {
-                                var newExpediente = new SA_PERSONA_PROGRAMA()
-                                {
-                                    FE_Edicion = DateTime.Now,
-                                    FK_Persona = e.FK_Persona,
-                                    FK_Programa = (short)program,
-                                    NR_Expediente = expedienteNumber,
-                                    TI_Edicion = "C",
-                                    FK_Sesion = Guid.Parse(sesion.Value.ToString())
-
-
-                                };
-
-                                seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
-                                listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Agrego expediente #{expedienteNumber} para IUP:{e.FK_Persona} en Programa #{program}" });
-
-                            }
-                            else
-                                return false;
-
-                        }
-                        else if (expedienteOption == "rdExpediente3")
+                        if (perfiles.Count > 0)
                         {
                             
-                            if (expedienteOriginal != null && expediente == null)
+
+                            var oldProgram = e.FK_Programa;
+                            e.FK_Programa = (short)program;
+                            e.FK_NivelCuidadoMental = (byte?)nvlMh;
+                            e.FK_NivelCuidadoSustancias = (byte?)nvlAs;
+                            var expediente = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == e.FK_Persona && x.FK_Programa == e.FK_Programa);
+                            var expedienteOriginal = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == e.FK_Persona && x.FK_Programa == oldProgram);
+                            listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 1, DE_Historial = $"Transfirió episodio {e.PK_Episodio} en programa #{oldProgram} a programa #{e.FK_Programa}" });
+
+
+                            if (expedienteOption == "rdExpediente2")
                             {
-                                var newExpediente = new SA_PERSONA_PROGRAMA()
+
+                                if (expediente == null)
                                 {
-                                    FE_Edicion = DateTime.Now,
-                                    FK_Persona = e.FK_Persona,
-                                    FK_Programa = (short)program,
-                                    NR_Expediente = expedienteOriginal.NR_Expediente,
-                                    TI_Edicion = "C",
-                                    FK_Sesion = Guid.Parse(sesion.Value.ToString())
+                                    var newExpediente = new SA_PERSONA_PROGRAMA()
+                                    {
+                                        FE_Edicion = DateTime.Now,
+                                        FK_Persona = e.FK_Persona,
+                                        FK_Programa = (short)program,
+                                        NR_Expediente = expedienteNumber,
+                                        TI_Edicion = "C",
+                                        FK_Sesion = Guid.Parse(sesion.Value.ToString())
 
 
-                                };
+                                    };
 
-                                seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
-                                listLogs.Add(new SM_HISTORIAL() {TI_ACCION = 0, DE_Historial = $"Agrego expediente #{expedienteOriginal.NR_Expediente} para IUP:{e.FK_Persona} en Programa #{program}" });
+                                    seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
+                                    listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Agrego expediente #{expedienteNumber} para IUP:{e.FK_Persona} en Programa #{program}" });
+
+                                }
+                                else
+                                    return false;
 
                             }
-                            else
-                                return false;
-                        }
-
-
-                        if (deleteExpediente && expedienteOriginal != null)
-                        {
-                            var eps = seps.SA_EPISODIO.Where(x => x.FK_Persona == expedienteOriginal.FK_Persona && x.FK_Programa == expedienteOriginal.FK_Programa).ToList();
-                            if (eps.Count <=1)
+                            else if (expedienteOption == "rdExpediente3")
                             {
-                                seps.Entry(expedienteOriginal).State = EntityState.Deleted;
-                                listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 2, DE_Historial = $"Elimino expediente #{expedienteOriginal.NR_Expediente} para IUP:{expedienteOriginal.FK_Persona} en programa #{expedienteOriginal.FK_Programa}" });
 
+                                if (expedienteOriginal != null && expediente == null)
+                                {
+                                    var newExpediente = new SA_PERSONA_PROGRAMA()
+                                    {
+                                        FE_Edicion = DateTime.Now,
+                                        FK_Persona = e.FK_Persona,
+                                        FK_Programa = (short)program,
+                                        NR_Expediente = expedienteOriginal.NR_Expediente,
+                                        TI_Edicion = "C",
+                                        FK_Sesion = Guid.Parse(sesion.Value.ToString())
+
+
+                                    };
+
+                                    seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
+                                    listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Agrego expediente #{expedienteOriginal.NR_Expediente} para IUP:{e.FK_Persona} en Programa #{program}" });
+
+                                }
+                                else
+                                    return false;
                             }
 
-                        }
+
+                            if (deleteExpediente && expedienteOriginal != null)
+                            {
+                                var eps = seps.SA_EPISODIO.Where(x => x.FK_Persona == expedienteOriginal.FK_Persona && x.FK_Programa == expedienteOriginal.FK_Programa).ToList();
+                                if (eps.Count <= 1)
+                                {
+                                    seps.Entry(expedienteOriginal).State = EntityState.Deleted;
+                                    listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 2, DE_Historial = $"Elimino expediente #{expedienteOriginal.NR_Expediente} para IUP:{expedienteOriginal.FK_Persona} en programa #{expedienteOriginal.FK_Programa}" });
+
+                                }
+
+                            }
 
                             seps.Entry(e).State = EntityState.Modified;
 
-                        if (seps.SaveChanges() > 0)
-                        {
-                            if(listLogs.Count >0)
+                            foreach(var perfil in perfiles)
                             {
-                                foreach(var historial in listLogs)
-                                {
-                                    historial.FK_Sesion = sesionSMUEE;
-                                    historial.FE_Historial = DateTime.Now;
-                                    historial.FK_Modulo = "MonitoreoSEPS";
-                                    Logs.Add(historial);
-                                }
+                                perfil.TI_Transaccion = "A";
+                                //Volver a enviar a TEDS
+                                perfil.FK_ESTATUS_PERFIL_TEDS = 5;
+                                seps.Entry(perfil).State = EntityState.Modified;
+                              
                             }
-                            return true;
+                            seps.SPC_PERFILES_ELIMINADOS_POR_EPISODIO(e.PK_Episodio, Guid.Parse(sesion.Value.ToString()),5);
+
+                                if (seps.SaveChanges() > 0)
+                                {
+                                    if (listLogs.Count > 0)
+                                    {
+                                        foreach (var historial in listLogs)
+                                        {
+                                            historial.FK_Sesion = sesionSMUEE;
+                                            historial.FE_Historial = DateTime.Now;
+                                            historial.FK_Modulo = "MonitoreoSEPS";
+                                            Logs.Add(historial);
+                                        }
+                                    }
+                                    return true;
+                                }
+                            
                         }
                     }
 

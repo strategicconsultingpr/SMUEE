@@ -106,6 +106,7 @@
         <div class="container-xl px-4 mt-n10">
             <div id="Step1Div" runat="server">
                 <label class="Favor de elegir el tipo de archivo que desea subir">Tipo de archivo:</label>
+                                <label>Total de Transacciones: </label> <span runat="server" id="Span1"></span>
 
                 <asp:DropDownList ID="ddlTypeFile" CssClass="form-control" runat="server">
                     <asp:ListItem Value="1">Admisión</asp:ListItem>

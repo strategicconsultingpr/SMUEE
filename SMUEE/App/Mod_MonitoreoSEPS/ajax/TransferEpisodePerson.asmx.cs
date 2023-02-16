@@ -46,54 +46,71 @@ namespace SMUEE.App.Mod_MonitoreoSEPS.ajax
 
                     if (e != null)
                     {
-                        var oldPerson = e.FK_Persona;
-                        e.FK_Persona = iup;
-                        listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 1, DE_Historial = $"Transfirió episodio {e.PK_Episodio} perteneciente a IUP-{oldPerson} a  IUP-{e.FK_Persona}" });
+                        var perfiles = seps.SA_PERFIL.Where(x => x.FK_Episodio == e.PK_Episodio).ToList();
 
-
-
-                        if (expedienteOption == "rdExpediente2")
+                        if (perfiles.Count > 0)
                         {
+                            var oldPerson = e.FK_Persona;
+                            e.FK_Persona = iup;
+                            listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 1, DE_Historial = $"Transfirió episodio {e.PK_Episodio} perteneciente a IUP-{oldPerson} a  IUP-{e.FK_Persona}" });
 
-                            var expediente = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == iup && x.FK_Programa == e.FK_Programa);
-                            if (expediente == null)
+
+
+                            if (expedienteOption == "rdExpediente2")
                             {
-                                var newExpediente = new SA_PERSONA_PROGRAMA()
+
+                                var expediente = seps.SA_PERSONA_PROGRAMA.FirstOrDefault(x => x.FK_Persona == iup && x.FK_Programa == e.FK_Programa);
+                                if (expediente == null)
                                 {
-                                    FE_Edicion = DateTime.Now,
-                                    FK_Persona = iup,
-                                    FK_Programa = e.FK_Programa,
-                                    NR_Expediente = numberExpediente,
-                                    TI_Edicion = "C",
-                                    FK_Sesion = Guid.Parse(sesion.Value.ToString())
+                                    var newExpediente = new SA_PERSONA_PROGRAMA()
+                                    {
+                                        FE_Edicion = DateTime.Now,
+                                        FK_Persona = iup,
+                                        FK_Programa = e.FK_Programa,
+                                        NR_Expediente = numberExpediente,
+                                        TI_Edicion = "C",
+                                        FK_Sesion = Guid.Parse(sesion.Value.ToString())
 
 
-                                };
+                                    };
 
-                                seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
-                                listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Agrego expediente #{numberExpediente} para IUP:{e.FK_Persona} en Programa #{e.FK_Programa}" });
+                                    seps.SA_PERSONA_PROGRAMA.Add(newExpediente);
+                                    listLogs.Add(new SM_HISTORIAL() { TI_ACCION = 0, DE_Historial = $"Agrego expediente #{numberExpediente} para IUP:{e.FK_Persona} en Programa #{e.FK_Programa}" });
 
-                            }
-                            else
-                                return false;
-
-                        }
-
-                        seps.Entry(e).State = EntityState.Modified;
-
-                        if (seps.SaveChanges() > 0)
-                        {
-                            if (listLogs.Count > 0)
-                            {
-                                foreach (var historial in listLogs)
-                                {
-                                    historial.FK_Sesion = sesionSMUEE;
-                                    historial.FE_Historial = DateTime.Now;
-                                    historial.FK_Modulo = "MonitoreoSEPS";
-                                    Logs.Add(historial);
                                 }
+                                else
+                                    return false;
+
                             }
-                            return true;
+
+                            seps.Entry(e).State = EntityState.Modified;
+
+                            foreach (var perfil in perfiles)
+                            {
+                                perfil.TI_Transaccion = "A";
+                                //Volver a enviar a TEDS
+                                perfil.FK_ESTATUS_PERFIL_TEDS = 5;
+                                seps.Entry(perfil).State = EntityState.Modified;
+
+                            }
+seps.SPC_PERFILES_ELIMINADOS_POR_EPISODIO(e.PK_Episodio, Guid.Parse(sesion.Value.ToString()),5);
+                       
+
+                                if (seps.SaveChanges() > 0)
+                                {
+                                    if (listLogs.Count > 0)
+                                    {
+                                        foreach (var historial in listLogs)
+                                        {
+                                            historial.FK_Sesion = sesionSMUEE;
+                                            historial.FE_Historial = DateTime.Now;
+                                            historial.FK_Modulo = "MonitoreoSEPS";
+                                            Logs.Add(historial);
+                                        }
+                                    }
+                                    return true;
+                                }
+                            
                         }
                     }
                 }
